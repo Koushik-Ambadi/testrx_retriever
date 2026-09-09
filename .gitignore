@@ -2,10 +2,12 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+node_modules/
 *.egg-info/
 tmp/
 
 # Generated parser artifacts are reproducible from the preserved source PDF.
 output/*
 !output/.gitkeep
-
+!output/golden_dataset/
+!output/golden_dataset/**
