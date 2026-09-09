@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "testrx-retriever"
 version = "0.1.0"
-description = "Faithful, provenance-preserving parser for the TESTRX User Manual"
+description = "Provenance-preserving TESTRX manual parser and retrieval evaluation corpus"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pdfplumber>=0.11,<0.12",
+    "pypdf>=6,<7",
 ]
 
 [project.scripts]
