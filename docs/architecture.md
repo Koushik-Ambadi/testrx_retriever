@@ -1,0 +1,90 @@
+# TESTRX Retriever Architecture
+
+## Data flow
+
+```text
+source PDF
+  -> physical extraction
+  -> typed page evidence
+  -> conservative normalization/classification
+  -> logical reconstruction
+  -> canonical document
+  -> document + semantic inspection + validation + warnings + inventory
+```
+
+The physical and logical views coexist. Logical cleanup never destroys the
+evidence needed to trace an element back to a source page and bounding box.
+
+## Responsibilities
+
+- `models.py`: small dataclasses and JSON serialization.
+- `parser.py`: orchestration, PDF metadata, physical page extraction, output.
+- `normalize.py`: safe whitespace, control-character, and line-join rules.
+- `structure.py`: heading hierarchy, paragraph/list/procedure reconstruction.
+- `tables.py`: table fragments, merged-cell context, captioning, continuation.
+- `figures.py`: native figure captions and large image-region association.
+- `validation.py`: measurable invariants and document-specific regression checks.
+- `inspection.py`: recursive element walk, warning collection, readable renderer.
+- `cli.py`: one parsing command; no service layer.
+
+## Physical model
+
+Each page retains dimensions, page type, ordered text lines, table fragments,
+figure regions, and boilerplate lines. A text line retains its original text,
+normalized text, bounding box, dominant font, size, and classification.
+
+Coordinates use PDF points with origin at the top-left, matching pdfplumber's
+`top`/`bottom` coordinate convention.
+
+## Logical model
+
+The document contains numbered sections. Each section records its identifier,
+title, numeric depth, parent, ancestor path, sequence, page range, heading
+source, and ordered typed elements. Elements carry one or more source spans.
+
+Tables are first-class logical elements. They keep normalized rectangular rows,
+forward-filled merged context, captions, and physical fragment provenance.
+Figures are references only: identifier, caption, region, page, and owning
+section. Screenshot pixels are deliberately not interpreted.
+
+Elements may own `children`. `local_group` represents a numbered semantic group
+inside a formal section. `labelled_block` represents a short local label and its
+body. Formal numbered sections remain the only section tree.
+
+## Determinism
+
+- No network calls, OCR engines, LLMs, or probabilistic classifiers.
+- Stable page and reading-order traversal.
+- Stable identifiers derived from page/order or printed section/table/figure IDs.
+- JSON keys and list ordering are deterministic.
+
+## Failure philosophy
+
+Uncertain source content is preserved and surfaced as a warning. The parser
+does not silently invent structure. Document-specific assertions supplement
+generic invariants because this project targets one source manual in Phase 1.
+
+## Actual heuristic boundaries
+
+- Heading: number regex plus font/size/x gate.
+- Paragraph: vertical gap or next-page top threshold.
+- List: known bullet markers. Limited nesting.
+- Procedure: `N. text` plus non-Light font.
+- Table continuation: adjacent page + bottom/top position + same heading owner +
+  compatible column geometry. Repeated continuation headers are removed.
+- Figure: nearest large image above same-page caption.
+- Footer: bottom coordinate or two exact strings.
+- TOC: fixed pages 2-4.
+- Confidence: no numeric score. Ambiguous joins and associations are warnings.
+
+## Phase state
+
+Parsing corrections are implemented and verified. Chunking is intentionally
+absent and begins only as the next agreed phase.
+
+## Not carried forward
+
+- PDF tags/MCIDs, internal links, colors, matrices, style flags.
+- Character-level and exact table-cell geometry.
+- Small/original image objects.
+- Numeric confidence scores.

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "testrx-retriever"
+version = "0.1.0"
+description = "Faithful, provenance-preserving parser for the TESTRX User Manual"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pdfplumber>=0.11,<0.12",
+]
+
+[project.scripts]
+testrx-parse = "testrx_retriever.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
