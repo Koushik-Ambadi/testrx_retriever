@@ -37,8 +37,24 @@
 
 ## Deliberately pending
 
-- Chunking experiments and evaluation corpus.
+- Chunking experiments. The seed evaluation corpus now exists independently.
 - Table-level versus row-level retrieval representation.
 - Parent-context injection and token budgets.
 - Embeddings, indexes, retrieval, reranking, and answer generation.
 - Screenshot understanding if UI-location questions later require it.
+
+## Golden dataset limitations
+
+- The seed contains 132 answerable questions and no deliberately unanswerable
+  cases. Add unanswerable cases only under a separately defined evaluation goal.
+- Figure questions rely on captions and surrounding explanatory text; screenshot
+  pixels remain uninterpreted.
+- Independent PDF text extraction produces weaker token matches for some lists,
+  procedures, and local groups. These cases remain listed in the QC report and
+  are not treated as parser failures.
+- The manual's description of `In Range` versus `Entire Range` is internally
+  awkward. The corresponding question is retained as a manual-review candidate.
+- Hard negatives are included only where the manual contains a naturally
+  confusing neighboring concept. They are not exhaustive.
+- The seed does not encode final chunks, embedding-model assumptions, or ranking
+  thresholds.

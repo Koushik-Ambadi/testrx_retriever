@@ -123,3 +123,21 @@ inspection view. It intentionally omits geometry and source IDs.
 
 Parsing schema is ready for the chunking design review. Chunk objects are not yet
 part of this contract.
+
+## Golden evaluation schema
+
+`output/golden_dataset/golden_dataset.jsonl` is a separate derived contract. Each
+line contains:
+
+- question identity, text, type, and difficulty;
+- expected answer, kept separate from evidence requirements;
+- source document, pages, section paths, semantic-unit IDs, and element IDs;
+- primary, required, and acceptable retrieval source sets;
+- required and supporting evidence;
+- naturally confusing hard-negative element IDs;
+- answerability and retrieval-analysis flags;
+- notes for exceptional semantic or parsing cases.
+
+The flat CSV uses the same fields. Lists are serialized with `|`; multiple
+section paths and evidence strings use ` || `. Boolean flags remain explicit.
+No chunk IDs exist because the benchmark precedes chunk-policy selection.

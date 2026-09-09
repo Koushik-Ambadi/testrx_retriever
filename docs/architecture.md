@@ -10,6 +10,8 @@ source PDF
   -> logical reconstruction
   -> canonical document
   -> document + semantic inspection + validation + warnings + inventory
+  -> chunking-independent golden evaluation dataset
+  -> retrieval experiments (future)
 ```
 
 The physical and logical views coexist. Logical cleanup never destroys the
@@ -79,8 +81,22 @@ generic invariants because this project targets one source manual in Phase 1.
 
 ## Phase state
 
-Parsing corrections are implemented and verified. Chunking is intentionally
-absent and begins only as the next agreed phase.
+Parsing corrections and a source-grounded seed evaluation dataset are implemented
+and verified. Chunking is intentionally absent and begins only as the next agreed
+phase.
+
+## Golden dataset layer
+
+The benchmark is a derived evaluation layer, not part of the parser contract.
+Each question links an expected answer to required and acceptable semantic-unit
+sets, exact element IDs, section paths, pages, hard negatives, and retrieval
+requirements. The original PDF remains authoritative; parsed metadata supplies
+stable lineage and structure.
+
+`scripts/build_golden_dataset.py` resolves every referenced ID against the
+canonical document and independently checks the associated page text against the
+PDF. JSONL is the machine contract. CSV is a flat review view. Reports summarize
+distribution, coverage, and quality-control exceptions.
 
 ## Not carried forward
 

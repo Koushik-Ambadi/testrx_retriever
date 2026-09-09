@@ -20,7 +20,8 @@ Included:
 Explicitly excluded:
 
 - OCR or screenshot interpretation.
-- Chunking or token splitting.
+- Chunking or token splitting. The golden dataset is deliberately independent
+  of any final chunking policy.
 - Embeddings, vector databases, retrieval, reranking, and generation.
 - A service or API layer.
 
@@ -49,6 +50,23 @@ python -m unittest discover -s tests -v
 - `output/page_inventory.csv`: compact per-page inspection index.
 - `output/validation_report.json`: named checks and measured coverage.
 - `output/parsing_warnings.json`: inspectable ambiguity and continuation events.
+- `output/golden_dataset/golden_dataset.jsonl`: retrieval-oriented seed benchmark.
+- `output/golden_dataset/golden_dataset.csv`: human-readable flat export.
+- `output/golden_dataset/golden_dataset_report.md`: distribution statistics.
+- `output/golden_dataset/source_coverage_report.md`: represented and missing areas.
+- `output/golden_dataset/quality_control_report.md`: PDF lineage and review findings.
+
+Generate and validate the benchmark:
+
+```powershell
+python scripts/build_golden_dataset.py
+python -m unittest discover -s tests -v
+node scripts/verify_golden_csv.mjs
+```
+
+The Node command is an optional visual CSV check in the bundled Codex workspace
+runtime. Dataset generation and contract tests use the declared Python project
+dependencies.
 
 Generated outputs are intentionally not the source of truth. The PDF is the
 source of truth; `docs/decisions.md` records why the parser behaves as it does.
@@ -64,6 +82,7 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/review.md`: evidence-based audit and freeze blockers.
 - `docs/progress.md`: chronological implementation and verification record.
 - `docs/limitations.md`: known limitations and intentionally deferred work.
+- `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
 
 ## Repository map
 
@@ -82,5 +101,6 @@ testrx_retriever/
 ## Current review state
 
 Parsing implementation is complete. The five 16.2.2 interface groups now own
-their text, lists, and figures. Validation has no failures. Chunking remains a
+their text, lists, and figures. Validation has no failures. A 132-question
+retrieval benchmark is available before chunking begins. Chunking remains a
 separate next phase and is not implemented here.

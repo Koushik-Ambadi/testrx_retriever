@@ -132,3 +132,27 @@ DECIDED
 NEXT
 - Agree the chunking contract, test cases, token policy, and evaluation method.
 - Implement chunking only after that agreement.
+
+## 2026-09-09 - Golden evaluation seed complete
+
+DONE
+- Initialized the repository with a Phase 1 baseline commit and created the
+  `feature/golden-evaluation-dataset` branch.
+- Reviewed all 61 PDF pages plus the canonical hierarchy, tables, procedures,
+  figures, warnings, and validation output.
+- Added a deterministic builder for JSONL, CSV, statistics, coverage, and QC.
+- Created 132 source-grounded questions with required and acceptable retrieval
+  sets, exact metadata lineage, hard negatives, and analysis flags.
+- Added contract tests for size, IDs, categories, source resolution, retrieval
+  consistency, and JSONL/CSV row parity.
+- Imported and rendered the CSV through the spreadsheet runtime.
+
+DECIDED
+- Keep the PDF authoritative and the parsed model as supporting evidence.
+- Freeze the initial benchmark independently of future chunking policy.
+- Preserve manual-review candidates and parser warnings in the QC report.
+- Add failure-driven questions as a new reviewed wave, not silent edits.
+
+NEXT
+- Define chunk objects, token accounting, overlap, and parent-context policy.
+- Run fixed-dataset Recall@K, MRR, and nDCG comparisons across chunkers.

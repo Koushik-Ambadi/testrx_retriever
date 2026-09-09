@@ -423,3 +423,66 @@ Decision:
 
 Status:
 - Accepted. Implemented. OCR remains out of scope.
+
+---
+
+## O021 - Golden dataset precedes chunking
+
+Observation:
+- A benchmark created after choosing chunks can encode the chosen boundaries and
+  hide chunking failures.
+
+Decision:
+- Create and version the seed golden dataset before implementing a final chunking
+  strategy.
+- Do not add chunk IDs to the benchmark source contract.
+
+Status:
+- Accepted. Implemented 2026-09-09.
+
+---
+
+## O022 - PDF truth and parser lineage have different authority
+
+Observation:
+- The canonical representation provides stable hierarchy and IDs, but it is a
+  derived artifact and carries documented parsing warnings.
+
+Decision:
+- Treat the PDF and its checksum as factual truth.
+- Use parser hierarchy, element IDs, and page mappings as supporting lineage.
+- Fail dataset generation when a required ID is missing or its PDF-page evidence
+  is substantially absent; retain weaker extractor matches for manual review.
+
+Status:
+- Accepted. Implemented 2026-09-09.
+
+---
+
+## O023 - Retrieval evidence is distinct from answer text
+
+Decision:
+- Store `expected_answer` separately from required evidence and retrieval source
+  sets.
+- Identify a primary source, complete required source set, acceptable source set,
+  and optional hard negatives for each question.
+- Treat complete procedures as answer-bearing units even when parser elements are
+  split across printed steps and continuation paragraphs.
+
+Status:
+- Accepted. Implemented 2026-09-09.
+
+---
+
+## O024 - Seed quality and later targeted expansion
+
+Decision:
+- Begin with a reviewed 100-200 question seed set distributed across content and
+  retrieval difficulty.
+- Keep questionable questions out of the accepted set and record manual-review
+  candidates explicitly.
+- After initial retrieval experiments, add a separately reviewed wave focused on
+  observed failures rather than silently rewriting the seed.
+
+Status:
+- Accepted. Seed contains 132 questions.

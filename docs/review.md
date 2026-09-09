@@ -16,6 +16,30 @@ Status: **all agreed parsing corrections implemented. Parsing gate passed.**
 
 The dated findings below are retained as the evidence that caused these changes.
 
+## Golden dataset review - 2026-09-09
+
+Status: **seed gate passed with explicit manual-review candidates.**
+
+- 132 questions cover all required question categories.
+- Difficulty mix: 61 easy, 54 medium, 17 hard.
+- 28 questions require multiple semantic units; 25 require procedures; 17
+  require tables; cross-reference and multi-hop cases are explicit.
+- 123 unique required semantic units are represented across 78 of 89 numbered
+  sections.
+- Every referenced element and hard-negative ID resolves against the canonical
+  document.
+- Independent pypdf page-text comparison found no lineage failures. Weaker token
+  matches remain listed for manual review rather than being hidden.
+- All 61 PDF pages were rendered as contact sheets; tables, procedures, control
+  logic, TBC interfaces, mapping, execution reports, and Jama pages were checked.
+- CSV import produced 132 data rows and the expected 25 fields.
+- Dataset and parser contract tests pass together.
+
+Open review item:
+- The manual's wording for `In Range` and `Entire Range` is contradictory enough
+  to warrant product-owner confirmation before using that single question as a
+  strict behavioral oracle.
+
 Date: 2026-09-03
 
 Rule:

@@ -77,3 +77,20 @@ Status: implemented and verified.
 
 OCR, screenshot semantics, chunk sizing, overlap, embeddings, vector stores,
 retrieval, reranking, prompts, LLM calls, APIs, and deployment.
+
+## Phase 2A - Golden evaluation dataset
+
+Status: implemented and verified on 2026-09-09.
+
+1. Review the PDF and canonical hierarchy before question generation.
+2. Define answer-bearing semantic units independently of headings and chunks.
+3. Create realistic questions across factual, procedural, configuration, table,
+   comparison, troubleshooting, figure-context, multi-section, and
+   cross-reference needs.
+4. Record required, acceptable, supporting, and hard-negative source units.
+5. Resolve every metadata ID and verify its page evidence against the PDF.
+6. Export JSONL, CSV, statistics, coverage, and QC artifacts.
+7. Keep the seed set fixed during initial chunking comparisons.
+8. Add a separately versioned targeted wave only after retrieval failure analysis.
+
+Chunking, embeddings, and retrieval remain the next implementation phase.

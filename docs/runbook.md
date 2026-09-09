@@ -18,7 +18,6 @@ Expected current result:
 - 9 printed tables.
 - 51 printed figure captions.
 - 0 failed validation checks.
-- 0 failed validation checks.
 - Expected parsing warnings are review signals, including accepted table and
   cross-page joins and the page-10 vector/compound figure association.
 
@@ -74,8 +73,36 @@ Do not overwrite the approved source silently.
 
 ## Phase boundary
 
-Parsing is complete. Chunking must begin as a separately planned phase; do not
-add it to this parser by convenience.
+Parsing and the chunking-independent golden seed are complete. Chunking must begin
+as a separately planned phase; do not add it to this parser by convenience.
+
+## Golden dataset operation
+
+From the project root:
+
+```powershell
+python scripts/build_golden_dataset.py
+python -m unittest discover -s tests -v
+node scripts/verify_golden_csv.mjs
+```
+
+The Node verification command uses the bundled Codex spreadsheet runtime. The
+Python build and unit tests are the portable project contract.
+
+Review in this order:
+
+1. Confirm the builder reports 100-200 questions and no PDF lineage failures.
+2. Read `golden_dataset_report.md` for type, difficulty, and retrieval flags.
+3. Read `source_coverage_report.md`; gaps are allowed only when they do not
+   support a distinct information need.
+4. Review every item in `quality_control_report.md`, especially parser warnings
+   and weaker independent PDF-text matches.
+5. Run contract tests before changing IDs, schema, or question order.
+6. For a source-PDF change, regenerate the parser outputs first, review their
+   diff, then rebuild the benchmark as a separately reviewed change.
+
+Do not silently renumber existing question IDs after the seed is used in an
+experiment. Append a new wave or version the dataset when semantics change.
 
 ## Freeze gate
 
