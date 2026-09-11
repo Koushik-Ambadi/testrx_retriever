@@ -121,10 +121,17 @@ Chunks are built once per window and reused across dimensions. The runner adds
 random-lineage, lexical-coverage, lineage-density, collision, ranking-stability,
 slice, and per-question margin diagnostics.
 
-Experiment artifacts are intentionally compact. They store results and source
-identity rather than duplicating every deterministic chunk and embedding matrix.
-This keeps the baseline artifact contract stable while making comparisons
-reproducible and reviewable.
+Experiment configurations declare input identity, retention, evaluation,
+chunker variants, embedder variants, retrievers, rerankers, and controls. The
+runner expands their Cartesian product and assigns a content-derived `run_id`.
+Unsupported component implementations fail validation before computation.
+
+All experiments upsert into one normalized store: experiment records, run
+records, and question-level metrics. Question records retain difficulty, type,
+analysis categories, source pages, section paths, semantic IDs, coverage,
+failure category, rank, and score margin. They omit chunk text, vectors, and raw
+ranked payloads. The full reference run remains the only persisted bundle with
+those large intermediates.
 
 ## Golden dataset layer
 

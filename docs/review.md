@@ -751,9 +751,10 @@ Scope reviewed:
 
 Evidence:
 - All 38 repository tests pass.
-- Two complete study generations produced the same manifest SHA-256:
+- Under the original Phase 2C artifact shape, two complete study generations
+  produced the same manifest SHA-256:
   `D2DF06FA5BFDF439157B1BCF52E56497787746F8DC19487D5E89E1FB3779C8D6`.
-- All three files named by the manifest match their recorded hashes.
+- This historical bundle was superseded by the shared-store review below.
 - The diagnostic JSONL contains 3,828 records: 29 runs times 132 questions.
 - The repeated control exactly matches the committed baseline metrics.
 
@@ -771,3 +772,32 @@ Review verdict:
 - Keep this matrix frozen as Phase 2C evidence.
 - Do not select a production chunk size from these metrics alone; first add
   paraphrase stress, span-complete evidence, and fixed-index-fraction views.
+
+## 2026-09-12 - Reusable output and experiment architecture review
+
+Scope reviewed:
+- Parser, golden-dataset, full-reference, compact-experiment, configuration, and
+  experiment-documentation directory boundaries.
+- Versioned component grid, retention validation, stable run identity, shared
+  upsert behavior, dataset-analysis metadata, and legacy metric preservation.
+
+Evidence:
+- All 38 repository tests pass after the directory and contract migration.
+- The normalized store preserves all 29 prior aggregate metric records exactly.
+- It contains one experiment record, 29 run records, and 3,828 question/run
+  metadata records.
+- Two complete reruns produced identical shared-store manifest SHA-256:
+  `289E88E018FFCA1A8AC14D3DA7F13FA9B573E823A5ED7D1CED17228DD1ABFD9D`.
+- Every file listed in the current manifest matches its checksum.
+- The integration test runs two experiment IDs into one store, verifies upsert
+  rather than duplication, and verifies byte-identical same-ID regeneration.
+- The regenerated full reference retains 22 chunks and the accepted metrics:
+  Recall@1 0.667, Recall@10 0.924, and MRR 0.780.
+
+Review verdict:
+- **Reusable experiment architecture and data migration pass.**
+- Parser artifacts are preserved locally but ignored as reproducible outputs.
+- Full chunks, vectors, and raw ranking payloads remain confined to the reference
+  directory; compact experiments cannot enable those retention flags.
+- New model, chunker, retriever, or reranker implementations can extend the
+  component layer without changing the store schema or directory layout.

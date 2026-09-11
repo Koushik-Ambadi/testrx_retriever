@@ -41,8 +41,8 @@ in `source/README.md`. The original Downloads copy is not modified.
 ```powershell
 python -m pip install -e .
 python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output/parsing
-python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
-python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
+python -m testrx_retriever.baseline --config configs/retrieval/reference.json
+python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
 ```
 
 Run tests with the standard library:
@@ -57,8 +57,8 @@ python -m unittest discover -s tests -v
 - `output/datasets/golden/`: golden JSONL/CSV and dataset review reports.
 - `output/retrieval/reference/`: the one full reference run, including chunks,
   embeddings, raw ranked results, configuration, report, and manifest.
-- `output/retrieval/experiments/`: shared compact run metrics,
-  per-question diagnostics, human report, and checksums.
+- `output/retrieval/experiments/`: shared experiment catalog, run metrics,
+  question-level analysis metadata, and checksums. It has no per-run folders.
 
 Generate and validate the benchmark:
 
@@ -88,15 +88,15 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/limitations.md`: known limitations and intentionally deferred work.
 - `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
 - `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
-- `docs/retrieval_experiments.md`: controlled study design, measurements,
-  explanations, limitations, and next experiments.
+- `docs/experiments/`: experiment-specific designs and findings; project-wide
+  decisions and operating rules remain in the top-level documentation.
 
 ## Repository map
 
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
-├── configs/                   versioned baseline and experiment configurations
+├── configs/retrieval/         reference and reusable experiment configurations
 ├── docs/                      intent, decisions, design, progress, operations
 ├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
 ├── tests/                     parser, dataset, retrieval, and determinism tests

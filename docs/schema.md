@@ -170,3 +170,24 @@ counts, and simple failure categories.
 `run_config.json` records source and golden-set hashes, resolved configuration,
 runtime versions, and chunk count. `manifest.json` records SHA-256 for every other
 baseline artifact.
+
+## Shared experiment store schema
+
+`output/retrieval/experiments/experiments.jsonl` contains one record per stable
+`experiment_id`: title, hypothesis, resolved component grid, retention policy,
+input hashes, runtime versions, and concise measured observations.
+
+`runs.jsonl` contains one record per content-addressed `run_id`. Each record
+stores its experiment ID, role/control label, complete chunking, embedding,
+retrieval and reranking configuration, chunk/index diagnostics, random-lineage
+controls, aggregate retrieval metrics, category slices, and ranking stability.
+
+`question_metrics.jsonl` contains compact per-run/per-question facts keyed by
+`run_id` and `question_id`: type, difficulty, required and source semantic IDs,
+pages, section paths, evaluation categories, rank, reciprocal rank, coverage and
+completion at K, failure category, and relevant-score margin. It intentionally
+contains no question text, chunk text, embeddings, or ranked result payload.
+
+`manifest.json` checksums the three shared JSONL stores. A rerun replaces all
+records for the same experiment ID and preserves other experiments, with stable
+sorting for byte-identical reproduction.

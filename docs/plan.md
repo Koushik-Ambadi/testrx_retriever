@@ -131,3 +131,19 @@ Status: implemented and verified on 2026-09-11.
 The next phase should discriminate lexical memorability from semantic retrieval
 using paraphrase stress, span-complete relevance, fixed index fractions, and
 feature ablations before adding more complex models.
+
+## Phase 2D - Reusable experiment and artifact architecture
+
+Status: implemented and verified on 2026-09-12.
+
+1. Group parser, dataset, full reference, and compact experiment outputs by
+   stable pipeline layer.
+2. Group reference and experiment configurations under `configs/retrieval/`.
+3. Express chunker, embedder, retriever, reranker, control, evaluation, input,
+   and retention settings in a versioned experiment contract.
+4. Use content-derived run IDs and shared upsert stores instead of directories
+   per experiment or configuration.
+5. Retain compact question-level failure facts for later dataset slicing.
+6. Keep large chunks, vectors, and raw rankings only for designated references.
+7. Preserve experiment-specific findings under `docs/experiments/` and update
+   project-level decisions, progress, runbook, schema, review, and limitations.

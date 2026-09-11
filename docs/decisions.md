@@ -618,9 +618,43 @@ Status:
 
 Decision:
 - Persist the resolved configuration, hashes, all run metrics and diagnostics,
-  per-question ranks/margins, human report, and checksum manifest.
+  per-question analysis metadata, measured observations, and checksum manifest.
 - Do not duplicate chunk text and embedding matrices for every parameter point;
   they are deterministic intermediates already covered by tests and inputs.
 
 Status:
-- Accepted. The four-file experiment bundle is committed separately from code.
+- Superseded in directory shape by O034; compact retention remains accepted.
+
+---
+
+## O034 - Experiments share normalized append-style stores
+
+Observation:
+- A directory and artifact bundle per configuration does not scale to multiple
+  chunkers, models, dimensions, retrievers, and rerankers.
+
+Decision:
+- Use one `output/retrieval/experiments/` directory with `experiments.jsonl`,
+  `runs.jsonl`, `question_metrics.jsonl`, and a checksum manifest.
+- Derive stable run IDs from source identity, complete component configuration,
+  and evaluation settings.
+- Upsert all records for a stable experiment ID and preserve other experiments.
+- Keep only the separately designated reference run under
+  `output/retrieval/reference/` as a full artifact bundle.
+
+Status:
+- Accepted. Implemented 2026-09-12.
+
+---
+
+## O035 - Question-level failure metadata is a normalized analysis contract
+
+Decision:
+- Retain difficulty, question type, evaluation categories, pages, section paths,
+  required/source semantic IDs, rank, coverage, failure category, and score
+  margin for each run-question pair.
+- Exclude repeated question text, chunks, vectors, and ranked payloads.
+- Join question facts to full run configuration through `run_id`.
+
+Status:
+- Accepted. Supports dataset, category, and semantic-source failure analysis.

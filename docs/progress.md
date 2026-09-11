@@ -225,3 +225,24 @@ NEXT
 - Compare fixed retrieval fractions and span-complete evidence metrics.
 - Run unigram/bigram and shuffled-query ablations before introducing a learned
   embedding model.
+
+## 2026-09-12 - Reusable output and experiment layout complete
+
+DONE
+- Consolidated generated parser files under ignored `output/parsing/`.
+- Moved the versioned golden benchmark to `output/datasets/golden/` and the one
+  full retrieval bundle to `output/retrieval/reference/`.
+- Replaced the per-experiment directory with shared experiment, run, and
+  question-metric JSONL stores under `output/retrieval/experiments/`.
+- Added a versioned component-grid configuration covering chunkers, embedders,
+  retrievers, rerankers, controls, evaluation, inputs, and retention.
+- Added stable content-derived run IDs and deterministic experiment upserts.
+- Retained dataset analysis fields for difficulty, type, categories, pages,
+  section paths, source semantic IDs, failures, coverage, rank, and margins.
+- Removed duplicated chunk text, embeddings, and raw rankings from sweep output.
+
+DECIDED
+- Only explicitly designated reference runs persist full retrieval artifacts.
+- New experiments add shared records, not directories.
+- Experiment-specific notes live in `docs/experiments/`; all material decisions
+  and status changes also update project-level documentation.

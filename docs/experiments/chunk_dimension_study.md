@@ -123,24 +123,25 @@ remain unchanged so the present result stays reproducible.
 
 ## Artifacts and reproduction
 
-Configuration: `configs/retrieval_sweep.json`
+Configuration: `configs/retrieval/experiments/chunk_dimension_sweep.json`
 
 Artifacts:
 
 ```text
 output/retrieval/experiments/
-├── summary.json
-├── question_diagnostics.jsonl
-├── report.md
+├── experiments.jsonl
+├── runs.jsonl
+├── question_metrics.jsonl
 └── manifest.json
 ```
 
 Run from the project root after installing the package:
 
 ```powershell
-python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
+python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
 python -m unittest discover -s tests -v
 ```
 
-The runner has no timestamps. Random ranking uses a pinned seed, and the
-manifest was byte-identical across two complete regenerations on 2026-09-11.
+The runner has no timestamps. Random ranking uses a pinned seed. Re-running the
+same `experiment_id` replaces its records deterministically; running another
+configuration upserts another experiment into the same shared files.

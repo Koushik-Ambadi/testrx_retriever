@@ -111,7 +111,7 @@ Build and evaluate from the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
+python -m testrx_retriever.baseline --config configs/retrieval/reference.json
 python -m unittest discover -s tests -v
 ```
 
@@ -138,25 +138,33 @@ Run the controlled sweep from the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
+python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
 python -m unittest discover -s tests -v
 ```
 
 Review in this order:
 
-1. Confirm `summary.json` source hashes and resolved configuration match the
-   frozen canonical document and golden dataset.
-2. Read `report.md`, comparing Recall@1 and MRR before interpreting Recall@10.
+1. Confirm the matching record in `experiments.jsonl` contains the intended
+   source hashes, resolved configuration, retention policy, and observations.
+2. Filter `runs.jsonl` by `experiment_id`, then compare Recall@1 and MRR before
+   interpreting Recall@10.
 3. Compare every measured Recall@K with its random-lineage control.
 4. Inspect chunk lineage density, query-word coverage, collision fraction, and
-   top-1 stability in `summary.json`.
-5. Use `question_diagnostics.jsonl` to inspect individual rank changes and
-   relevant-versus-irrelevant score margins.
+   top-1 stability in the run records.
+5. Join `question_metrics.jsonl` to runs by `run_id`; slice failures by
+   difficulty, question type, category, page, section path, or semantic ID.
 6. Verify `manifest.json` and rerun the full suite before accepting a change.
 
 Do not compare fixed K across chunk sizes without noting the fraction of the
 index returned. Do not interpret this lexical, same-document experiment as a
 learned semantic embedding evaluation.
+
+For a new experiment, copy an existing configuration under
+`configs/retrieval/experiments/`, assign a new stable `experiment_id`, and edit
+the component grid. Supported component implementations are validated before a
+run. The shared store upserts by `experiment_id`; rerunning does not duplicate
+records. Retention defaults must remain compact. Full artifacts belong only in
+the explicitly configured reference pipeline.
 
 ## Freeze gate
 
