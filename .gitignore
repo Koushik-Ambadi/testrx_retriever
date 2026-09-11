@@ -13,3 +13,5 @@ output/*
 !output/golden_dataset/**
 !output/retrieval_baseline/
 !output/retrieval_baseline/**
+!output/retrieval_experiments/
+!output/retrieval_experiments/**

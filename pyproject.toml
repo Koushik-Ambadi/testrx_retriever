@@ -17,6 +17,7 @@ dependencies = [
 [project.scripts]
 testrx-parse = "testrx_retriever.cli:main"
 testrx-baseline = "testrx_retriever.baseline:main"
+testrx-experiments = "testrx_retriever.experiments:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
