@@ -9,6 +9,7 @@ description = "Provenance-preserving TESTRX manual parser and retrieval evaluati
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "numpy>=2,<3",
     "pdfplumber>=0.11,<0.12",
     "pypdf>=6,<7",
 ]
