@@ -37,10 +37,9 @@
 
 ## Deliberately pending
 
-- Chunking experiments. The seed evaluation corpus now exists independently.
 - Table-level versus row-level retrieval representation.
 - Parent-context injection and token budgets.
-- Embeddings, indexes, retrieval, reranking, and answer generation.
+- Learned embeddings, alternative indexes, reranking, and answer generation.
 - Screenshot understanding if UI-location questions later require it.
 
 ## Golden dataset limitations
@@ -65,7 +64,8 @@
   tables, and sections or combine unrelated units.
 - The hashing embedder is lexical and has no learned semantic relationships. Its
   signed feature collisions can produce small negative cosine scores.
-- Only one embedder and exact vector retriever are implemented.
+- Only one embedding algorithm and one exact vector retriever are implemented;
+  the dimension sweep does not add an independent model family.
 - The in-memory index is suitable for this 22-chunk corpus, not large-scale use.
 - Retrieval evaluates source-unit presence, not whether the exact required text
   span is completely contained in one chunk.
@@ -75,3 +75,19 @@
   retrieval, answer generation, or answer evaluation.
 - Raw top-10 results repeat full chunk text for inspectability and are larger than
   a normalized production result store.
+
+## Chunk-size and dimension study limitations
+
+- The matrix varies fixed token windows and hashing dimension only; overlap stays
+  approximately 10%, and feature weighting does not change.
+- Fixed K represents different fractions of each index. A random-lineage control
+  exposes this effect but does not replace a future fixed-fraction evaluation.
+- Lineage relevance does not prove the entire required evidence span is present
+  or sufficiently focused inside a chunk.
+- Collision fraction counts occupied hashing buckets; it does not directly
+  quantify the effect of collision signs and weights on every query.
+- Questions were authored from the same manual and retain substantial source
+  vocabulary. There is no paraphrase-stress, adversarial distractor,
+  unanswerable, or unseen-document split.
+- The compact artifact bundle does not store 29 redundant embedding matrices or
+  chunk files. They are deterministically regenerable from recorded inputs.

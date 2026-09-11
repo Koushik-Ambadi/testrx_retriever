@@ -739,3 +739,35 @@ P2 - optional:
 - Multi-column order.
 - Borderless-table strategy.
 - Optional OCR/vision route later.
+
+## 2026-09-11 - Chunk-size and dimension study review
+
+Scope reviewed:
+- 29 controlled runs: four smaller windows by seven hashing dimensions, plus the
+  original 500/50/4096 control.
+- Source identity, fixed evaluation contract, random-ranking control, lineage
+  density, lexical coverage, collision behavior, ranking stability, per-question
+  margins, deterministic regeneration, and artifact manifest.
+
+Evidence:
+- All 38 repository tests pass.
+- Two complete study generations produced the same manifest SHA-256:
+  `D2DF06FA5BFDF439157B1BCF52E56497787746F8DC19487D5E89E1FB3779C8D6`.
+- All three files named by the manifest match their recorded hashes.
+- The diagnostic JSONL contains 3,828 records: 29 runs times 132 questions.
+- The repeated control exactly matches the committed baseline metrics.
+
+Findings:
+- Lexical ranking contributes substantial signal above random ranking.
+- Fixed K, tiny index size, and broad source lineage materially inflate high-K
+  coverage, especially for the 500-token control.
+- Dimensions below 4,096 introduce enough collisions to be a major quality
+  confounder. Gains above 4,096 are smaller but still measurable.
+- The study supports a closed-domain lexical explanation, not semantic
+  generalization.
+
+Review verdict:
+- **Experiment implementation and recorded artifacts pass.**
+- Keep this matrix frozen as Phase 2C evidence.
+- Do not select a production chunk size from these metrics alone; first add
+  paraphrase stress, span-complete evidence, and fixed-index-fraction views.

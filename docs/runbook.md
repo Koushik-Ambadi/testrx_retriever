@@ -132,6 +132,32 @@ The build has no timestamp and no random state. Repeating it with identical inpu
 configuration, Python, and NumPy must produce byte-identical artifacts. The
 integration test enforces this for the complete bundle.
 
+## Chunk-size and dimension experiment operation
+
+Run the controlled sweep from the project root:
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
+python -m unittest discover -s tests -v
+```
+
+Review in this order:
+
+1. Confirm `summary.json` source hashes and resolved configuration match the
+   frozen canonical document and golden dataset.
+2. Read `report.md`, comparing Recall@1 and MRR before interpreting Recall@10.
+3. Compare every measured Recall@K with its random-lineage control.
+4. Inspect chunk lineage density, query-word coverage, collision fraction, and
+   top-1 stability in `summary.json`.
+5. Use `question_diagnostics.jsonl` to inspect individual rank changes and
+   relevant-versus-irrelevant score margins.
+6. Verify `manifest.json` and rerun the full suite before accepting a change.
+
+Do not compare fixed K across chunk sizes without noting the fraction of the
+index returned. Do not interpret this lexical, same-document experiment as a
+learned semantic embedding evaluation.
+
 ## Freeze gate
 
 Verdict: **Parsing, golden dataset, and baseline retrieval gates passed.**

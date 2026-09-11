@@ -20,6 +20,8 @@ Included:
 - Deterministic 500-token chunks with 50-token overlap and source lineage.
 - One local hashing embedder, exact cosine index, top-K retrieval, and golden-set
   evaluation.
+- Controlled 125/200/250/300-token and 128-16,384-dimension retrieval study with
+  random-lineage, collision, lexical, and ranking-stability diagnostics.
 
 Explicitly excluded:
 
@@ -40,6 +42,7 @@ in `source/README.md`. The original Downloads copy is not modified.
 python -m pip install -e .
 python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output
 python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
+python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
 ```
 
 Run tests with the standard library:
@@ -65,6 +68,8 @@ python -m unittest discover -s tests -v
 - `output/retrieval_baseline/index/`: chunk-to-vector mapping and embeddings.
 - `output/retrieval_baseline/evaluation/`: raw results, metrics, and report.
 - `output/retrieval_baseline/manifest.json`: artifact SHA-256 checksums.
+- `output/retrieval_experiments/chunk_dimension_sweep/`: compact sweep summary,
+  per-question diagnostics, human report, and checksums.
 
 Generate and validate the benchmark:
 
@@ -94,13 +99,15 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/limitations.md`: known limitations and intentionally deferred work.
 - `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
 - `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
+- `docs/retrieval_experiments.md`: controlled study design, measurements,
+  explanations, limitations, and next experiments.
 
 ## Repository map
 
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
-├── configs/                   versioned baseline run configuration
+├── configs/                   versioned baseline and experiment configurations
 ├── docs/                      intent, decisions, design, progress, operations
 ├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
 ├── tests/                     parser, dataset, retrieval, and determinism tests
@@ -113,5 +120,7 @@ testrx_retriever/
 ## Current review state
 
 The parser and 132-question golden dataset remain unchanged. The reproducible
-baseline produces 22 chunks and evaluates exact cosine retrieval at K=1, 3, 5,
-and 10. This baseline is a reference point, not an optimized retriever.
+baseline produces 22 chunks. The controlled study records 29 runs across four
+smaller chunk sizes, seven hashing dimensions, and the unchanged control. The
+results support a closed-domain lexical explanation and expose index-size and
+lineage-density inflation; they do not establish semantic generalization.

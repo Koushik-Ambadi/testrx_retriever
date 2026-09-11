@@ -560,3 +560,67 @@ Decision:
 
 Status:
 - Accepted. Implemented 2026-09-11.
+
+---
+
+## O030 - Chunk comparisons hold the benchmark and evaluator fixed
+
+Observation:
+- Changing questions, relevance IDs, or metric semantics with the chunker would
+  prevent attribution of score changes.
+
+Decision:
+- Reuse the unchanged 132-question seed, tokenizer, hashing features, exact
+  cosine ranking, and Recall/MRR definitions.
+- Vary only chunk size, approximately 10% overlap, and hashing dimension.
+- Repeat the original 500/50/4096 configuration as a control.
+
+Status:
+- Accepted. Implemented 2026-09-11 in 29 controlled runs.
+
+---
+
+## O031 - Fixed K requires an index-size control
+
+Observation:
+- The 500-token baseline has only 22 chunks; K=10 exposes 45.5% of the index.
+- Larger chunks own more source IDs, making lineage hits easier.
+
+Decision:
+- Record index fraction at maximum K, source-lineage density, relevant-chunk
+  prevalence, and fixed-seed random-ranking lineage Recall@K for every window.
+- Interpret Recall@10 together with MRR, Recall@1, and the random control.
+
+Status:
+- Accepted. The control random-lineage Recall@10 is 0.529 versus measured 0.924.
+
+---
+
+## O032 - Hash dimension is tested through and beyond the baseline
+
+Observation:
+- Very small hashing spaces caused severe feature collisions and large quality
+  losses in the initial 128-4,096 sweep.
+
+Decision:
+- Extend the matrix through 8,192 and 16,384 dimensions.
+- Record feature collision fraction and top-1 agreement against the highest
+  dimension at each experimental chunk size.
+- Treat 4,096 as near a practical plateau for this corpus, not dimension-free.
+
+Status:
+- Accepted. Going from 4,096 to 16,384 adds 0.022-0.039 MRR; going from 128 to
+  16,384 adds 0.285-0.311.
+
+---
+
+## O033 - Sweep artifacts stay compact but audit-ready
+
+Decision:
+- Persist the resolved configuration, hashes, all run metrics and diagnostics,
+  per-question ranks/margins, human report, and checksum manifest.
+- Do not duplicate chunk text and embedding matrices for every parameter point;
+  they are deterministic intermediates already covered by tests and inputs.
+
+Status:
+- Accepted. The four-file experiment bundle is committed separately from code.

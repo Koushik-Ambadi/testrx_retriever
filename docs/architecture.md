@@ -113,6 +113,19 @@ The persisted index is a deterministic `.npy` matrix plus ordered chunk IDs. The
 full chunk records are stored once under `chunks/`; the IDs map vector rows back
 to those records.
 
+## Experiment layer
+
+`experiments.py` orchestrates controlled parameter sweeps above the existing
+chunker, embedder, index, and evaluator. It does not change their contracts.
+Chunks are built once per window and reused across dimensions. The runner adds
+random-lineage, lexical-coverage, lineage-density, collision, ranking-stability,
+slice, and per-question margin diagnostics.
+
+Experiment artifacts are intentionally compact. They store results and source
+identity rather than duplicating every deterministic chunk and embedding matrix.
+This keeps the baseline artifact contract stable while making comparisons
+reproducible and reviewable.
+
 ## Golden dataset layer
 
 The benchmark is a derived evaluation layer, not part of the parser contract.

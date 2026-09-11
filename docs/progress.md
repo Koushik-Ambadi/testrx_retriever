@@ -189,3 +189,39 @@ NEXT
 - Review the ten K=10 failures and label likely chunking versus lexical retrieval
   symptoms without changing the baseline.
 - Design the first alternative chunking experiment as a separate phase and branch.
+
+## 2026-09-11 - Chunk-size and dimension investigation complete
+
+DONE
+- Created `codex/chunk-dimension-study` from synchronized `main`.
+- Added a deterministic 29-run experiment driver, configuration, diagnostics,
+  compact artifacts, checksum manifest, and integration tests.
+- Evaluated 125/13, 200/20, 250/25, and 300/30 windows at 128, 256, 512, 1,024,
+  4,096, 8,192, and 16,384 dimensions.
+- Repeated 500/50/4096 as the unchanged control.
+- Passed all 38 tests and verified byte-identical full-sweep regeneration.
+
+MEASURED
+- At 4,096 dimensions, MRR rises from 0.701 at 125 tokens to 0.724 at 300;
+  the 500-token control is 0.780.
+- Corresponding Recall@10 is 0.879, 0.894, 0.909, 0.917, and 0.924.
+- Random-lineage Recall@10 rises from 0.198 at 125 tokens to 0.529 for the
+  500-token control as the index shrinks and lineage per chunk broadens.
+- Feature collision fraction falls from 0.982 at 128 dimensions to 0.522 at
+  4,096 and 0.186 at 16,384.
+- Increasing 4,096 to 16,384 dimensions adds only 0.022-0.039 MRR; increasing
+  128 to 16,384 adds 0.285-0.311.
+
+FOUND
+- The basic retriever has genuine closed-domain lexical ranking signal.
+- Large chunks, broad lineage, and a fixed K over a tiny index materially raise
+  high-K coverage and make the baseline look stronger.
+- Small embedding dimensions damage quality through collisions; 4,096 is near,
+  but not fully at, the observed plateau.
+- The current evidence does not establish semantic or cross-document ability.
+
+NEXT
+- Add a separately reviewed paraphrase-stress evaluation view.
+- Compare fixed retrieval fractions and span-complete evidence metrics.
+- Run unigram/bigram and shuffled-query ablations before introducing a learned
+  embedding model.

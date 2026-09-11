@@ -112,4 +112,22 @@ Status: implemented and verified on 2026-09-11.
 
 Explicitly deferred: semantic and structure-aware chunking, learned embedding
 models, BM25, hybrid retrieval, reranking, query rewriting, answer generation,
-LLM judging, and experiment orchestration.
+and LLM judging.
+
+## Phase 2C - Chunk-size and hashing-dimension investigation
+
+Status: implemented and verified on 2026-09-11.
+
+1. Keep the canonical document, golden set, tokenizer, embedder features, exact
+   cosine index, and evaluation definitions fixed.
+2. Compare 125, 200, 250, and 300-token windows at approximately 10% overlap.
+3. Sweep hashing dimensions from 128 through 16,384 and repeat the baseline
+   configuration as a control.
+4. Measure random-ranking lineage recall, index fraction, lineage density,
+   lexical coverage, collisions, top-1 stability, and per-question margins.
+5. Persist a compact deterministic artifact bundle and checksum manifest.
+6. Record explanations and threats to validity without changing the benchmark.
+
+The next phase should discriminate lexical memorability from semantic retrieval
+using paraphrase stress, span-complete relevance, fixed index fractions, and
+feature ablations before adding more complex models.
