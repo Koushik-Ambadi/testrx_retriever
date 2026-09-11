@@ -11,3 +11,5 @@ output/*
 !output/.gitkeep
 !output/golden_dataset/
 !output/golden_dataset/**
+!output/retrieval_baseline/
+!output/retrieval_baseline/**

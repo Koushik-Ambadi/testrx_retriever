@@ -58,7 +58,7 @@ def run_baseline(config: BaselineConfig, project_root: Path) -> dict:
     evaluation_dir = output / "evaluation"
     index_dir = output / "index"
     resolved_config = config.to_dict(project_root)
-    run = {
+    run_metadata = {
         "schema_version": "1.0",
         "document_source_sha256": document["source_sha256"],
         "golden_dataset_sha256": sha256(config.golden_dataset_path),
@@ -68,11 +68,11 @@ def run_baseline(config: BaselineConfig, project_root: Path) -> dict:
             "python": platform.python_version(),
             "numpy": np.__version__,
         },
-        "metrics": metrics,
     }
+    run = {**run_metadata, "metrics": metrics}
 
-    write_json(output / "baseline_config.json", run)
-    write_jsonl(output / "chunks.jsonl", [chunk.to_dict() for chunk in chunks])
+    write_json(output / "run_config.json", run_metadata)
+    write_jsonl(output / "chunks" / "chunks.jsonl", [chunk.to_dict() for chunk in chunks])
     index.save_embeddings(index_dir / "embeddings.npy")
     write_json(index_dir / "chunk_ids.json", [chunk.chunk_id for chunk in chunks])
     write_jsonl(evaluation_dir / "retrieval_results.jsonl", records)
