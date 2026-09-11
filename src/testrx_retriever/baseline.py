@@ -10,7 +10,7 @@ import platform
 
 import numpy as np
 
-from .baseline_config import BaselineConfig
+from .baseline_config import BaselineConfig, find_project_root
 from .chunking import TokenChunker
 from .embedding import StableHashingEmbedder
 from .evaluation import evaluate_retrieval, render_retrieval_report
@@ -99,12 +99,12 @@ def main() -> int:
     parser.add_argument(
         "--config",
         type=Path,
-        default=Path("configs/retrieval_baseline.json"),
+        default=Path("configs/retrieval/reference.json"),
         help="Baseline configuration JSON",
     )
     arguments = parser.parse_args()
     config_path = arguments.config.resolve()
-    project_root = config_path.parent.parent
+    project_root = find_project_root(config_path)
     run = run_baseline(BaselineConfig.load(config_path), project_root)
     metrics = run["metrics"]
     print("Baseline retrieval evaluation complete\n")

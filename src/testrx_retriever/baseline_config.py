@@ -8,6 +8,15 @@ from pathlib import Path
 from typing import Any
 
 
+def find_project_root(path: Path) -> Path:
+    """Resolve the repository root independently of config directory depth."""
+    resolved = path.resolve()
+    for candidate in resolved.parents:
+        if (candidate / "pyproject.toml").is_file():
+            return candidate
+    raise ValueError(f"Cannot locate project root above configuration: {resolved}")
+
+
 @dataclass(frozen=True)
 class ChunkingConfig:
     strategy: str = "token_window"
@@ -88,7 +97,7 @@ class BaselineConfig:
     @classmethod
     def load(cls, path: Path) -> "BaselineConfig":
         value = json.loads(path.read_text(encoding="utf-8"))
-        return cls.from_dict(value, path.resolve().parent.parent)
+        return cls.from_dict(value, find_project_root(path))
 
     def validate(self) -> None:
         self.chunking.validate()

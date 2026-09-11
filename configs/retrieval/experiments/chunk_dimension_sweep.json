@@ -1,0 +1,45 @@
+{
+  "schema_version": "2.0",
+  "experiment_id": "chunk-dimension-sweep-v1",
+  "title": "Token-window size and hashing-dimension investigation",
+  "hypothesis": "High baseline scores combine real closed-domain lexical signal with fixed-K index coverage, broad chunk lineage, and hashing-dimension effects.",
+  "inputs": {
+    "document_path": "output/parsing/document.json",
+    "golden_dataset_path": "output/datasets/golden/golden_dataset.jsonl"
+  },
+  "output_store": "output/retrieval/experiments",
+  "retention": {
+    "run_metrics": true,
+    "question_metrics": true,
+    "chunks": false,
+    "embeddings": false,
+    "ranked_results": false
+  },
+  "evaluation": {
+    "top_k": [1, 3, 5, 10],
+    "random_baseline": {"seed": 20260911, "trials": 1000}
+  },
+  "components": {
+    "chunkers": [{
+      "strategy": "token_window",
+      "parameters": {
+        "chunk_sizes": [125, 200, 250, 300],
+        "overlap": {"mode": "ratio", "value": 0.1, "rounding": "half_up"}
+      }
+    }],
+    "embedders": [{
+      "model": "stable_hashing_word_bigram",
+      "model_version": "1.0",
+      "parameters": {"dimensions": [128, 256, 512, 1024, 4096, 8192, 16384]}
+    }],
+    "retrievers": [{"algorithm": "cosine_similarity_exact", "parameters": {}}],
+    "rerankers": [{"algorithm": "none", "parameters": {}}]
+  },
+  "controls": [{
+    "label": "baseline-reference",
+    "chunking": {"strategy": "token_window", "chunk_size": 500, "chunk_overlap": 50},
+    "embedding": {"model": "stable_hashing_word_bigram", "model_version": "1.0", "dimension": 4096},
+    "retrieval": {"algorithm": "cosine_similarity_exact"},
+    "reranking": {"algorithm": "none", "parameters": {}}
+  }]
+}

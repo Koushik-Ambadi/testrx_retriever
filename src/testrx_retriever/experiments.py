@@ -6,6 +6,7 @@ import argparse
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import itertools
 import json
 import math
 from pathlib import Path
@@ -17,7 +18,7 @@ from typing import Any, Iterable
 import numpy as np
 
 from .baseline import read_jsonl, sha256, write_json, write_jsonl
-from .baseline_config import ChunkingConfig, EmbeddingConfig
+from .baseline_config import ChunkingConfig, EmbeddingConfig, find_project_root
 from .chunking import Chunk, TokenChunker
 from .embedding import StableHashingEmbedder
 from .evaluation import evaluate_retrieval
@@ -28,15 +29,18 @@ from .vector_index import ExactVectorIndex
 @dataclass(frozen=True)
 class SweepConfig:
     schema_version: str
+    experiment_id: str
+    title: str
+    hypothesis: str
     document_path: Path
     golden_dataset_path: Path
     output_directory: Path
-    chunk_sizes: tuple[int, ...]
-    overlap_ratio: float
-    embedding_dimensions: tuple[int, ...]
-    control_chunk_size: int
-    control_chunk_overlap: int
-    control_embedding_dimension: int
+    retention: dict[str, bool]
+    chunkers: tuple[dict[str, Any], ...]
+    embedders: tuple[dict[str, Any], ...]
+    retrievers: tuple[dict[str, Any], ...]
+    rerankers: tuple[dict[str, Any], ...]
+    controls: tuple[dict[str, Any], ...]
     random_seed: int
     random_trials: int
     retrieval_top_k: tuple[int, ...]
@@ -44,65 +48,135 @@ class SweepConfig:
     @classmethod
     def load(cls, path: Path) -> "SweepConfig":
         value = json.loads(path.read_text(encoding="utf-8"))
-        root = path.resolve().parent.parent
-        control = value["control"]
-        random_baseline = value["random_baseline"]
+        root = find_project_root(path)
+        inputs = value["inputs"]
+        components = value["components"]
+        evaluation = value["evaluation"]
+        random_baseline = evaluation["random_baseline"]
         config = cls(
             schema_version=str(value["schema_version"]),
-            document_path=(root / value["document_path"]).resolve(),
-            golden_dataset_path=(root / value["golden_dataset_path"]).resolve(),
-            output_directory=(root / value["output_directory"]).resolve(),
-            chunk_sizes=tuple(int(size) for size in value["chunk_sizes"]),
-            overlap_ratio=float(value["overlap_ratio"]),
-            embedding_dimensions=tuple(int(size) for size in value["embedding_dimensions"]),
-            control_chunk_size=int(control["chunk_size"]),
-            control_chunk_overlap=int(control["chunk_overlap"]),
-            control_embedding_dimension=int(control["embedding_dimension"]),
+            experiment_id=str(value["experiment_id"]),
+            title=str(value["title"]),
+            hypothesis=str(value["hypothesis"]),
+            document_path=(root / inputs["document_path"]).resolve(),
+            golden_dataset_path=(root / inputs["golden_dataset_path"]).resolve(),
+            output_directory=(root / value["output_store"]).resolve(),
+            retention={key: bool(item) for key, item in value["retention"].items()},
+            chunkers=tuple(components["chunkers"]),
+            embedders=tuple(components["embedders"]),
+            retrievers=tuple(components["retrievers"]),
+            rerankers=tuple(components["rerankers"]),
+            controls=tuple(value.get("controls", [])),
             random_seed=int(random_baseline["seed"]),
             random_trials=int(random_baseline["trials"]),
-            retrieval_top_k=tuple(int(k) for k in value["retrieval_top_k"]),
+            retrieval_top_k=tuple(int(k) for k in evaluation["top_k"]),
         )
         config.validate()
         return config
 
     def validate(self) -> None:
-        if not self.chunk_sizes or any(size <= 0 for size in self.chunk_sizes):
-            raise ValueError("chunk_sizes must contain positive integers")
-        if tuple(sorted(set(self.chunk_sizes))) != self.chunk_sizes:
-            raise ValueError("chunk_sizes must be unique and sorted")
-        if not 0 <= self.overlap_ratio < 1:
-            raise ValueError("overlap_ratio must be in [0, 1)")
-        if not self.embedding_dimensions or any(size <= 0 for size in self.embedding_dimensions):
-            raise ValueError("embedding_dimensions must contain positive integers")
-        if tuple(sorted(set(self.embedding_dimensions))) != self.embedding_dimensions:
-            raise ValueError("embedding_dimensions must be unique and sorted")
+        if not self.experiment_id or any(character not in "abcdefghijklmnopqrstuvwxyz0123456789-_" for character in self.experiment_id):
+            raise ValueError("experiment_id must use lowercase letters, digits, hyphens, or underscores")
+        required_retention = {"run_metrics", "question_metrics", "chunks", "embeddings", "ranked_results"}
+        if set(self.retention) != required_retention:
+            raise ValueError(f"retention must define exactly {sorted(required_retention)}")
+        if not self.retention["run_metrics"]:
+            raise ValueError("run_metrics retention is required")
+        if self.retention["chunks"] or self.retention["embeddings"] or self.retention["ranked_results"]:
+            raise ValueError("full artifacts belong in output/retrieval/reference, not the compact experiment store")
+        if not self.chunkers or not self.embedders or not self.retrievers or not self.rerankers:
+            raise ValueError("every component grid must contain at least one variant")
+        for chunker in self.chunkers:
+            if chunker["strategy"] != "token_window":
+                raise ValueError(f"Unsupported chunker: {chunker['strategy']}")
+            parameters = chunker["parameters"]
+            sizes = tuple(int(size) for size in parameters["chunk_sizes"])
+            if not sizes or any(size <= 0 for size in sizes) or tuple(sorted(set(sizes))) != sizes:
+                raise ValueError("chunk_sizes must contain unique sorted positive integers")
+            overlap = parameters["overlap"]
+            if overlap != {"mode": "ratio", "value": overlap["value"], "rounding": "half_up"}:
+                raise ValueError("only ratio overlap with half_up rounding is currently supported")
+            if not 0 <= float(overlap["value"]) < 1:
+                raise ValueError("overlap ratio must be in [0, 1)")
+        for embedder in self.embedders:
+            if (embedder["model"], embedder["model_version"]) != ("stable_hashing_word_bigram", "1.0"):
+                raise ValueError(f"Unsupported embedder: {embedder['model']} {embedder['model_version']}")
+            dimensions = tuple(int(size) for size in embedder["parameters"]["dimensions"])
+            if not dimensions or any(size <= 0 for size in dimensions) or tuple(sorted(set(dimensions))) != dimensions:
+                raise ValueError("dimensions must contain unique sorted positive integers")
+        if any(item["algorithm"] != "cosine_similarity_exact" for item in self.retrievers):
+            raise ValueError("only cosine_similarity_exact retrieval is currently implemented")
+        if any(item["algorithm"] != "none" for item in self.rerankers):
+            raise ValueError("configured reranker is not implemented")
         if self.random_trials <= 0:
             raise ValueError("random_trials must be positive")
         if not self.retrieval_top_k or tuple(sorted(set(self.retrieval_top_k))) != self.retrieval_top_k:
             raise ValueError("retrieval_top_k must be unique and sorted")
-        ChunkingConfig(chunk_size=self.control_chunk_size, chunk_overlap=self.control_chunk_overlap).validate()
-        EmbeddingConfig(dimension=self.control_embedding_dimension).validate()
+        for control in self.controls:
+            ChunkingConfig(
+                strategy=control["chunking"]["strategy"],
+                chunk_size=int(control["chunking"]["chunk_size"]),
+                chunk_overlap=int(control["chunking"]["chunk_overlap"]),
+            ).validate()
+            EmbeddingConfig(**control["embedding"]).validate()
+            if control["retrieval"]["algorithm"] != "cosine_similarity_exact" or control["reranking"]["algorithm"] != "none":
+                raise ValueError("unsupported control retrieval or reranking component")
 
-    def overlap_for(self, chunk_size: int) -> int:
-        """Round half up so 10% of 125 becomes the documented 13 tokens."""
-        return int(math.floor(chunk_size * self.overlap_ratio + 0.5))
+    @staticmethod
+    def overlap_for(chunker: dict[str, Any], chunk_size: int) -> int:
+        """Round half up so a 10% ratio at 125 becomes 13 tokens."""
+        return int(math.floor(chunk_size * float(chunker["parameters"]["overlap"]["value"]) + 0.5))
+
+    def run_specs(self) -> list[dict[str, Any]]:
+        specs: list[dict[str, Any]] = []
+        for chunker, embedder, retriever, reranker in itertools.product(
+            self.chunkers, self.embedders, self.retrievers, self.rerankers
+        ):
+            for size, dimension in itertools.product(
+                chunker["parameters"]["chunk_sizes"], embedder["parameters"]["dimensions"]
+            ):
+                specs.append({
+                    "role": "sweep",
+                    "label": None,
+                    "chunking": {
+                        "strategy": chunker["strategy"],
+                        "chunk_size": int(size),
+                        "chunk_overlap": self.overlap_for(chunker, int(size)),
+                    },
+                    "embedding": {
+                        "model": embedder["model"],
+                        "model_version": embedder["model_version"],
+                        "dimension": int(dimension),
+                    },
+                    "retrieval": retriever,
+                    "reranking": reranker,
+                })
+        specs.extend({"role": "control", **control} for control in self.controls)
+        return specs
 
     def to_dict(self, root: Path) -> dict[str, Any]:
         return {
             "schema_version": self.schema_version,
-            "document_path": self.document_path.relative_to(root).as_posix(),
-            "golden_dataset_path": self.golden_dataset_path.relative_to(root).as_posix(),
-            "output_directory": self.output_directory.relative_to(root).as_posix(),
-            "chunk_sizes": list(self.chunk_sizes),
-            "overlap_ratio": self.overlap_ratio,
-            "embedding_dimensions": list(self.embedding_dimensions),
-            "control": {
-                "chunk_size": self.control_chunk_size,
-                "chunk_overlap": self.control_chunk_overlap,
-                "embedding_dimension": self.control_embedding_dimension,
+            "experiment_id": self.experiment_id,
+            "title": self.title,
+            "hypothesis": self.hypothesis,
+            "inputs": {
+                "document_path": self.document_path.relative_to(root).as_posix(),
+                "golden_dataset_path": self.golden_dataset_path.relative_to(root).as_posix(),
             },
-            "random_baseline": {"seed": self.random_seed, "trials": self.random_trials},
-            "retrieval_top_k": list(self.retrieval_top_k),
+            "output_store": self.output_directory.relative_to(root).as_posix(),
+            "retention": self.retention,
+            "evaluation": {
+                "top_k": list(self.retrieval_top_k),
+                "random_baseline": {"seed": self.random_seed, "trials": self.random_trials},
+            },
+            "components": {
+                "chunkers": list(self.chunkers),
+                "embedders": list(self.embedders),
+                "retrievers": list(self.retrievers),
+                "rerankers": list(self.rerankers),
+            },
+            "controls": list(self.controls),
         }
 
 
@@ -197,9 +271,22 @@ def _retrieval_diagnostics(
         margins.append(margin)
         details.append({
             "question_id": question["question_id"],
+            "question_type": question["question_type"],
+            "difficulty": question["difficulty"],
+            "required_source_ids": sorted(required),
+            "source_pages": question.get("source", {}).get("pages", []),
+            "source_section_paths": question.get("source", {}).get("section_paths", []),
+            "source_semantic_unit_ids": question.get("source", {}).get("semantic_unit_ids", []),
+            "categories": sorted(
+                key.removeprefix("requires_")
+                for key, enabled in question.get("evaluation_metadata", {}).items()
+                if key.startswith("requires_") and enabled
+            ),
             "first_relevant_rank": record["evaluation"]["first_relevant_rank"],
             "reciprocal_rank": record["evaluation"]["reciprocal_rank"],
+            "coverage_at_k": record["evaluation"]["coverage_at_k"],
             "complete_at_k": record["evaluation"]["complete_at_k"],
+            "failure_category": record["evaluation"]["failure_category"],
             "best_relevant_score": round(best_relevant, 10),
             "best_irrelevant_score": round(best_irrelevant, 10),
             "relevant_score_margin": round(margin, 10),
@@ -231,9 +318,9 @@ def _slice_metrics(records: list[dict[str, Any]], max_k: int) -> dict[str, Any]:
 
 
 def _run_one(
-    chunks: list[Chunk], questions: list[dict[str, Any]], dimension: int, top_k: tuple[int, ...]
+    chunks: list[Chunk], questions: list[dict[str, Any]], embedding: dict[str, Any], top_k: tuple[int, ...]
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[str]]:
-    embedder = StableHashingEmbedder(EmbeddingConfig(dimension=dimension))
+    embedder = StableHashingEmbedder(EmbeddingConfig(**embedding))
     index = ExactVectorIndex(embedder)
     index.build_index(chunks)
     records, metrics = evaluate_retrieval(index, questions, top_k)
@@ -243,93 +330,111 @@ def _run_one(
     return metrics, question_details, [record["retrieved_chunk_ids"][0] for record in records]
 
 
-def _render_report(result: dict[str, Any]) -> str:
-    rows = result["runs"]
-    ks = result["configuration"]["retrieval_top_k"]
-    reference_dimension = result["reference_dimension"]
-    headers = ["Role", "Chunk / overlap", "Dim", "Chunks", *(f"R@{k}" for k in ks), "MRR", f"Random R@{max(ks)}", "Collision", f"Top-1 vs {reference_dimension}"]
-    lines = [
-        "# TESTRX Chunk Size and Embedding Dimension Study", "",
-        "## Scope", "",
-        "The golden questions, parser output, tokenizer, hashing features, cosine index, and metric definitions are fixed. Only token-window size, approximately 10% overlap, and hashing dimension vary. The 500/50/4096 baseline is repeated as a control.", "",
-        "## Results", "",
-        "| " + " | ".join(headers) + " |",
-        "|---" + "|---:" * (len(headers) - 1) + "|",
-    ]
-    for row in rows:
-        metrics = row["metrics"]
-        agreement = row["top1_agreement_with_reference"]
-        agreement_text = f"{agreement:.3f}" if agreement is not None else "n/a"
-        lines.append(
-            f"| {row['role']} | {row['chunk_size']} / {row['chunk_overlap']} | {row['embedding_dimension']} | {row['chunk_count']} | "
-            + " | ".join(f"{metrics['recall_at_k'][str(k)]:.3f}" for k in ks)
-            + f" | {metrics['mrr']:.3f} | {row['random_lineage_recall_at_k'][str(max(ks))]:.3f} | "
-            + f"{row['feature_collisions']['collision_fraction']:.3f} | {agreement_text} |"
-        )
-    matrix = [row for row in rows if row["role"] == "sweep"]
-    comparison_dimension = 4096 if any(row["embedding_dimension"] == 4096 for row in matrix) else reference_dimension
-    comparison_rows = [row for row in matrix if row["embedding_dimension"] == comparison_dimension]
-    best_comparison = max(comparison_rows, key=lambda row: (row["metrics"]["mrr"], row["metrics"]["recall_at_k"]["1"]))
-    dim_spreads = {}
-    for size in sorted({row["chunk_size"] for row in matrix}):
-        same_size = [row for row in matrix if row["chunk_size"] == size]
-        values = [row["metrics"]["mrr"] for row in same_size]
-        dim_spreads[size] = max(values) - min(values)
-    control = next(row for row in rows if row["role"] == "control")
-    high_dimension_deltas = {}
-    for size in sorted({row["chunk_size"] for row in matrix}):
-        row_comparison = next(row for row in matrix if row["chunk_size"] == size and row["embedding_dimension"] == comparison_dimension)
-        row_reference = next(row for row in matrix if row["chunk_size"] == size and row["embedding_dimension"] == reference_dimension)
-        high_dimension_deltas[size] = row_reference["metrics"]["mrr"] - row_comparison["metrics"]["mrr"]
-    lines.extend([
-        "", "## Observations", "",
-        f"- At {comparison_dimension:,} dimensions, the strongest MRR among tested smaller windows is {best_comparison['metrics']['mrr']:.3f} at {best_comparison['chunk_size']}/{best_comparison['chunk_overlap']}; its Recall@{max(ks)} is {best_comparison['metrics']['recall_at_k'][str(max(ks))]:.3f}.",
-        f"- The 500-token control contains only {control['chunk_count']} chunks, so K=10 searches {10 / control['chunk_count']:.1%} of the entire index. Its measured random-lineage Recall@10 is {control['random_lineage_recall_at_k'][str(max(ks))]:.3f}.",
-        f"- Across the full dimension range, the MRR spread by chunk size is " + ", ".join(f"{size}: {spread:.3f}" for size, spread in dim_spreads.items()) + ". This is material: very small hashing spaces degrade ranking through collisions.",
-        f"- Raising dimension from {comparison_dimension:,} to {reference_dimension:,} changes MRR by " + ", ".join(f"{size}: {delta:+.3f}" for size, delta in high_dimension_deltas.items()) + ". These high-dimension deltas show whether the model has reached a practical collision plateau.",
-        "- `Random R@10` is a fixed-seed random-ranking lineage baseline. It exposes score inflation caused by a small index and chunks that each own many source IDs.",
-        f"- `Collision` is the fraction of distinct corpus-and-query unigram/bigram features sharing an occupied hashing bucket. `Top-1 vs {reference_dimension}` measures ranking stability against the {reference_dimension:,}-dimensional run at the same chunk size; the 4,096-dimensional control has no same-window reference and is marked `n/a`.",
-        "- The query/evidence lexical and lineage-density diagnostics are recorded in `summary.json`; per-question rank and relevant-versus-irrelevant score margins are in `question_diagnostics.jsonl`.",
-        "", "## Interpretation guardrails", "",
-        "These results characterize this manual and this frozen seed benchmark. They do not demonstrate semantic generalization. The embedder is lexical, the questions were written from the same source, and source-lineage recall gives a whole chunk credit when any recorded required ID is present.",
-        "", "## Reproduction", "", "```powershell", "python -m testrx_retriever.experiments --config configs/retrieval_sweep.json", "```", "",
-    ])
-    return "\n".join(lines)
+def _experiment_observations(rows: list[dict[str, Any]], top_k: tuple[int, ...]) -> list[dict[str, Any]]:
+    sweep = [row for row in rows if row["role"] == "sweep"]
+    controls = [row for row in rows if row["role"] == "control"]
+    observations: list[dict[str, Any]] = []
+    if sweep:
+        best = max(sweep, key=lambda row: (row["metrics"]["mrr"], row["metrics"]["recall_at_k"]["1"]))
+        observations.append({
+            "finding": "best_measured_sweep_run",
+            "run_id": best["run_id"],
+            "mrr": best["metrics"]["mrr"],
+            "recall_at_max_k": best["metrics"]["recall_at_k"][str(max(top_k))],
+        })
+    for control in controls:
+        observations.append({
+            "finding": "fixed_k_index_exposure",
+            "run_id": control["run_id"],
+            "index_fraction_at_max_k": control["index_fraction_at_max_k"],
+            "random_lineage_recall_at_max_k": control["random_lineage_recall_at_k"][str(max(top_k))],
+        })
+    observations.append({
+        "finding": "interpretation_boundary",
+        "note": "Results measure same-document lexical retrieval with lineage relevance; they do not establish semantic generalization.",
+    })
+    return observations
+
+
+def _upsert_records(path: Path, experiment_id: str, records: list[dict[str, Any]]) -> None:
+    existing = read_jsonl(path) if path.exists() else []
+    retained = [record for record in existing if record.get("experiment_id") != experiment_id]
+    combined = retained + records
+    combined.sort(key=lambda record: (record.get("experiment_id", ""), record.get("run_id", ""), record.get("question_id", "")))
+    write_jsonl(path, combined)
 
 
 def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
     document = json.loads(config.document_path.read_text(encoding="utf-8"))
     questions = read_jsonl(config.golden_dataset_path)
     tokenizer = RegexTokenizer()
-    run_specs = [
-        ("sweep", size, config.overlap_for(size), dimension)
-        for size in config.chunk_sizes for dimension in config.embedding_dimensions
-    ] + [("control", config.control_chunk_size, config.control_chunk_overlap, config.control_embedding_dimension)]
-    chunks_by_window: dict[tuple[int, int], list[Chunk]] = {}
-    window_diagnostics: dict[tuple[int, int], dict[str, Any]] = {}
-    random_baselines: dict[tuple[int, int], dict[str, float]] = {}
+    run_specs = config.run_specs()
+    source_identity = {
+        "document_source_sha256": document["source_sha256"],
+        "canonical_document_sha256": sha256(config.document_path),
+        "golden_dataset_sha256": sha256(config.golden_dataset_path),
+    }
+    chunks_by_window: dict[tuple[str, int, int], list[Chunk]] = {}
+    window_diagnostics: dict[tuple[str, int, int], dict[str, Any]] = {}
+    random_baselines: dict[tuple[str, int, int], dict[str, float]] = {}
     rows: list[dict[str, Any]] = []
     question_rows: list[dict[str, Any]] = []
-    top1_by_spec: dict[tuple[int, int, int], list[str]] = {}
+    top1_by_spec: dict[tuple[str, int, int, str, str, str, str, int], list[str]] = {}
 
-    for role, chunk_size, overlap, dimension in run_specs:
-        window = (chunk_size, overlap)
+    for spec in run_specs:
+        chunking = spec["chunking"]
+        embedding = spec["embedding"]
+        chunk_size = int(chunking["chunk_size"])
+        overlap = int(chunking["chunk_overlap"])
+        dimension = int(embedding["dimension"])
+        window = (chunking["strategy"], chunk_size, overlap)
         if window not in chunks_by_window:
-            chunks = TokenChunker(ChunkingConfig(chunk_size=chunk_size, chunk_overlap=overlap), tokenizer).chunk_document(document)
+            chunks = TokenChunker(ChunkingConfig(**chunking), tokenizer).chunk_document(document)
             chunks_by_window[window] = chunks
             window_diagnostics[window] = _chunk_diagnostics(chunks, questions)
             random_baselines[window] = _random_lineage_recall(
                 chunks, questions, config.retrieval_top_k, config.random_seed + chunk_size, config.random_trials
             )
         chunks = chunks_by_window[window]
-        metrics, details, top1 = _run_one(chunks, questions, dimension, config.retrieval_top_k)
+        metrics, details, top1 = _run_one(chunks, questions, embedding, config.retrieval_top_k)
         features = _feature_collision_stats(
             [chunk.text for chunk in chunks] + [question["question"] for question in questions], dimension
         )
-        spec = (chunk_size, overlap, dimension)
-        top1_by_spec[spec] = top1
+        components = {
+            "chunking": chunking,
+            "embedding": embedding,
+            "retrieval": spec["retrieval"],
+            "reranking": spec["reranking"],
+        }
+        run_identity = {
+            "experiment_id": config.experiment_id,
+            "source_identity": source_identity,
+            "components": components,
+            "evaluation": {
+                "top_k": list(config.retrieval_top_k),
+                "random_seed": config.random_seed,
+                "random_trials": config.random_trials,
+            },
+        }
+        run_digest = hashlib.sha256(
+            json.dumps(run_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()[:16]
+        run_id = f"RUN-{run_digest}"
+        ranking_key = (
+            chunking["strategy"], chunk_size, overlap,
+            embedding["model"], embedding["model_version"],
+            json.dumps(spec["retrieval"], sort_keys=True, separators=(",", ":")),
+            json.dumps(spec["reranking"], sort_keys=True, separators=(",", ":")),
+            dimension,
+        )
+        top1_by_spec[ranking_key] = top1
         row = {
-            "role": role,
+            "schema_version": "1.0",
+            "experiment_id": config.experiment_id,
+            "run_id": run_id,
+            "role": spec["role"],
+            "label": spec.get("label"),
+            "components": components,
             "chunk_size": chunk_size,
             "chunk_overlap": overlap,
             "embedding_dimension": dimension,
@@ -343,40 +448,79 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
         rows.append(row)
         for detail in details:
             question_rows.append({
-                "role": role,
-                "chunk_size": chunk_size,
-                "chunk_overlap": overlap,
-                "embedding_dimension": dimension,
+                "schema_version": "1.0",
+                "experiment_id": config.experiment_id,
+                "run_id": run_id,
                 **detail,
             })
 
-    reference_dimension = max(config.embedding_dimensions)
+    ranking_families = {
+        (
+            spec["chunking"]["strategy"], int(spec["chunking"]["chunk_size"]), int(spec["chunking"]["chunk_overlap"]),
+            spec["embedding"]["model"], spec["embedding"]["model_version"],
+            json.dumps(spec["retrieval"], sort_keys=True, separators=(",", ":")),
+            json.dumps(spec["reranking"], sort_keys=True, separators=(",", ":")),
+        )
+        for spec in run_specs if spec["role"] == "sweep"
+    }
+    reference_dimensions = {
+        family: max(
+            int(spec["embedding"]["dimension"])
+            for spec in run_specs
+            if spec["role"] == "sweep"
+            and (
+                spec["chunking"]["strategy"], int(spec["chunking"]["chunk_size"]), int(spec["chunking"]["chunk_overlap"]),
+                spec["embedding"]["model"], spec["embedding"]["model_version"],
+                json.dumps(spec["retrieval"], sort_keys=True, separators=(",", ":")),
+                json.dumps(spec["reranking"], sort_keys=True, separators=(",", ":")),
+            ) == family
+        )
+        for family in ranking_families
+    }
     for row in rows:
-        reference_key = (row["chunk_size"], row["chunk_overlap"], reference_dimension)
+        chunking = row["components"]["chunking"]
+        embedding = row["components"]["embedding"]
+        family = (
+            chunking["strategy"], row["chunk_size"], row["chunk_overlap"],
+            embedding["model"], embedding["model_version"],
+            json.dumps(row["components"]["retrieval"], sort_keys=True, separators=(",", ":")),
+            json.dumps(row["components"]["reranking"], sort_keys=True, separators=(",", ":")),
+        )
+        if family not in reference_dimensions:
+            row["top1_agreement_with_reference"] = None
+            continue
+        reference_key = (
+            *family, reference_dimensions[family],
+        )
         if reference_key not in top1_by_spec:
             row["top1_agreement_with_reference"] = None
             continue
         reference = top1_by_spec[reference_key]
-        current = top1_by_spec[(row["chunk_size"], row["chunk_overlap"], row["embedding_dimension"])]
+        current_key = (
+            *family, row["embedding_dimension"],
+        )
+        current = top1_by_spec[current_key]
         row["top1_agreement_with_reference"] = round(sum(a == b for a, b in zip(current, reference)) / len(reference), 6)
 
     result = {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
+        "experiment_id": config.experiment_id,
+        "title": config.title,
+        "hypothesis": config.hypothesis,
         "configuration": config.to_dict(project_root),
-        "source_identity": {
-            "document_source_sha256": document["source_sha256"],
-            "canonical_document_sha256": sha256(config.document_path),
-            "golden_dataset_sha256": sha256(config.golden_dataset_path),
-        },
+        "source_identity": source_identity,
         "runtime": {"python": platform.python_version(), "numpy": np.__version__},
-        "reference_dimension": reference_dimension,
+        "observations": _experiment_observations(rows, config.retrieval_top_k),
         "runs": rows,
     }
     output = config.output_directory
-    write_json(output / "summary.json", result)
-    write_jsonl(output / "question_diagnostics.jsonl", question_rows)
-    (output / "report.md").parent.mkdir(parents=True, exist_ok=True)
-    (output / "report.md").write_text(_render_report(result), encoding="utf-8", newline="\n")
+    experiment_record = {key: value for key, value in result.items() if key != "runs"}
+    _upsert_records(output / "experiments.jsonl", config.experiment_id, [experiment_record])
+    _upsert_records(output / "runs.jsonl", config.experiment_id, rows)
+    if config.retention["question_metrics"]:
+        _upsert_records(output / "question_metrics.jsonl", config.experiment_id, question_rows)
+    else:
+        _upsert_records(output / "question_metrics.jsonl", config.experiment_id, [])
     manifest_paths = sorted(path for path in output.rglob("*") if path.is_file() and path.name != "manifest.json")
     write_json(output / "manifest.json", {
         "schema_version": "1.0",
@@ -387,11 +531,14 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the TESTRX chunk-size and embedding-dimension study.")
-    parser.add_argument("--config", type=Path, default=Path("configs/retrieval_sweep.json"))
+    parser.add_argument(
+        "--config", type=Path,
+        default=Path("configs/retrieval/experiments/chunk_dimension_sweep.json"),
+    )
     args = parser.parse_args()
     config_path = args.config.resolve()
     config = SweepConfig.load(config_path)
-    result = run_sweep(config, config_path.parent.parent)
+    result = run_sweep(config, find_project_root(config_path))
     print(f"Completed {len(result['runs'])} controlled retrieval runs")
     print(f"Output: {config.output_directory}")
     return 0
