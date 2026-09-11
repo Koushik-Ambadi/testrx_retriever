@@ -76,6 +76,7 @@ def evaluate_retrieval(
                 "question_type": question["question_type"],
                 "difficulty": question["difficulty"],
                 "required_semantic_units": required,
+                "required_evidence": question.get("required_evidence", []),
                 "retrieved_chunks": [result.to_dict() for result in results],
                 "retrieved_chunk_ids": [result.chunk_id for result in results],
                 "retrieved_semantic_units": [
@@ -154,6 +155,9 @@ def render_retrieval_report(run: dict[str, Any], records: list[dict[str, Any]]) 
     lines.extend(["", "## Per-question results", ""])
     for record in records:
         evaluation = record["evaluation"]
+        retrieved_units = list(
+            dict.fromkeys(unit for group in record["retrieved_semantic_units"] for unit in group)
+        )
         lines.extend(
             [
                 f"### {record['question_id']} - {record['question']}",
@@ -161,6 +165,7 @@ def render_retrieval_report(run: dict[str, Any], records: list[dict[str, Any]]) 
                 f"- Type / difficulty: {record['question_type']} / {record['difficulty']}",
                 f"- Required units: {', '.join(record['required_semantic_units'])}",
                 f"- Retrieved chunks: {', '.join(record['retrieved_chunk_ids'])}",
+                f"- Retrieved semantic units: {', '.join(retrieved_units)}",
                 f"- Scores: {', '.join(f'{score:.6f}' for score in record['retrieval_scores'])}",
                 f"- First relevant rank: {evaluation['first_relevant_rank'] if evaluation['first_relevant_rank'] is not None else 'not retrieved'}",
                 f"- Evidence coverage@{max(top_k_values)}: {evaluation['coverage_at_k'][str(max(top_k_values))]:.3f}",
