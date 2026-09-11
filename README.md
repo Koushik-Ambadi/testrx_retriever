@@ -1,7 +1,8 @@
 # TESTRX Retriever
 
-Phase 1 converts the TESTRX User Manual PDF into a faithful, inspectable,
-provenance-preserving canonical representation.
+The project converts the TESTRX User Manual PDF into a faithful canonical
+representation, a source-grounded golden dataset, and a reproducible baseline
+vector retriever.
 
 ## Current boundary
 
@@ -16,13 +17,16 @@ Included:
 - Repeated boilerplate classification.
 - Cross-page logical continuity.
 - Canonical JSON, human semantic view, validation, warnings, and page inventory.
+- Deterministic 500-token chunks with 50-token overlap and source lineage.
+- One local hashing embedder, exact cosine index, top-K retrieval, and golden-set
+  evaluation.
 
 Explicitly excluded:
 
 - OCR or screenshot interpretation.
-- Chunking or token splitting. The golden dataset is deliberately independent
-  of any final chunking policy.
-- Embeddings, vector databases, retrieval, reranking, and generation.
+- Alternative or semantic chunkers, embedding models, and retrievers.
+- BM25, hybrid retrieval, reranking, query rewriting, and multi-query retrieval.
+- Answer generation and LLM-based evaluation.
 - A service or API layer.
 
 ## Source
@@ -35,6 +39,7 @@ in `source/README.md`. The original Downloads copy is not modified.
 ```powershell
 python -m pip install -e .
 python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output
+python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
 ```
 
 Run tests with the standard library:
@@ -55,6 +60,11 @@ python -m unittest discover -s tests -v
 - `output/golden_dataset/golden_dataset_report.md`: distribution statistics.
 - `output/golden_dataset/source_coverage_report.md`: represented and missing areas.
 - `output/golden_dataset/quality_control_report.md`: PDF lineage and review findings.
+- `output/retrieval_baseline/run_config.json`: resolved run configuration and source identity.
+- `output/retrieval_baseline/chunks/chunks.jsonl`: deterministic baseline chunks.
+- `output/retrieval_baseline/index/`: chunk-to-vector mapping and embeddings.
+- `output/retrieval_baseline/evaluation/`: raw results, metrics, and report.
+- `output/retrieval_baseline/manifest.json`: artifact SHA-256 checksums.
 
 Generate and validate the benchmark:
 
@@ -83,16 +93,18 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/progress.md`: chronological implementation and verification record.
 - `docs/limitations.md`: known limitations and intentionally deferred work.
 - `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
+- `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
 
 ## Repository map
 
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
+├── configs/                   versioned baseline run configuration
 ├── docs/                      intent, decisions, design, progress, operations
-├── src/testrx_retriever/      parser implementation
-├── tests/                     source-specific and generic regression tests
-├── output/                    five generated parsing artifacts
+├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
+├── tests/                     parser, dataset, retrieval, and determinism tests
+├── output/                    generated parsing, golden, and baseline artifacts
 ├── tmp/                       ignored render/verification intermediates
 ├── pyproject.toml             package metadata and dependency contract
 └── README.md                  project entry point
@@ -100,7 +112,6 @@ testrx_retriever/
 
 ## Current review state
 
-Parsing implementation is complete. The five 16.2.2 interface groups now own
-their text, lists, and figures. Validation has no failures. A 132-question
-retrieval benchmark is available before chunking begins. Chunking remains a
-separate next phase and is not implemented here.
+The parser and 132-question golden dataset remain unchanged. The reproducible
+baseline produces 22 chunks and evaluates exact cosine retrieval at K=1, 3, 5,
+and 10. This baseline is a reference point, not an optimized retriever.

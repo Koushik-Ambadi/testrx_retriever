@@ -93,4 +93,23 @@ Status: implemented and verified on 2026-09-09.
 7. Keep the seed set fixed during initial chunking comparisons.
 8. Add a separately versioned targeted wave only after retrieval failure analysis.
 
-Chunking, embeddings, and retrieval remain the next implementation phase.
+At the Phase 2A close, chunking, embeddings, and retrieval were the next
+implementation phase. Phase 2B below records their baseline implementation.
+
+## Phase 2B - Baseline chunking and retrieval
+
+Status: implemented and verified on 2026-09-11.
+
+1. Freeze the existing golden dataset and consume the canonical document.
+2. Flatten source content deterministically while retaining recursive lineage.
+3. Build 500-token windows with 50-token overlap using a pinned tokenizer.
+4. Encode chunks and unchanged queries with one local deterministic embedder.
+5. Build an exact cosine index and return ranked chunks, scores, and metadata.
+6. Evaluate strict Recall@1/3/5/10, semantic-unit coverage, and MRR.
+7. Persist run configuration, chunks, index, raw results, metrics, report, and
+   checksum manifest.
+8. Verify the entire output bundle is byte-identical across repeated builds.
+
+Explicitly deferred: semantic and structure-aware chunking, learned embedding
+models, BM25, hybrid retrieval, reranking, query rewriting, answer generation,
+LLM judging, and experiment orchestration.

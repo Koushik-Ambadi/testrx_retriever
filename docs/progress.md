@@ -156,3 +156,36 @@ DECIDED
 NEXT
 - Define chunk objects, token accounting, overlap, and parent-context policy.
 - Run fixed-dataset Recall@K, MRR, and nDCG comparisons across chunkers.
+
+## 2026-09-11 - Baseline chunking and retrieval complete
+
+DONE
+- Created `feature/baseline-retriever` from the completed golden-set baseline.
+- Added a validated configuration, pinned regex tokenizer, and deterministic
+  500-token/50-overlap chunker.
+- Preserved pages, section paths, semantic ancestors, source elements, and content
+  types for every chunk.
+- Added one 4,096-dimensional local word/bigram hashing embedder and exact cosine
+  index with deterministic tie-breaking.
+- Evaluated all 132 unchanged golden questions at K=1, 3, 5, and 10.
+- Persisted 22 chunks, embeddings, ordered chunk IDs, complete raw results,
+  aggregate metrics, a human report, resolved configuration, and checksums.
+- Added focused and integration tests, including byte-identical whole-run output.
+
+MEASURED
+- Recall@1: 0.667; Recall@3: 0.811; Recall@5: 0.879; Recall@10: 0.924.
+- MRR: 0.780; mean evidence coverage@10: 0.933.
+- Complete required evidence at K=10: 122 of 132 questions.
+- Failures: 8 with no required unit retrieved and 2 with incomplete multi-unit
+  evidence.
+
+DECIDED
+- Accept this as a deliberately lexical and structure-unaware comparison point.
+- Keep metric definitions, golden data, and K values fixed for the first strategy
+  comparisons.
+- Inspect raw failures before designing the next chunker or embedder.
+
+NEXT
+- Review the ten K=10 failures and label likely chunking versus lexical retrieval
+  symptoms without changing the baseline.
+- Design the first alternative chunking experiment as a separate phase and branch.

@@ -40,6 +40,30 @@ Open review item:
   to warrant product-owner confirmation before using that single question as a
   strict behavioral oracle.
 
+## Baseline retrieval review - 2026-09-11
+
+Status: **baseline gate passed.**
+
+- Existing parser and golden-set schemas were not redesigned.
+- 22 deterministic chunks were generated at 500 tokens with 50-token overlap.
+- All chunk IDs and ordered records are content/configuration derived.
+- Recursive semantic ownership, source elements, pages, paths, and content types
+  survive chunking.
+- One versioned 4,096-dimensional local hashing embedder is used for chunks and
+  unchanged queries.
+- Exact cosine retrieval returns rank, score, text, and metadata.
+- Evaluation records strict Recall@1/3/5/10, semantic-unit coverage, MRR, raw
+  top-10 results, and simple failure groups.
+- Full output bundles are byte-identical in the integration test.
+- 36 parser, dataset, chunking, retrieval, evaluation, and integration tests pass.
+
+Measured baseline:
+- Recall@1 0.667; Recall@3 0.811; Recall@5 0.879; Recall@10 0.924.
+- MRR 0.780; mean evidence coverage@10 0.933.
+- 122 of 132 questions retrieve every required unit by K=10.
+
+This is accepted as the comparison reference, not as an optimal design.
+
 Date: 2026-09-03
 
 Rule:

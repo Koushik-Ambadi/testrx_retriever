@@ -11,7 +11,10 @@ source PDF
   -> canonical document
   -> document + semantic inspection + validation + warnings + inventory
   -> chunking-independent golden evaluation dataset
-  -> retrieval experiments (future)
+  -> baseline token windows
+  -> deterministic hashing embeddings
+  -> exact cosine index
+  -> golden retrieval evaluation
 ```
 
 The physical and logical views coexist. Logical cleanup never destroys the
@@ -28,6 +31,13 @@ evidence needed to trace an element back to a source page and bounding box.
 - `validation.py`: measurable invariants and document-specific regression checks.
 - `inspection.py`: recursive element walk, warning collection, readable renderer.
 - `cli.py`: one parsing command; no service layer.
+- `baseline_config.py`: validated, versioned baseline configuration.
+- `tokenization.py`: pinned token boundary definition.
+- `chunking.py`: source-order flattening and fixed token windows.
+- `embedding.py`: deterministic local word/bigram feature hashing.
+- `vector_index.py`: exact in-memory cosine index and ranked results.
+- `evaluation.py`: lineage metrics and report rendering.
+- `baseline.py`: baseline build/evaluation orchestration and artifact writing.
 
 ## Physical model
 
@@ -81,9 +91,27 @@ generic invariants because this project targets one source manual in Phase 1.
 
 ## Phase state
 
-Parsing corrections and a source-grounded seed evaluation dataset are implemented
-and verified. Chunking is intentionally absent and begins only as the next agreed
-phase.
+Parsing corrections, a source-grounded seed dataset, and the first baseline
+retriever are implemented and verified. Advanced chunking and retrieval remain
+separate future phases.
+
+## Baseline component boundaries
+
+The baseline follows one-way dependencies:
+
+```text
+BaselineConfig -> TokenChunker -> StableHashingEmbedder
+               -> ExactVectorIndex -> Evaluator -> Artifacts
+```
+
+The chunker accepts a canonical document dictionary. The index accepts chunks
+and owns the single configured embedder. The evaluator depends only on a small
+`retrieve(query, top_k)` protocol and source-lineage metadata. These boundaries
+allow later replacements without implementing alternatives prematurely.
+
+The persisted index is a deterministic `.npy` matrix plus ordered chunk IDs. The
+full chunk records are stored once under `chunks/`; the IDs map vector rows back
+to those records.
 
 ## Golden dataset layer
 

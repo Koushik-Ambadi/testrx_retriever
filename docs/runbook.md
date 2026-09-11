@@ -73,8 +73,9 @@ Do not overwrite the approved source silently.
 
 ## Phase boundary
 
-Parsing and the chunking-independent golden seed are complete. Chunking must begin
-as a separately planned phase; do not add it to this parser by convenience.
+Parsing and the chunking-independent golden seed are complete. The token baseline
+is a separate module and command; do not add chunking behavior to the parser by
+convenience.
 
 ## Golden dataset operation
 
@@ -104,8 +105,35 @@ Review in this order:
 Do not silently renumber existing question IDs after the seed is used in an
 experiment. Append a new wave or version the dataset when semantics change.
 
+## Baseline retrieval operation
+
+Build and evaluate from the project root:
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
+python -m unittest discover -s tests -v
+```
+
+Review in this order:
+
+1. Confirm `run_config.json` contains the intended source hash, golden-set hash,
+   tokenizer, chunk settings, embedding version, dimension, and K values.
+2. Inspect `chunks/chunks.jsonl` for count, token sizes, overlap, ordering, and
+   source lineage.
+3. Confirm `index/chunk_ids.json` order matches the chunk order and embedding row
+   count.
+4. Read `evaluation/retrieval_metrics.json` and then the human report.
+5. Inspect every failed question in `retrieval_results.jsonl` before proposing a
+   later strategy.
+6. Verify every checksum in `manifest.json` when artifacts are transferred.
+
+The build has no timestamp and no random state. Repeating it with identical input,
+configuration, Python, and NumPy must produce byte-identical artifacts. The
+integration test enforces this for the complete bundle.
+
 ## Freeze gate
 
-Verdict: **Parsing gate passed. Ready to design chunking.**
+Verdict: **Parsing, golden dataset, and baseline retrieval gates passed.**
 
-See `docs/review.md` for the original findings and their resolution.
+See `docs/review.md` for each phase's findings and resolution.

@@ -486,3 +486,77 @@ Decision:
 
 Status:
 - Accepted. Seed contains 132 questions.
+
+---
+
+## O025 - Baseline chunking is a fixed token window
+
+Observation:
+- The first measurement needs a deliberately simple reference that does not
+  protect semantic units by design.
+
+Decision:
+- Flatten canonical content in source order and use configurable token windows.
+- Set the initial configuration to 500 tokens with 50-token overlap.
+- Permit windows to cross elements, semantic units, sections, and pages while
+  preserving every contributor in metadata.
+
+Status:
+- Accepted. Implemented 2026-09-11.
+
+---
+
+## O026 - Token boundaries and chunk IDs are versioned
+
+Decision:
+- Use `testrx_regex_tokenizer` version `1.0` with an explicit regex contract.
+- Derive chunk IDs from source checksum, tokenizer identity, chunk configuration,
+  chunk index, and exact text.
+- Do not use timestamps, random UUIDs, or object identity.
+
+Status:
+- Accepted. Implemented and reproducibility tested.
+
+---
+
+## O027 - The first embedder has no external model state
+
+Observation:
+- A downloaded neural model introduces network, cache, revision, and platform
+  dependencies before the baseline measurement exists.
+
+Decision:
+- Use one local signed word-and-bigram hashing embedder, version `1.0`, with 4,096
+  dimensions.
+- Record Python and NumPy versions and do not silently substitute another model.
+- Accept lexical weakness as a documented baseline limitation.
+
+Status:
+- Accepted. Implemented 2026-09-11.
+
+---
+
+## O028 - Retrieval metrics use lineage, not chunk IDs
+
+Decision:
+- Match retrieved chunk metadata to golden required semantic/source element IDs.
+- Define Recall@K strictly: every required unit must be present for the question
+  to count as recalled.
+- Report mean semantic-unit coverage separately and calculate MRR from the first
+  chunk containing any required unit.
+
+Status:
+- Accepted. Implemented for K=1, 3, 5, and 10.
+
+---
+
+## O029 - Baseline artifacts are grouped and checksummed
+
+Decision:
+- Separate resolved run configuration, chunks, index, and evaluation artifacts.
+- Persist raw top-10 results with full metadata for failure inspection.
+- Generate a SHA-256 manifest without timestamps.
+- Commit the measured baseline separately from implementation and documentation.
+
+Status:
+- Accepted. Implemented 2026-09-11.

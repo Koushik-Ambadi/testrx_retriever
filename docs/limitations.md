@@ -58,3 +58,20 @@
   confusing neighboring concept. They are not exhaustive.
 - The seed does not encode final chunks, embedding-model assumptions, or ranking
   thresholds.
+
+## Baseline retrieval limitations
+
+- Token windows deliberately ignore semantic boundaries and can split procedures,
+  tables, and sections or combine unrelated units.
+- The hashing embedder is lexical and has no learned semantic relationships. Its
+  signed feature collisions can produce small negative cosine scores.
+- Only one embedder and exact vector retriever are implemented.
+- The in-memory index is suitable for this 22-chunk corpus, not large-scale use.
+- Retrieval evaluates source-unit presence, not whether the exact required text
+  span is completely contained in one chunk.
+- Recall@K is strict for multi-unit questions; MRR uses the first partial evidence
+  hit. These definitions must remain fixed in comparisons.
+- The baseline has no query rewriting, hybrid matching, reranking, parent-child
+  retrieval, answer generation, or answer evaluation.
+- Raw top-10 results repeat full chunk text for inspectability and are larger than
+  a normalized production result store.

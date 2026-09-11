@@ -141,3 +141,32 @@ line contains:
 The flat CSV uses the same fields. Lists are serialized with `|`; multiple
 section paths and evidence strings use ` || `. Boolean flags remain explicit.
 No chunk IDs exist because the benchmark precedes chunk-policy selection.
+
+## Baseline chunk schema
+
+`output/retrieval_baseline/chunks/chunks.jsonl` contains one record per token
+window:
+
+- deterministic `chunk_id`, zero-based `chunk_index`, and `document_id`;
+- exact chunk `text`, `token_count`, `token_start`, and exclusive `token_end`;
+- inclusive `page_start` and `page_end`;
+- first `section_path` plus all contributing `section_paths`;
+- contributing `semantic_unit_ids` and `source_element_ids`;
+- contributing `content_types`.
+
+Recursive child elements include their semantic ancestor IDs. Source element IDs
+identify the elements whose text directly contributed to the chunk.
+
+## Baseline retrieval schema
+
+`evaluation/retrieval_results.jsonl` records the unchanged question, required
+semantic units, ranked chunks with scores and complete metadata, retrieved IDs,
+and the per-question evaluation. Coverage and completion are keyed by K.
+
+`evaluation/retrieval_metrics.json` contains dataset size, strict Recall@K,
+semantic-unit recall@K, MRR, mean evidence coverage at the maximum K, pass/fail
+counts, and simple failure categories.
+
+`run_config.json` records source and golden-set hashes, resolved configuration,
+runtime versions, and chunk count. `manifest.json` records SHA-256 for every other
+baseline artifact.
