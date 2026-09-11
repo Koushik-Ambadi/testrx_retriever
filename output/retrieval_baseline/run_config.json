@@ -1,0 +1,39 @@
+{
+  "chunk_count": 22,
+  "configuration": {
+    "chunking": {
+      "chunk_overlap": 50,
+      "chunk_size": 500,
+      "strategy": "token_window"
+    },
+    "document_path": "output/document.json",
+    "embedding": {
+      "dimension": 4096,
+      "model": "stable_hashing_word_bigram",
+      "model_version": "1.0"
+    },
+    "golden_dataset_path": "output/golden_dataset/golden_dataset.jsonl",
+    "output_directory": "output/retrieval_baseline",
+    "retrieval": {
+      "algorithm": "cosine_similarity_exact",
+      "top_k": [
+        1,
+        3,
+        5,
+        10
+      ]
+    },
+    "schema_version": "1.0",
+    "tokenizer": {
+      "name": "testrx_regex_tokenizer",
+      "version": "1.0"
+    }
+  },
+  "document_source_sha256": "9CC50B1955AB92884CB0C1AA1A1B6ED437BDBD419962A2FDC6818B4D17073B99",
+  "golden_dataset_sha256": "5DD366C8B5948C06542B53038F93D4A0569219C8628A52B8C3657D128BF8A7D5",
+  "runtime": {
+    "numpy": "2.3.5",
+    "python": "3.12.14"
+  },
+  "schema_version": "1.0"
+}

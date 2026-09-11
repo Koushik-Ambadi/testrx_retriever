@@ -1,0 +1,1357 @@
+# TESTRX Baseline Retrieval Report
+
+## Overall
+
+- Dataset size: 132
+- Chunk count: 22
+- Chunking: token_window (500 tokens, 50 overlap)
+- Tokenizer: testrx_regex_tokenizer 1.0
+- Embedding model: stable_hashing_word_bigram 1.0
+- Embedding dimension: 4096
+- Retriever: cosine_similarity_exact
+- Recall@1: 0.667
+- Recall@3: 0.811
+- Recall@5: 0.879
+- Recall@10: 0.924
+- MRR: 0.780
+- Mean evidence coverage@10: 0.933
+- Complete questions@10: 122 of 132
+
+Recall@K is strict: a multi-unit question counts only when every required source unit appears by K. Semantic-unit recall reports mean required-unit coverage.
+
+## Failure analysis
+
+- multi_unit_evidence_incomplete: 2
+- required_evidence_not_retrieved: 8
+
+## Per-question results
+
+### Q001 - What does TESTRX stand for?
+
+- Type / difficulty: definition / easy
+- Required units: section-1.1-element-001
+- Retrieved chunks: CH-00012-dd45b31a2dac0184, CH-00014-3c110d7f912469ed, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71, CH-00009-a17188f59ff3dce2, CH-00011-df739ca95bb6e91b, CH-00013-1c4cce646bd4c003, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de
+- Scores: 0.004373, 0.003589, 0.000000, -0.003393, -0.004032, -0.009091, -0.010593, -0.011448, -0.013226, -0.014658
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q002 - What parts of the automotive testing workflow does TESTRX support?
+
+- Type / difficulty: factual / medium
+- Required units: section-2.1-element-001, section-2.1-element-002
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00013-1c4cce646bd4c003, CH-00004-670ce4ee2c267a8a, CH-00014-3c110d7f912469ed, CH-00008-83efb1c9415ce8d4, CH-00006-ef27d2beb598f8c4, CH-00009-a17188f59ff3dce2, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00021-2bf48cb9c4186d25
+- Scores: 0.174648, 0.141378, 0.130718, 0.127583, 0.120951, 0.119967, 0.113794, 0.107443, 0.103949, 0.089870
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q003 - Which testing environments does TESTRX support?
+
+- Type / difficulty: factual / easy
+- Required units: section-2.1-element-002
+- Retrieved chunks: CH-00003-c2b6a1015d5fdac2, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00014-3c110d7f912469ed, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00013-1c4cce646bd4c003, CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184, CH-00000-41497a9164b8523a
+- Scores: -0.003056, -0.008411, -0.008802, -0.008892, -0.010898, -0.012545, -0.015073, -0.019954, -0.021667, -0.025841
+- First relevant rank: 10
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q004 - What happens if TESTRX installation fails?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-3-element-001
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00017-f8221f543a586580, CH-00012-dd45b31a2dac0184, CH-00005-874e86f6a3e387b2, CH-00013-1c4cce646bd4c003, CH-00007-f9fa2446cf057613, CH-00008-83efb1c9415ce8d4, CH-00002-24df62d99d0f8293, CH-00014-3c110d7f912469ed
+- Scores: 0.056467, 0.037589, 0.031702, 0.021667, 0.020380, 0.017453, 0.017360, 0.015754, 0.015420, 0.012934
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q005 - How can TESTRX be uninstalled from Windows?
+
+- Type / difficulty: procedure / medium
+- Required units: section-3.2-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00016-55ca763dab51f472, CH-00018-258a2d8a298298bf, CH-00006-ef27d2beb598f8c4, CH-00020-87f63ce2d78498cb, CH-00012-dd45b31a2dac0184, CH-00008-83efb1c9415ce8d4, CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00021-2bf48cb9c4186d25
+- Scores: 0.047775, 0.037088, 0.033334, 0.033179, 0.032066, 0.031620, 0.028903, 0.028381, 0.026695, 0.026465
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q006 - What happens if TESTRX uninstallation fails?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-3.2-element-001
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00017-f8221f543a586580, CH-00014-3c110d7f912469ed, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00005-874e86f6a3e387b2, CH-00008-83efb1c9415ce8d4, CH-00002-24df62d99d0f8293, CH-00016-55ca763dab51f472
+- Scores: 0.044025, 0.037589, 0.021691, 0.019401, 0.018017, 0.017360, 0.016559, 0.015754, 0.015420, 0.012865
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q007 - How can a workspace location be chosen on first launch?
+
+- Type / difficulty: procedure / easy
+- Required units: section-4.1-element-001, section-4.1-element-003
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00012-dd45b31a2dac0184, CH-00021-2bf48cb9c4186d25, CH-00007-f9fa2446cf057613, CH-00013-1c4cce646bd4c003, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00010-5af4d13df37844de
+- Scores: 0.099014, 0.064703, 0.058098, 0.053094, 0.050321, 0.048909, 0.047825, 0.047635, 0.044429, 0.044374
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q008 - What happens when Cancel is selected in the first-launch workspace window?
+
+- Type / difficulty: factual / easy
+- Required units: section-4.1-element-001
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00006-ef27d2beb598f8c4, CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00013-1c4cce646bd4c003, CH-00000-41497a9164b8523a, CH-00019-1554d75458c00e71, CH-00011-df739ca95bb6e91b, CH-00008-83efb1c9415ce8d4
+- Scores: 0.204187, 0.198481, 0.180195, 0.179926, 0.175716, 0.171347, 0.170321, 0.162484, 0.157506, 0.153246
+- First relevant rank: 7
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q009 - What does TESTRX create after a workspace location is confirmed?
+
+- Type / difficulty: factual / easy
+- Required units: section-4.1-element-003
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00014-3c110d7f912469ed, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00002-24df62d99d0f8293, CH-00019-1554d75458c00e71, CH-00013-1c4cce646bd4c003
+- Scores: 0.067214, 0.054330, 0.040904, 0.039580, 0.037012, 0.033233, 0.032889, 0.032286, 0.032004, 0.028755
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q010 - Which main areas appear on the TESTRX Home screen?
+
+- Type / difficulty: figure / medium
+- Required units: section-5-element-001
+- Retrieved chunks: CH-00001-09af6501ca61bf5c, CH-00000-41497a9164b8523a, CH-00021-2bf48cb9c4186d25, CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00004-670ce4ee2c267a8a, CH-00014-3c110d7f912469ed, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b
+- Scores: 0.175807, 0.158354, 0.157581, 0.149011, 0.131576, 0.123581, 0.119601, 0.113721, 0.112633, 0.106792
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q011 - What is the difference between the Test Case and Test Session tabs?
+
+- Type / difficulty: comparison / medium
+- Required units: section-5-element-003
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00010-5af4d13df37844de, CH-00019-1554d75458c00e71, CH-00001-09af6501ca61bf5c, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00007-f9fa2446cf057613, CH-00021-2bf48cb9c4186d25
+- Scores: 0.524278, 0.461361, 0.454574, 0.414712, 0.404949, 0.393711, 0.386645, 0.370605, 0.362008, 0.344918
+- First relevant rank: 4
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q012 - What does the Project Navigator show for the Test Case role versus the Test Session role?
+
+- Type / difficulty: comparison / medium
+- Required units: section-6-element-001, section-6-element-002
+- Retrieved chunks: CH-00001-09af6501ca61bf5c, CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00003-c2b6a1015d5fdac2, CH-00009-a17188f59ff3dce2, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2
+- Scores: 0.486882, 0.472616, 0.460524, 0.423766, 0.390049, 0.383161, 0.370177, 0.343301, 0.316978, 0.316798
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q013 - How do you expand and collapse the Project Navigator?
+
+- Type / difficulty: procedure / easy
+- Required units: section-6.1-element-001
+- Retrieved chunks: CH-00001-09af6501ca61bf5c, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00020-87f63ce2d78498cb, CH-00009-a17188f59ff3dce2, CH-00017-f8221f543a586580, CH-00021-2bf48cb9c4186d25
+- Scores: 0.335468, 0.198489, 0.177057, 0.172888, 0.170632, 0.152181, 0.142881, 0.136158, 0.131366, 0.130677
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q014 - How does hovering over a navigator tab differ from clicking it?
+
+- Type / difficulty: multi-section / hard
+- Required units: section-6.1-element-001, section-6.2-element-001
+- Retrieved chunks: CH-00001-09af6501ca61bf5c, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580, CH-00014-3c110d7f912469ed, CH-00021-2bf48cb9c4186d25
+- Scores: 0.068716, 0.065018, 0.047602, 0.040824, 0.035791, 0.032898, 0.031280, 0.028735, 0.023783, 0.023291
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q015 - What does pinning the Project Navigator do?
+
+- Type / difficulty: factual / easy
+- Required units: section-6.3-element-001
+- Retrieved chunks: CH-00001-09af6501ca61bf5c, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00019-1554d75458c00e71, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4, CH-00002-24df62d99d0f8293
+- Scores: 0.287546, 0.199056, 0.165518, 0.133898, 0.132220, 0.109747, 0.106632, 0.104743, 0.096344, 0.094513
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q016 - What happens when a Project Navigator node is double-clicked?
+
+- Type / difficulty: factual / easy
+- Required units: section-6.4-element-001
+- Retrieved chunks: CH-00003-c2b6a1015d5fdac2, CH-00001-09af6501ca61bf5c, CH-00004-670ce4ee2c267a8a, CH-00002-24df62d99d0f8293, CH-00014-3c110d7f912469ed, CH-00010-5af4d13df37844de, CH-00019-1554d75458c00e71, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00013-1c4cce646bd4c003
+- Scores: 0.175891, 0.173415, 0.089701, 0.086276, 0.067199, 0.065440, 0.061943, 0.061723, 0.055844, 0.055800
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q017 - Which File menu command saves pending changes in every open test-case tab?
+
+- Type / difficulty: table / easy
+- Required units: table_1
+- Retrieved chunks: CH-00002-24df62d99d0f8293, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00021-2bf48cb9c4186d25, CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00005-874e86f6a3e387b2, CH-00001-09af6501ca61bf5c, CH-00018-258a2d8a298298bf
+- Scores: 0.102763, 0.056109, 0.053449, 0.049416, 0.048476, 0.047440, 0.044725, 0.044070, 0.038442, 0.037345
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q018 - Which menu command exports a selected Test Suite or Test Case to Excel?
+
+- Type / difficulty: table / easy
+- Required units: table_1
+- Retrieved chunks: CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00003-c2b6a1015d5fdac2, CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00007-f9fa2446cf057613, CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00001-09af6501ca61bf5c
+- Scores: 0.564576, 0.524470, 0.428604, 0.411663, 0.350589, 0.304480, 0.289672, 0.288491, 0.272515, 0.254757
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q019 - How do you open the folder associated with a selected node?
+
+- Type / difficulty: table / medium
+- Required units: table_1
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00001-09af6501ca61bf5c, CH-00006-ef27d2beb598f8c4, CH-00017-f8221f543a586580, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b, CH-00013-1c4cce646bd4c003, CH-00021-2bf48cb9c4186d25, CH-00000-41497a9164b8523a
+- Scores: 0.168076, 0.160682, 0.153001, 0.146570, 0.141881, 0.141313, 0.139452, 0.132068, 0.131981, 0.130488
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q020 - Which menu command opens the current workspace location?
+
+- Type / difficulty: table / medium
+- Required units: table_1
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00001-09af6501ca61bf5c, CH-00008-83efb1c9415ce8d4, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00003-c2b6a1015d5fdac2
+- Scores: 0.171288, 0.153471, 0.149364, 0.146007, 0.140232, 0.136790, 0.128147, 0.124955, 0.119447, 0.115259
+- First relevant rank: 6
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q021 - Which File menu command sends a Test Suite or Test Case to ALM?
+
+- Type / difficulty: table / medium
+- Required units: table_1
+- Retrieved chunks: CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00015-c57311a9957c6132, CH-00007-f9fa2446cf057613, CH-00019-1554d75458c00e71, CH-00001-09af6501ca61bf5c
+- Scores: 0.539473, 0.432441, 0.409785, 0.404963, 0.351142, 0.335533, 0.309488, 0.273693, 0.239399, 0.233493
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q022 - Which Help menu functions are marked as future scope?
+
+- Type / difficulty: table / medium
+- Required units: table_1
+- Retrieved chunks: CH-00003-c2b6a1015d5fdac2, CH-00002-24df62d99d0f8293, CH-00001-09af6501ca61bf5c, CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00011-df739ca95bb6e91b, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613, CH-00005-874e86f6a3e387b2, CH-00008-83efb1c9415ce8d4
+- Scores: 0.107489, 0.088517, 0.028703, 0.025331, 0.023061, 0.022190, 0.021106, 0.020814, 0.019853, 0.018889
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q023 - What is the hierarchy of content in the Test Case Repository?
+
+- Type / difficulty: figure / medium
+- Required units: section-8-element-001
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00009-a17188f59ff3dce2, CH-00015-c57311a9957c6132, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613, CH-00002-24df62d99d0f8293, CH-00001-09af6501ca61bf5c, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25
+- Scores: 0.476056, 0.416059, 0.373359, 0.372108, 0.365066, 0.354574, 0.347870, 0.343149, 0.337390, 0.330997
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q024 - What must exist before test cases can be authored in TESTRX?
+
+- Type / difficulty: factual / medium
+- Required units: section-9-element-001
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00007-f9fa2446cf057613, CH-00019-1554d75458c00e71, CH-00003-c2b6a1015d5fdac2, CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00018-258a2d8a298298bf, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de
+- Scores: 0.220743, 0.151077, 0.138901, 0.123384, 0.121172, 0.118365, 0.112636, 0.109520, 0.104112, 0.103284
+- First relevant rank: 5
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q025 - How do you start creating a project from the File menu?
+
+- Type / difficulty: procedure / easy
+- Required units: section-9-element-002, section-9-element-003
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c, CH-00003-c2b6a1015d5fdac2, CH-00020-87f63ce2d78498cb, CH-00017-f8221f543a586580, CH-00002-24df62d99d0f8293, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a
+- Scores: 0.195109, 0.184231, 0.175271, 0.174474, 0.167229, 0.148226, 0.141881, 0.138313, 0.135597, 0.125681
+- First relevant rank: 5
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q026 - Which project context-menu option restores a closed test suite?
+
+- Type / difficulty: table / medium
+- Required units: table_2
+- Retrieved chunks: CH-00003-c2b6a1015d5fdac2, CH-00005-874e86f6a3e387b2, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00015-c57311a9957c6132, CH-00010-5af4d13df37844de, CH-00007-f9fa2446cf057613, CH-00001-09af6501ca61bf5c, CH-00019-1554d75458c00e71
+- Scores: 0.332850, 0.317651, 0.238660, 0.232753, 0.189238, 0.175372, 0.144600, 0.143619, 0.142918, 0.097753
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q027 - What information is shown for Test Suites and Test Cases in the Overview panel?
+
+- Type / difficulty: factual / medium
+- Required units: section-9.1.1-element-003
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00019-1554d75458c00e71, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00001-09af6501ca61bf5c, CH-00005-874e86f6a3e387b2, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613
+- Scores: 0.396276, 0.367897, 0.310264, 0.302895, 0.297825, 0.290544, 0.276042, 0.269911, 0.267649, 0.251891
+- First relevant rank: 9
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q028 - How do you view details for a Project, Test Suite, Test Case, or Heading?
+
+- Type / difficulty: table / easy
+- Required units: table_3
+- Retrieved chunks: CH-00003-c2b6a1015d5fdac2, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00007-f9fa2446cf057613, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00001-09af6501ca61bf5c, CH-00019-1554d75458c00e71
+- Scores: 0.420342, 0.405924, 0.396718, 0.389717, 0.369236, 0.262610, 0.261507, 0.252623, 0.229571, 0.222792
+- First relevant rank: 3
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q029 - Which Details-tab fields identify when and by whom an item was changed?
+
+- Type / difficulty: factual / easy
+- Required units: section-9.1.2-element-003
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b, CH-00004-670ce4ee2c267a8a, CH-00016-55ca763dab51f472, CH-00020-87f63ce2d78498cb, CH-00021-2bf48cb9c4186d25, CH-00018-258a2d8a298298bf, CH-00013-1c4cce646bd4c003, CH-00017-f8221f543a586580, CH-00001-09af6501ca61bf5c
+- Scores: 0.111470, 0.077865, 0.062313, 0.050364, 0.048988, 0.041180, 0.039834, 0.039132, 0.038295, 0.037929
+- First relevant rank: 3
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q030 - What are the two ways to create a Test Suite?
+
+- Type / difficulty: procedure / medium
+- Required units: section-10-element-001, section-10-element-002
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00001-09af6501ca61bf5c, CH-00018-258a2d8a298298bf, CH-00008-83efb1c9415ce8d4
+- Scores: 0.413603, 0.341197, 0.301768, 0.286103, 0.283174, 0.274169, 0.246799, 0.236148, 0.231879, 0.228022
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q031 - What database file types can be added from the Signia sub-tab of a Test Suite?
+
+- Type / difficulty: configuration / medium
+- Required units: section-10.1-element-002
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00006-ef27d2beb598f8c4, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00002-24df62d99d0f8293, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00008-83efb1c9415ce8d4
+- Scores: 0.390228, 0.318791, 0.284131, 0.256424, 0.238637, 0.233859, 0.232752, 0.228456, 0.228392, 0.211634
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q032 - Which Test Suite sub-tab lists parameters used during test-case authoring?
+
+- Type / difficulty: factual / easy
+- Required units: section-10.1-element-002
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00002-24df62d99d0f8293, CH-00007-f9fa2446cf057613, CH-00020-87f63ce2d78498cb, CH-00015-c57311a9957c6132, CH-00010-5af4d13df37844de, CH-00018-258a2d8a298298bf, CH-00008-83efb1c9415ce8d4
+- Scores: 0.298660, 0.212334, 0.180569, 0.174135, 0.165182, 0.139187, 0.134084, 0.106697, 0.088498, 0.086582
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q033 - Which Test Suite context-menu action creates a ZIP file for reuse?
+
+- Type / difficulty: table / easy
+- Required units: table_4
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00010-5af4d13df37844de, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00007-f9fa2446cf057613, CH-00012-dd45b31a2dac0184, CH-00017-f8221f543a586580
+- Scores: 0.332246, 0.249969, 0.243990, 0.201061, 0.164876, 0.154601, 0.152217, 0.143261, 0.130742, 0.126316
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q034 - How can a Test Suite be opened from the Project Summary table?
+
+- Type / difficulty: procedure / medium
+- Required units: section-10.3-element-001, section-10.3-element-003
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00001-09af6501ca61bf5c, CH-00002-24df62d99d0f8293, CH-00007-f9fa2446cf057613, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4
+- Scores: 0.406663, 0.346025, 0.337195, 0.271194, 0.269978, 0.266529, 0.260269, 0.231337, 0.219387, 0.203878
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q035 - What are the upper and lower panels of the Signia tab used for?
+
+- Type / difficulty: configuration / medium
+- Required units: section-11-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00013-1c4cce646bd4c003, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00009-a17188f59ff3dce2, CH-00000-41497a9164b8523a, CH-00021-2bf48cb9c4186d25, CH-00001-09af6501ca61bf5c
+- Scores: 0.379068, 0.302691, 0.281763, 0.266403, 0.259142, 0.257636, 0.257178, 0.252091, 0.238824, 0.238767
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q036 - Which signal attributes are shown in the Signia Signals sub-tab?
+
+- Type / difficulty: factual / easy
+- Required units: section-11-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00018-258a2d8a298298bf, CH-00017-f8221f543a586580, CH-00019-1554d75458c00e71, CH-00016-55ca763dab51f472, CH-00005-874e86f6a3e387b2, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25
+- Scores: 0.223867, 0.164506, 0.152727, 0.148869, 0.137338, 0.134872, 0.133923, 0.133699, 0.132848, 0.127996
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q037 - How do you import a database file into Signia?
+
+- Type / difficulty: procedure / medium
+- Required units: section-11.1-element-001, section-11.1-element-003
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00005-874e86f6a3e387b2, CH-00009-a17188f59ff3dce2, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00018-258a2d8a298298bf, CH-00012-dd45b31a2dac0184, CH-00017-f8221f543a586580, CH-00020-87f63ce2d78498cb, CH-00016-55ca763dab51f472
+- Scores: 0.191607, 0.079922, 0.068734, 0.066668, 0.059107, 0.058818, 0.056678, 0.044678, 0.036832, 0.034520
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q038 - What does Reload do to an existing Signia database?
+
+- Type / difficulty: configuration / easy
+- Required units: section-11.1-element-003
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00012-dd45b31a2dac0184, CH-00005-874e86f6a3e387b2, CH-00019-1554d75458c00e71, CH-00009-a17188f59ff3dce2, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2
+- Scores: 0.048185, 0.048019, 0.030543, 0.019357, 0.017674, 0.015256, 0.013337, 0.011610, 0.008964, 0.007940
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q039 - How do Delete and Force Delete differ for a Signia database?
+
+- Type / difficulty: comparison / medium
+- Required units: section-11.2-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00016-55ca763dab51f472, CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00017-f8221f543a586580, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2, CH-00010-5af4d13df37844de, CH-00001-09af6501ca61bf5c
+- Scores: 0.145842, 0.092238, 0.084442, 0.082326, 0.078724, 0.078509, 0.074210, 0.072364, 0.068576, 0.068317
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q040 - Does deleting a database from Signia delete the original system file?
+
+- Type / difficulty: factual / medium
+- Required units: section-11.2-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00009-a17188f59ff3dce2, CH-00012-dd45b31a2dac0184, CH-00011-df739ca95bb6e91b, CH-00005-874e86f6a3e387b2, CH-00013-1c4cce646bd4c003, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00014-3c110d7f912469ed
+- Scores: 0.220873, 0.176304, 0.118021, 0.115795, 0.113338, 0.105882, 0.105513, 0.105363, 0.104215, 0.099193
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q041 - What happens if the same database is pasted back into the same Test Suite?
+
+- Type / difficulty: troubleshooting / medium
+- Required units: section-11.3-element-001
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00006-ef27d2beb598f8c4, CH-00004-670ce4ee2c267a8a, CH-00009-a17188f59ff3dce2, CH-00003-c2b6a1015d5fdac2, CH-00020-87f63ce2d78498cb, CH-00015-c57311a9957c6132, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c, CH-00007-f9fa2446cf057613
+- Scores: 0.332581, 0.296918, 0.270521, 0.251253, 0.241184, 0.233179, 0.227972, 0.226348, 0.223305, 0.214867
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q042 - What happens if an invalid database file is selected during Signia import?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-11.4-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00018-258a2d8a298298bf, CH-00014-3c110d7f912469ed, CH-00005-874e86f6a3e387b2, CH-00017-f8221f543a586580, CH-00002-24df62d99d0f8293, CH-00009-a17188f59ff3dce2, CH-00010-5af4d13df37844de, CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184
+- Scores: 0.219627, 0.079047, 0.076429, 0.069813, 0.068588, 0.055703, 0.049376, 0.047496, 0.042202, 0.039135
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q043 - What happens if exporting a Signia database fails?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-11.4-element-001
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00012-dd45b31a2dac0184, CH-00017-f8221f543a586580, CH-00005-874e86f6a3e387b2, CH-00009-a17188f59ff3dce2, CH-00010-5af4d13df37844de, CH-00018-258a2d8a298298bf, CH-00001-09af6501ca61bf5c, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b
+- Scores: 0.097313, 0.061271, 0.058302, 0.057534, 0.056535, 0.048391, 0.046454, 0.043993, 0.043263, 0.041405
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q044 - What syntax is used to substitute a parameter in a Test Case?
+
+- Type / difficulty: configuration / medium
+- Required units: section-12-element-001
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00015-c57311a9957c6132, CH-00012-dd45b31a2dac0184, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00007-f9fa2446cf057613, CH-00003-c2b6a1015d5fdac2, CH-00020-87f63ce2d78498cb, CH-00004-670ce4ee2c267a8a
+- Scores: 0.365631, 0.239434, 0.229392, 0.229327, 0.223074, 0.220556, 0.220075, 0.208507, 0.205670, 0.198201
+- First relevant rank: 7
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q045 - Where can parameters be created?
+
+- Type / difficulty: multi-section / hard
+- Required units: section-12.1-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00016-55ca763dab51f472, CH-00004-670ce4ee2c267a8a, CH-00008-83efb1c9415ce8d4, CH-00013-1c4cce646bd4c003, CH-00010-5af4d13df37844de, CH-00003-c2b6a1015d5fdac2, CH-00012-dd45b31a2dac0184, CH-00006-ef27d2beb598f8c4, CH-00009-a17188f59ff3dce2
+- Scores: 0.162835, 0.044880, 0.043152, 0.036918, 0.035223, 0.034446, 0.027989, 0.026237, 0.022043, 0.021818
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q046 - What name does TESTRX initially assign to a parameter created from the Parameters tab?
+
+- Type / difficulty: factual / easy
+- Required units: section-12.1-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00008-83efb1c9415ce8d4, CH-00009-a17188f59ff3dce2, CH-00004-670ce4ee2c267a8a, CH-00011-df739ca95bb6e91b, CH-00018-258a2d8a298298bf, CH-00021-2bf48cb9c4186d25, CH-00012-dd45b31a2dac0184, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580
+- Scores: 0.232432, 0.180196, 0.170163, 0.147770, 0.141359, 0.140566, 0.137413, 0.133725, 0.133443, 0.132245
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q047 - How are newly created parameters saved?
+
+- Type / difficulty: procedure / easy
+- Required units: section-12.1-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00021-2bf48cb9c4186d25, CH-00012-dd45b31a2dac0184, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580, CH-00006-ef27d2beb598f8c4, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132
+- Scores: 0.153639, 0.090848, 0.045043, 0.043276, 0.037424, 0.036760, 0.035039, 0.033333, 0.032273, 0.029970
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q048 - How do Test Suite and Test Case parameters differ in scope and precedence?
+
+- Type / difficulty: comparison / medium
+- Required units: section-12.2.1-element-001, section-12.2.2-element-001
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00007-f9fa2446cf057613, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2, CH-00020-87f63ce2d78498cb, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132, CH-00001-09af6501ca61bf5c, CH-00019-1554d75458c00e71
+- Scores: 0.381158, 0.379229, 0.358708, 0.355476, 0.355465, 0.299464, 0.290254, 0.279712, 0.227657, 0.219111
+- First relevant rank: 3
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q049 - When do parameters entered in the editor appear in the parameter table?
+
+- Type / difficulty: factual / easy
+- Required units: section-12.2.3-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4, CH-00009-a17188f59ff3dce2, CH-00018-258a2d8a298298bf, CH-00021-2bf48cb9c4186d25, CH-00014-3c110d7f912469ed, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580, CH-00011-df739ca95bb6e91b
+- Scores: 0.368189, 0.308276, 0.301541, 0.288728, 0.249047, 0.238994, 0.234583, 0.233633, 0.229733, 0.228727
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q050 - Can multiple parameters be entered in one editor cell?
+
+- Type / difficulty: factual / medium
+- Required units: section-12.2.3-element-001
+- Retrieved chunks: CH-00007-f9fa2446cf057613, CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00002-24df62d99d0f8293, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00003-c2b6a1015d5fdac2, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00004-670ce4ee2c267a8a
+- Scores: 0.229652, 0.201068, 0.142207, 0.113167, 0.083250, 0.082752, 0.080617, 0.080294, 0.077244, 0.072113
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q051 - What characters may a valid parameter name contain?
+
+- Type / difficulty: configuration / easy
+- Required units: section-12.3-element-002
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00007-f9fa2446cf057613, CH-00010-5af4d13df37844de, CH-00009-a17188f59ff3dce2, CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184, CH-00013-1c4cce646bd4c003, CH-00003-c2b6a1015d5fdac2, CH-00016-55ca763dab51f472, CH-00018-258a2d8a298298bf
+- Scores: 0.107412, 0.096169, 0.054581, 0.048159, 0.039926, 0.039449, 0.036509, 0.029954, 0.026626, 0.026324
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q052 - Which underscore patterns are invalid in a parameter name?
+
+- Type / difficulty: configuration / medium
+- Required units: section-12.3-element-002
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00007-f9fa2446cf057613, CH-00009-a17188f59ff3dce2, CH-00012-dd45b31a2dac0184, CH-00010-5af4d13df37844de, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00021-2bf48cb9c4186d25
+- Scores: 0.125925, 0.112398, 0.068079, 0.066912, 0.064912, 0.063175, 0.058139, 0.047848, 0.043344, 0.043239
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q053 - Is abc a valid parameter name?
+
+- Type / difficulty: configuration / medium
+- Required units: section-12.3-element-002
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a, CH-00007-f9fa2446cf057613, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00006-ef27d2beb598f8c4, CH-00021-2bf48cb9c4186d25, CH-00011-df739ca95bb6e91b, CH-00016-55ca763dab51f472, CH-00012-dd45b31a2dac0184
+- Scores: 0.171547, 0.157917, 0.140619, 0.139905, 0.127910, 0.114894, 0.106988, 0.105843, 0.103835, 0.100455
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q054 - What does the Set In field of the parameter table indicate?
+
+- Type / difficulty: factual / easy
+- Required units: section-12.4-element-002
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00013-1c4cce646bd4c003, CH-00019-1554d75458c00e71, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00014-3c110d7f912469ed, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613, CH-00021-2bf48cb9c4186d25, CH-00011-df739ca95bb6e91b
+- Scores: 0.334339, 0.268754, 0.262506, 0.256898, 0.231865, 0.227091, 0.218835, 0.216617, 0.210330, 0.189290
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q055 - What inputs are accepted in a parameter's Value field?
+
+- Type / difficulty: configuration / easy
+- Required units: section-12.5.1-element-001, section-12.5.1-element-002
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00018-258a2d8a298298bf, CH-00011-df739ca95bb6e91b, CH-00013-1c4cce646bd4c003, CH-00006-ef27d2beb598f8c4, CH-00021-2bf48cb9c4186d25, CH-00017-f8221f543a586580
+- Scores: 0.163251, 0.107094, 0.090293, 0.086524, 0.069289, 0.068135, 0.062302, 0.054628, 0.050835, 0.050399
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q056 - Why is 1,,2 invalid in a parameter Value field?
+
+- Type / difficulty: troubleshooting / hard
+- Required units: section-12.5.1-element-003-labelled, section-12.5.1-element-005-labelled
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00012-dd45b31a2dac0184, CH-00013-1c4cce646bd4c003, CH-00007-f9fa2446cf057613, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00011-df739ca95bb6e91b
+- Scores: 0.224718, 0.095240, 0.093398, 0.089245, 0.081472, 0.077347, 0.074778, 0.064323, 0.061055, 0.058308
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q057 - What happens when a valid new Current Value is typed manually?
+
+- Type / difficulty: configuration / easy
+- Required units: section-12.5.2-element-001, section-12.5.2-element-002, section-12.5.2-element-004
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00009-a17188f59ff3dce2, CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00018-258a2d8a298298bf, CH-00011-df739ca95bb6e91b, CH-00001-09af6501ca61bf5c, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de
+- Scores: 0.148849, 0.096379, 0.088235, 0.075990, 0.071710, 0.059765, 0.055832, 0.055377, 0.053872, 0.052590
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q058 - How are Value Description and Units handled when switching Current Values?
+
+- Type / difficulty: configuration / medium
+- Required units: section-12.5.2-element-004
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00018-258a2d8a298298bf, CH-00013-1c4cce646bd4c003, CH-00021-2bf48cb9c4186d25, CH-00006-ef27d2beb598f8c4, CH-00020-87f63ce2d78498cb, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00017-f8221f543a586580, CH-00000-41497a9164b8523a
+- Scores: 0.158270, 0.113432, 0.070019, 0.063834, 0.063107, 0.061571, 0.058180, 0.057305, 0.055076, 0.053569
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q059 - At which level can a parameter be renamed?
+
+- Type / difficulty: configuration / medium
+- Required units: section-12.6-element-001
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00007-f9fa2446cf057613, CH-00021-2bf48cb9c4186d25, CH-00012-dd45b31a2dac0184, CH-00010-5af4d13df37844de, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c, CH-00009-a17188f59ff3dce2, CH-00016-55ca763dab51f472, CH-00011-df739ca95bb6e91b
+- Scores: 0.127551, 0.116882, 0.060445, 0.056235, 0.055144, 0.052509, 0.050369, 0.050253, 0.047770, 0.046581
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q060 - What choices are offered when renaming a parameter that is already used in Test Cases?
+
+- Type / difficulty: procedure / medium
+- Required units: section-12.6-element-001, section-12.6-element-002-labelled
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00007-f9fa2446cf057613, CH-00017-f8221f543a586580, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00000-41497a9164b8523a
+- Scores: 0.199417, 0.187112, 0.161145, 0.151942, 0.150505, 0.128471, 0.123475, 0.119369, 0.113729, 0.107841
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q061 - How is a parameter removed?
+
+- Type / difficulty: procedure / easy
+- Required units: section-12.7-element-001
+- Retrieved chunks: CH-00008-83efb1c9415ce8d4, CH-00012-dd45b31a2dac0184, CH-00007-f9fa2446cf057613, CH-00014-3c110d7f912469ed, CH-00018-258a2d8a298298bf, CH-00011-df739ca95bb6e91b, CH-00021-2bf48cb9c4186d25, CH-00013-1c4cce646bd4c003, CH-00006-ef27d2beb598f8c4, CH-00019-1554d75458c00e71
+- Scores: 0.140872, 0.088550, 0.086717, 0.078964, 0.077649, 0.071263, 0.068053, 0.059879, 0.059831, 0.057796
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q062 - Where is the Labels tab available, and what does it collect?
+
+- Type / difficulty: definition / medium
+- Required units: section-13-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00017-f8221f543a586580, CH-00008-83efb1c9415ce8d4, CH-00018-258a2d8a298298bf, CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00006-ef27d2beb598f8c4, CH-00011-df739ca95bb6e91b, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c
+- Scores: 0.241207, 0.204966, 0.183296, 0.161348, 0.153808, 0.150151, 0.148003, 0.136106, 0.134612, 0.131763
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q063 - When does a label created in the Test Case editor appear in the Labels tab?
+
+- Type / difficulty: factual / easy
+- Required units: section-13.1-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00007-f9fa2446cf057613, CH-00004-670ce4ee2c267a8a, CH-00008-83efb1c9415ce8d4, CH-00015-c57311a9957c6132, CH-00011-df739ca95bb6e91b
+- Scores: 0.457274, 0.399756, 0.380112, 0.336862, 0.328160, 0.327644, 0.318763, 0.316154, 0.311936, 0.305124
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q064 - Are saved labels restricted to the Test Suite where they were created?
+
+- Type / difficulty: factual / easy
+- Required units: section-13.1-element-001
+- Retrieved chunks: CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2
+- Scores: 0.359103, 0.311064, 0.277723, 0.277005, 0.268889, 0.260173, 0.256047, 0.246389, 0.243489, 0.219387
+- First relevant rank: 7
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q065 - Which Labels-tab field can the user edit?
+
+- Type / difficulty: factual / easy
+- Required units: section-13.2-element-002
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00001-09af6501ca61bf5c, CH-00013-1c4cce646bd4c003, CH-00004-670ce4ee2c267a8a, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25, CH-00007-f9fa2446cf057613, CH-00011-df739ca95bb6e91b, CH-00014-3c110d7f912469ed
+- Scores: 0.187000, 0.175685, 0.165189, 0.162827, 0.160768, 0.142910, 0.140045, 0.139343, 0.128129, 0.127544
+- First relevant rank: 5
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q066 - Where do a label's Factor, Offset, Units, minimum, maximum, and data type come from?
+
+- Type / difficulty: configuration / medium
+- Required units: section-13.2-element-002
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00020-87f63ce2d78498cb, CH-00010-5af4d13df37844de, CH-00008-83efb1c9415ce8d4
+- Scores: 0.143658, 0.111571, 0.086319, 0.080318, 0.062500, 0.061790, 0.060475, 0.060003, 0.045844, 0.042647
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q067 - Why might TESTRX refuse to remove a label?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-13.3.1-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00018-258a2d8a298298bf, CH-00012-dd45b31a2dac0184, CH-00021-2bf48cb9c4186d25, CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b, CH-00020-87f63ce2d78498cb, CH-00017-f8221f543a586580, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c
+- Scores: 0.122143, 0.096006, 0.090648, 0.088106, 0.086460, 0.080592, 0.077188, 0.076787, 0.066386, 0.058658
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q068 - What happens if a label is renamed to a name that already exists?
+
+- Type / difficulty: procedure / medium
+- Required units: section-13.3.2-element-001, section-13.3.2-element-002
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00018-258a2d8a298298bf, CH-00012-dd45b31a2dac0184, CH-00017-f8221f543a586580, CH-00011-df739ca95bb6e91b, CH-00000-41497a9164b8523a, CH-00010-5af4d13df37844de, CH-00020-87f63ce2d78498cb, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4
+- Scores: 0.160080, 0.136820, 0.132544, 0.110674, 0.094520, 0.094457, 0.089704, 0.088084, 0.085904, 0.085259
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q069 - What does a pink label row indicate?
+
+- Type / difficulty: troubleshooting / medium
+- Required units: section-13.4-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00010-5af4d13df37844de, CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00003-c2b6a1015d5fdac2, CH-00008-83efb1c9415ce8d4, CH-00004-670ce4ee2c267a8a, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580
+- Scores: 0.086394, 0.042396, 0.023489, 0.021667, 0.018327, 0.014719, 0.014452, 0.012111, 0.010346, 0.008418
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q070 - Which copy operations can cause label rows to turn pink?
+
+- Type / difficulty: troubleshooting / easy
+- Required units: section-13.4-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00012-dd45b31a2dac0184, CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00002-24df62d99d0f8293, CH-00007-f9fa2446cf057613, CH-00005-874e86f6a3e387b2, CH-00008-83efb1c9415ce8d4
+- Scores: 0.087819, 0.063594, 0.062429, 0.052803, 0.047365, 0.039942, 0.037050, 0.036707, 0.036551, 0.036351
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q071 - What are the two ways to create a Test Case or Heading?
+
+- Type / difficulty: procedure / hard
+- Required units: section-14-element-001, section-14-element-002, section-14-element-003, section-14-element-004, section-14-element-005
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00004-670ce4ee2c267a8a, CH-00002-24df62d99d0f8293, CH-00019-1554d75458c00e71, CH-00015-c57311a9957c6132, CH-00001-09af6501ca61bf5c, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00011-df739ca95bb6e91b, CH-00007-f9fa2446cf057613
+- Scores: 0.422492, 0.343225, 0.334220, 0.281646, 0.266545, 0.263967, 0.244395, 0.243421, 0.243104, 0.241447
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q072 - What default names are assigned to new Test Cases and Headings?
+
+- Type / difficulty: factual / easy
+- Required units: section-14-element-006
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a, CH-00005-874e86f6a3e387b2, CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00007-f9fa2446cf057613, CH-00000-41497a9164b8523a
+- Scores: 0.249553, 0.240013, 0.185141, 0.163788, 0.147375, 0.143044, 0.139789, 0.137690, 0.134541, 0.133235
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q073 - What are the main naming restrictions for a Test Case?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.1-element-001
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132, CH-00001-09af6501ca61bf5c, CH-00003-c2b6a1015d5fdac2, CH-00007-f9fa2446cf057613, CH-00021-2bf48cb9c4186d25, CH-00005-874e86f6a3e387b2
+- Scores: 0.425291, 0.296399, 0.283917, 0.281931, 0.266033, 0.258181, 0.252146, 0.239907, 0.238745, 0.234695
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q074 - Which Test Case context-menu action exports a test case as a ZIP file?
+
+- Type / difficulty: table / easy
+- Required units: table_5
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71, CH-00015-c57311a9957c6132, CH-00004-670ce4ee2c267a8a, CH-00005-874e86f6a3e387b2, CH-00007-f9fa2446cf057613, CH-00020-87f63ce2d78498cb, CH-00021-2bf48cb9c4186d25
+- Scores: 0.568404, 0.393667, 0.302327, 0.285202, 0.275633, 0.262786, 0.262416, 0.235394, 0.213129, 0.210774
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q075 - What is the difference between Clear Step(s) and Remove Step(s)?
+
+- Type / difficulty: comparison / medium
+- Required units: table_6
+- Retrieved chunks: CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184, CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00021-2bf48cb9c4186d25, CH-00009-a17188f59ff3dce2, CH-00018-258a2d8a298298bf, CH-00001-09af6501ca61bf5c
+- Scores: 0.357285, 0.172693, 0.168493, 0.160215, 0.148321, 0.138374, 0.133599, 0.127425, 0.125645, 0.122407
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q076 - How do you open the test-step context menu?
+
+- Type / difficulty: procedure / easy
+- Required units: section-14.4-element-001
+- Retrieved chunks: CH-00011-df739ca95bb6e91b, CH-00009-a17188f59ff3dce2, CH-00013-1c4cce646bd4c003, CH-00001-09af6501ca61bf5c, CH-00004-670ce4ee2c267a8a, CH-00006-ef27d2beb598f8c4, CH-00014-3c110d7f912469ed, CH-00021-2bf48cb9c4186d25, CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a
+- Scores: 0.144179, 0.140290, 0.137921, 0.137719, 0.130648, 0.128743, 0.123319, 0.121915, 0.120092, 0.116639
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q077 - What are the Setup, Sequence, and Shut Down sections used for?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.3-element-003
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00011-df739ca95bb6e91b, CH-00021-2bf48cb9c4186d25, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00001-09af6501ca61bf5c, CH-00004-670ce4ee2c267a8a
+- Scores: 0.176502, 0.169472, 0.167484, 0.165229, 0.157506, 0.149233, 0.147983, 0.147507, 0.144948, 0.137901
+- First relevant rank: 5
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q078 - Which Sequence-tab column identifies the signal, variable, or parameter targeted by a step?
+
+- Type / difficulty: factual / easy
+- Required units: section-14.3-element-003
+- Retrieved chunks: CH-00012-dd45b31a2dac0184, CH-00011-df739ca95bb6e91b, CH-00013-1c4cce646bd4c003, CH-00008-83efb1c9415ce8d4, CH-00004-670ce4ee2c267a8a, CH-00000-41497a9164b8523a, CH-00009-a17188f59ff3dce2, CH-00007-f9fa2446cf057613, CH-00014-3c110d7f912469ed, CH-00018-258a2d8a298298bf
+- Scores: 0.184970, 0.180034, 0.172437, 0.167257, 0.151247, 0.140785, 0.134991, 0.132246, 0.128468, 0.127074
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q079 - Which instruction keyword waits for a duration at a test step?
+
+- Type / difficulty: table / easy
+- Required units: table_7
+- Retrieved chunks: CH-00012-dd45b31a2dac0184, CH-00011-df739ca95bb6e91b, CH-00015-c57311a9957c6132, CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00019-1554d75458c00e71
+- Scores: 0.207328, 0.192314, 0.167527, 0.158783, 0.146575, 0.146471, 0.137539, 0.125389, 0.124607, 0.124500
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q080 - Which instruction keyword runs another test case?
+
+- Type / difficulty: table / easy
+- Required units: table_7
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132, CH-00001-09af6501ca61bf5c, CH-00007-f9fa2446cf057613, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2
+- Scores: 0.380955, 0.266823, 0.246717, 0.208821, 0.181666, 0.178959, 0.170881, 0.164027, 0.147943, 0.147221
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q081 - Which Entity Type exposes signals from a DBC file?
+
+- Type / difficulty: table / easy
+- Required units: table_8
+- Retrieved chunks: CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00002-24df62d99d0f8293, CH-00005-874e86f6a3e387b2, CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00020-87f63ce2d78498cb, CH-00008-83efb1c9415ce8d4
+- Scores: 0.248754, 0.075520, 0.058915, 0.057822, 0.056584, 0.054978, 0.043275, 0.043239, 0.043182, 0.042675
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q082 - Which Entity Types expose measurements from an A2L file?
+
+- Type / difficulty: table / medium
+- Required units: table_8
+- Retrieved chunks: CH-00012-dd45b31a2dac0184, CH-00007-f9fa2446cf057613, CH-00006-ef27d2beb598f8c4, CH-00014-3c110d7f912469ed, CH-00009-a17188f59ff3dce2, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a, CH-00017-f8221f543a586580
+- Scores: 0.102336, 0.047179, 0.047051, 0.036830, 0.032076, 0.029046, 0.027941, 0.027284, 0.022950, 0.022672
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q083 - How is the Identifier suggestion list determined?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.6-element-001
+- Retrieved chunks: CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c, CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a
+- Scores: 0.184109, 0.182418, 0.168280, 0.165897, 0.147728, 0.143430, 0.140066, 0.137320, 0.136622, 0.129185
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q084 - What does Clear do in the Control Logic window?
+
+- Type / difficulty: factual / easy
+- Required units: section-14.7-element-001
+- Retrieved chunks: CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00006-ef27d2beb598f8c4, CH-00019-1554d75458c00e71, CH-00011-df739ca95bb6e91b, CH-00017-f8221f543a586580, CH-00008-83efb1c9415ce8d4, CH-00012-dd45b31a2dac0184, CH-00007-f9fa2446cf057613
+- Scores: 0.209250, 0.164306, 0.157658, 0.147957, 0.138887, 0.134530, 0.132033, 0.122427, 0.122016, 0.103378
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q085 - How does the Value control logic evaluate a test step?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.7.1-element-001
+- Retrieved chunks: CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184, CH-00013-1c4cce646bd4c003, CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00008-83efb1c9415ce8d4, CH-00004-670ce4ee2c267a8a, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00005-874e86f6a3e387b2
+- Scores: 0.271229, 0.232037, 0.230039, 0.205824, 0.201622, 0.196297, 0.176137, 0.170690, 0.166651, 0.160632
+- First relevant rank: 3
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q086 - How can a step depend on the verdict of an earlier step?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.7.2-element-001
+- Retrieved chunks: CH-00011-df739ca95bb6e91b, CH-00013-1c4cce646bd4c003, CH-00006-ef27d2beb598f8c4, CH-00021-2bf48cb9c4186d25, CH-00019-1554d75458c00e71, CH-00012-dd45b31a2dac0184, CH-00014-3c110d7f912469ed, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c
+- Scores: 0.296767, 0.221256, 0.206362, 0.189393, 0.176593, 0.171239, 0.160634, 0.155764, 0.153422, 0.150785
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q087 - What are the four Time Constraint modes?
+
+- Type / difficulty: factual / easy
+- Required units: section-14.7.3-element-001
+- Retrieved chunks: CH-00013-1c4cce646bd4c003, CH-00014-3c110d7f912469ed, CH-00006-ef27d2beb598f8c4, CH-00009-a17188f59ff3dce2, CH-00001-09af6501ca61bf5c, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00019-1554d75458c00e71, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25
+- Scores: 0.181199, 0.154981, 0.153536, 0.150250, 0.132450, 0.130863, 0.129858, 0.126625, 0.119627, 0.119093
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q088 - With an Entire Range of 5-10 seconds and early/late tolerance of 1 second, when is the condition accepted?
+
+- Type / difficulty: factual / medium
+- Required units: section-14.7.3-element-001
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00013-1c4cce646bd4c003, CH-00006-ef27d2beb598f8c4, CH-00000-41497a9164b8523a, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b, CH-00009-a17188f59ff3dce2, CH-00019-1554d75458c00e71, CH-00001-09af6501ca61bf5c, CH-00016-55ca763dab51f472
+- Scores: 0.294738, 0.237868, 0.141643, 0.138018, 0.129551, 0.101505, 0.100722, 0.093569, 0.091195, 0.090009
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q089 - How does In Range differ from Entire Range?
+
+- Type / difficulty: comparison / hard
+- Required units: section-14.7.3-element-001
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00013-1c4cce646bd4c003, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580, CH-00021-2bf48cb9c4186d25, CH-00011-df739ca95bb6e91b, CH-00007-f9fa2446cf057613, CH-00019-1554d75458c00e71
+- Scores: 0.099246, 0.085707, 0.009673, -0.001341, -0.021491, -0.046432, -0.048211, -0.056807, -0.060388, -0.066402
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q090 - When is Range of Steps control logic available?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.7.4-element-001, section-14.7.4-element-003
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00013-1c4cce646bd4c003, CH-00019-1554d75458c00e71, CH-00012-dd45b31a2dac0184, CH-00011-df739ca95bb6e91b, CH-00000-41497a9164b8523a, CH-00020-87f63ce2d78498cb, CH-00001-09af6501ca61bf5c, CH-00017-f8221f543a586580, CH-00006-ef27d2beb598f8c4
+- Scores: 0.304508, 0.146034, 0.087716, 0.081415, 0.074677, 0.055465, 0.045365, 0.044631, 0.044082, 0.043519
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q091 - What limits can control a Repeat over a range of steps?
+
+- Type / difficulty: configuration / medium
+- Required units: section-14.7.4-element-003
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00012-dd45b31a2dac0184, CH-00013-1c4cce646bd4c003, CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b, CH-00008-83efb1c9415ce8d4, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00016-55ca763dab51f472
+- Scores: 0.209622, 0.098858, 0.088479, 0.082060, 0.081038, 0.078094, 0.076810, 0.065354, 0.060334, 0.058930
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q092 - What are the four stages of the TESTRX execution workflow?
+
+- Type / difficulty: procedure / hard
+- Required units: section-16-element-001, section-16-element-002
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00013-1c4cce646bd4c003, CH-00006-ef27d2beb598f8c4, CH-00014-3c110d7f912469ed, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c, CH-00000-41497a9164b8523a
+- Scores: 0.294898, 0.288353, 0.268165, 0.251265, 0.247969, 0.245163, 0.230635, 0.230133, 0.228161, 0.226788
+- First relevant rank: 4
+- Evidence coverage@10: 0.500
+- Result: FAIL
+- Failure category: multi_unit_evidence_incomplete
+
+### Q093 - How do you view test steps from a Test Session or Test Plan?
+
+- Type / difficulty: procedure / easy
+- Required units: section-16.1-element-001
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00002-24df62d99d0f8293, CH-00019-1554d75458c00e71, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2, CH-00003-c2b6a1015d5fdac2, CH-00010-5af4d13df37844de, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c
+- Scores: 0.450168, 0.339507, 0.300680, 0.292627, 0.257366, 0.244532, 0.240502, 0.239760, 0.219643, 0.212574
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q094 - How can a Test Session be created after adding a project?
+
+- Type / difficulty: procedure / medium
+- Required units: section-16.1.1-element-001
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00003-c2b6a1015d5fdac2, CH-00018-258a2d8a298298bf, CH-00010-5af4d13df37844de, CH-00016-55ca763dab51f472, CH-00004-670ce4ee2c267a8a, CH-00002-24df62d99d0f8293, CH-00001-09af6501ca61bf5c, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2
+- Scores: 0.306279, 0.199201, 0.173518, 0.159704, 0.158214, 0.153900, 0.147063, 0.144456, 0.137899, 0.134961
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q095 - How are test cases added from a linked Test Suite into a Test Session?
+
+- Type / difficulty: procedure / hard
+- Required units: section-16.1.2-element-001, section-16.1.2-element-003
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00005-874e86f6a3e387b2, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00018-258a2d8a298298bf, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00010-5af4d13df37844de, CH-00019-1554d75458c00e71, CH-00007-f9fa2446cf057613
+- Scores: 0.512770, 0.403481, 0.342465, 0.340446, 0.311493, 0.311076, 0.277452, 0.258557, 0.258520, 0.224097
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q096 - What happens when a collapsed nested test case is dragged into a Test Session?
+
+- Type / difficulty: factual / easy
+- Required units: section-16.1.2-element-003
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00019-1554d75458c00e71, CH-00003-c2b6a1015d5fdac2, CH-00018-258a2d8a298298bf, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2, CH-00001-09af6501ca61bf5c
+- Scores: 0.385406, 0.379385, 0.297295, 0.273264, 0.248841, 0.236583, 0.220707, 0.211696, 0.209722, 0.203867
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q097 - How are linked test cases synchronized after edits in the Test Case tab?
+
+- Type / difficulty: procedure / easy
+- Required units: section-16.1.3-element-001
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00018-258a2d8a298298bf, CH-00007-f9fa2446cf057613, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2, CH-00009-a17188f59ff3dce2
+- Scores: 0.476191, 0.445430, 0.399436, 0.341178, 0.328766, 0.326110, 0.320588, 0.317713, 0.301217, 0.291819
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q098 - Why is Test Bench Configuration required before execution?
+
+- Type / difficulty: definition / easy
+- Required units: section-16.2-element-001
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a
+- Scores: 0.220840, 0.165782, 0.146538, 0.130823, 0.125427, 0.123164, 0.119167, 0.114608, 0.105840, 0.096892
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q099 - What is the complete procedure for adding Test Bench Configuration details?
+
+- Type / difficulty: procedure / hard
+- Required units: section-16.2.1-element-001
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00015-c57311a9957c6132, CH-00017-f8221f543a586580, CH-00004-670ce4ee2c267a8a, CH-00019-1554d75458c00e71, CH-00000-41497a9164b8523a, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00014-3c110d7f912469ed, CH-00001-09af6501ca61bf5c
+- Scores: 0.266391, 0.208570, 0.204141, 0.195798, 0.189855, 0.189551, 0.182433, 0.180578, 0.171703, 0.165885
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q100 - Which TBC component controls power settings and power cycling?
+
+- Type / difficulty: table / easy
+- Required units: table_9
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00000-41497a9164b8523a, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25, CH-00018-258a2d8a298298bf, CH-00007-f9fa2446cf057613, CH-00020-87f63ce2d78498cb, CH-00017-f8221f543a586580, CH-00006-ef27d2beb598f8c4, CH-00001-09af6501ca61bf5c
+- Scores: 0.117644, 0.066433, 0.056702, 0.052847, 0.051148, 0.048201, 0.046568, 0.037962, 0.037742, 0.030581
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q101 - Which TBC component provides a virtual environment for automated execution?
+
+- Type / difficulty: table / easy
+- Required units: table_9
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00013-1c4cce646bd4c003, CH-00011-df739ca95bb6e91b, CH-00019-1554d75458c00e71, CH-00000-41497a9164b8523a, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c, CH-00009-a17188f59ff3dce2, CH-00004-670ce4ee2c267a8a
+- Scores: 0.130454, 0.083789, 0.076081, 0.068790, 0.055778, 0.053482, 0.052875, 0.049150, 0.045765, 0.044311
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q102 - Which CANoe settings can be configured in TBC?
+
+- Type / difficulty: configuration / medium
+- Required units: section-16.2.2-local-group-01
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00007-f9fa2446cf057613, CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580, CH-00021-2bf48cb9c4186d25, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de
+- Scores: 0.079095, 0.075456, 0.064904, 0.064212, 0.063382, 0.052960, 0.052614, 0.047127, 0.043606, 0.035449
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q103 - What connection types are available for Power Supply configuration?
+
+- Type / difficulty: configuration / easy
+- Required units: section-16.2.2-local-group-02
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00004-670ce4ee2c267a8a, CH-00006-ef27d2beb598f8c4, CH-00020-87f63ce2d78498cb, CH-00007-f9fa2446cf057613, CH-00012-dd45b31a2dac0184, CH-00005-874e86f6a3e387b2, CH-00008-83efb1c9415ce8d4
+- Scores: 0.121923, 0.083354, 0.047926, 0.045144, 0.044784, 0.034927, 0.034691, 0.031488, 0.030034, 0.029382
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q104 - Which SDT options control disconnection and data upload?
+
+- Type / difficulty: configuration / easy
+- Required units: section-16.2.2-local-group-03
+- Retrieved chunks: CH-00000-41497a9164b8523a, CH-00016-55ca763dab51f472, CH-00021-2bf48cb9c4186d25, CH-00013-1c4cce646bd4c003, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00006-ef27d2beb598f8c4, CH-00001-09af6501ca61bf5c, CH-00014-3c110d7f912469ed, CH-00005-874e86f6a3e387b2
+- Scores: 0.095432, 0.068132, 0.057372, 0.048678, 0.046454, 0.046042, 0.045332, 0.040805, 0.035825, 0.034737
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q105 - What information is required for FPGA execution configuration?
+
+- Type / difficulty: configuration / medium
+- Required units: section-16.2.2-local-group-04
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00014-3c110d7f912469ed, CH-00017-f8221f543a586580, CH-00019-1554d75458c00e71, CH-00000-41497a9164b8523a, CH-00013-1c4cce646bd4c003, CH-00018-258a2d8a298298bf, CH-00011-df739ca95bb6e91b, CH-00015-c57311a9957c6132, CH-00012-dd45b31a2dac0184
+- Scores: 0.144094, 0.068893, 0.068256, 0.061917, 0.057096, 0.056791, 0.055745, 0.040666, 0.037590, 0.036091
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q106 - How do VTE and FPGA configuration differ?
+
+- Type / difficulty: multi-section / hard
+- Required units: section-16.2.2-local-group-04, section-16.2.2-local-group-05
+- Retrieved chunks: CH-00016-55ca763dab51f472, CH-00000-41497a9164b8523a, CH-00018-258a2d8a298298bf, CH-00017-f8221f543a586580, CH-00007-f9fa2446cf057613, CH-00006-ef27d2beb598f8c4, CH-00020-87f63ce2d78498cb, CH-00001-09af6501ca61bf5c, CH-00021-2bf48cb9c4186d25, CH-00015-c57311a9957c6132
+- Scores: 0.154253, 0.071991, 0.058335, 0.056631, 0.056533, 0.055950, 0.048828, 0.044607, 0.044109, 0.030086
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q107 - Which Configurator toolbar action defines read and write paths for test and I/O labels?
+
+- Type / difficulty: factual / easy
+- Required units: section-16.2.3-element-004
+- Retrieved chunks: CH-00018-258a2d8a298298bf, CH-00017-f8221f543a586580, CH-00000-41497a9164b8523a, CH-00020-87f63ce2d78498cb, CH-00016-55ca763dab51f472, CH-00015-c57311a9957c6132, CH-00004-670ce4ee2c267a8a, CH-00010-5af4d13df37844de, CH-00001-09af6501ca61bf5c, CH-00005-874e86f6a3e387b2
+- Scores: 0.214270, 0.202948, 0.157185, 0.145197, 0.135597, 0.131277, 0.105067, 0.099875, 0.099773, 0.099485
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q108 - Which Configurator toolbar actions move a TBC between TESTRX installations or sessions as a ZIP file?
+
+- Type / difficulty: configuration / medium
+- Required units: section-16.2.3-element-004
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00012-dd45b31a2dac0184, CH-00001-09af6501ca61bf5c, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a, CH-00005-874e86f6a3e387b2
+- Scores: 0.101631, 0.082872, 0.081957, 0.080933, 0.076193, 0.068677, 0.065251, 0.062154, 0.061887, 0.060303
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q109 - When is the Map Labels option available?
+
+- Type / difficulty: configuration / easy
+- Required units: section-16.2.4-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00018-258a2d8a298298bf, CH-00014-3c110d7f912469ed, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c, CH-00019-1554d75458c00e71, CH-00021-2bf48cb9c4186d25
+- Scores: 0.349734, 0.213356, 0.188667, 0.186293, 0.183338, 0.183159, 0.163785, 0.162645, 0.157726, 0.156586
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q110 - What is the purpose of Map Labels?
+
+- Type / difficulty: definition / medium
+- Required units: section-16.2.4-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2, CH-00014-3c110d7f912469ed, CH-00013-1c4cce646bd4c003, CH-00019-1554d75458c00e71, CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a, CH-00006-ef27d2beb598f8c4, CH-00001-09af6501ca61bf5c, CH-00004-670ce4ee2c267a8a
+- Scores: 0.300756, 0.217112, 0.209854, 0.192114, 0.189383, 0.184660, 0.174709, 0.171752, 0.155096, 0.151389
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q111 - Which Map Labels tab opens by default, and which common actions are available?
+
+- Type / difficulty: configuration / medium
+- Required units: section-16.2.4.1-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00021-2bf48cb9c4186d25, CH-00000-41497a9164b8523a, CH-00016-55ca763dab51f472, CH-00007-f9fa2446cf057613, CH-00020-87f63ce2d78498cb, CH-00006-ef27d2beb598f8c4
+- Scores: 0.210654, 0.100141, 0.090275, 0.077406, 0.073188, 0.072376, 0.060656, 0.058966, 0.056516, 0.051815
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q112 - Where do the Test Labels tab entries come from?
+
+- Type / difficulty: multi-section / hard
+- Required units: section-16.2.4.2-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2, CH-00019-1554d75458c00e71, CH-00015-c57311a9957c6132, CH-00018-258a2d8a298298bf, CH-00004-670ce4ee2c267a8a, CH-00008-83efb1c9415ce8d4, CH-00001-09af6501ca61bf5c, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2
+- Scores: 0.330749, 0.284754, 0.268580, 0.260798, 0.259235, 0.231581, 0.229463, 0.215274, 0.214639, 0.197005
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q113 - How do the Test Labels and IO Labels tabs differ?
+
+- Type / difficulty: comparison / hard
+- Required units: section-16.2.4.2-element-001, section-16.2.4.3-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00015-c57311a9957c6132, CH-00009-a17188f59ff3dce2, CH-00019-1554d75458c00e71, CH-00020-87f63ce2d78498cb, CH-00004-670ce4ee2c267a8a, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4, CH-00005-874e86f6a3e387b2
+- Scores: 0.348393, 0.326230, 0.251862, 0.247969, 0.236893, 0.214987, 0.207603, 0.200734, 0.197155, 0.197026
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q114 - What does Autofill do in Map Labels?
+
+- Type / difficulty: configuration / easy
+- Required units: section-16.2.4.4-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2, CH-00008-83efb1c9415ce8d4, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00013-1c4cce646bd4c003, CH-00003-c2b6a1015d5fdac2, CH-00007-f9fa2446cf057613, CH-00012-dd45b31a2dac0184
+- Scores: 0.143108, 0.056344, 0.020875, 0.018334, 0.004443, 0.000000, 0.000000, -0.002804, -0.003185, -0.003614
+- First relevant rank: 4
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q115 - What happens when mapping data is imported over existing mappings?
+
+- Type / difficulty: configuration / easy
+- Required units: section-16.2.4.5-element-001
+- Retrieved chunks: CH-00018-258a2d8a298298bf, CH-00014-3c110d7f912469ed, CH-00013-1c4cce646bd4c003, CH-00017-f8221f543a586580, CH-00009-a17188f59ff3dce2, CH-00019-1554d75458c00e71, CH-00006-ef27d2beb598f8c4, CH-00008-83efb1c9415ce8d4, CH-00011-df739ca95bb6e91b, CH-00012-dd45b31a2dac0184
+- Scores: 0.089870, 0.053109, 0.040736, 0.031500, 0.030922, 0.029260, 0.028385, 0.025115, 0.018344, 0.017849
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q116 - Does exporting label mappings change the mappings in the workspace?
+
+- Type / difficulty: factual / easy
+- Required units: section-16.2.4.5-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00017-f8221f543a586580, CH-00014-3c110d7f912469ed, CH-00008-83efb1c9415ce8d4, CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b
+- Scores: 0.298160, 0.242098, 0.220693, 0.210827, 0.208389, 0.206630, 0.206529, 0.195038, 0.190860, 0.182247
+- First relevant rank: 4
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q117 - How does Map Labels signal an invalid database mapping?
+
+- Type / difficulty: troubleshooting / medium
+- Required units: section-16.2.4.6-element-001
+- Retrieved chunks: CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00012-dd45b31a2dac0184, CH-00008-83efb1c9415ce8d4, CH-00002-24df62d99d0f8293, CH-00005-874e86f6a3e387b2, CH-00003-c2b6a1015d5fdac2, CH-00019-1554d75458c00e71
+- Scores: 0.120030, 0.046474, 0.041240, 0.018140, 0.009446, 0.004197, -0.001681, -0.002036, -0.003664, -0.003871
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q118 - How do you create a Test Plan after adding a TBC?
+
+- Type / difficulty: procedure / hard
+- Required units: section-16.3-element-001, section-16.3-element-002, section-16.3-element-003
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00003-c2b6a1015d5fdac2, CH-00020-87f63ce2d78498cb, CH-00002-24df62d99d0f8293, CH-00012-dd45b31a2dac0184
+- Scores: 0.191572, 0.183650, 0.179365, 0.145897, 0.127413, 0.117087, 0.116644, 0.115746, 0.115305, 0.108470
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q119 - What keyboard shortcut selects all test cases before creating or reloading a Test Plan?
+
+- Type / difficulty: factual / easy
+- Required units: section-16.3-element-004-labelled
+- Retrieved chunks: CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00005-874e86f6a3e387b2, CH-00002-24df62d99d0f8293, CH-00010-5af4d13df37844de, CH-00004-670ce4ee2c267a8a, CH-00007-f9fa2446cf057613
+- Scores: 0.319814, 0.251202, 0.238951, 0.217795, 0.182101, 0.178523, 0.176997, 0.175291, 0.156695, 0.139344
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q120 - What information is shown in a Test Plan execution tab?
+
+- Type / difficulty: factual / medium
+- Required units: section-16.4-element-001, section-16.4-element-002
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00015-c57311a9957c6132, CH-00018-258a2d8a298298bf, CH-00020-87f63ce2d78498cb, CH-00014-3c110d7f912469ed, CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00004-670ce4ee2c267a8a, CH-00017-f8221f543a586580, CH-00016-55ca763dab51f472
+- Scores: 0.258314, 0.216926, 0.210612, 0.142187, 0.141013, 0.138108, 0.137547, 0.136257, 0.135448, 0.131841
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q121 - How do you open the latest report for an individual test case versus the entire latest run?
+
+- Type / difficulty: comparison / medium
+- Required units: section-16.5-element-007, section-16.5-element-009
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de, CH-00009-a17188f59ff3dce2, CH-00021-2bf48cb9c4186d25, CH-00004-670ce4ee2c267a8a, CH-00001-09af6501ca61bf5c, CH-00002-24df62d99d0f8293, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00000-41497a9164b8523a
+- Scores: 0.270912, 0.249957, 0.219693, 0.209373, 0.206210, 0.205298, 0.193909, 0.190252, 0.189705, 0.185453
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q122 - How can older Test Plan reports be opened?
+
+- Type / difficulty: procedure / easy
+- Required units: section-16.5-element-011
+- Retrieved chunks: CH-00019-1554d75458c00e71, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00018-258a2d8a298298bf, CH-00005-874e86f6a3e387b2, CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00007-f9fa2446cf057613, CH-00003-c2b6a1015d5fdac2, CH-00004-670ce4ee2c267a8a
+- Scores: 0.166145, 0.151324, 0.121198, 0.115362, 0.115067, 0.105786, 0.102742, 0.102087, 0.096375, 0.085015
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q123 - What is Jama used for in the TESTRX integration?
+
+- Type / difficulty: definition / easy
+- Required units: section-17-element-001
+- Retrieved chunks: CH-00014-3c110d7f912469ed, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00009-a17188f59ff3dce2, CH-00000-41497a9164b8523a, CH-00017-f8221f543a586580, CH-00018-258a2d8a298298bf, CH-00019-1554d75458c00e71, CH-00011-df739ca95bb6e91b, CH-00016-55ca763dab51f472
+- Scores: 0.226795, 0.213715, 0.207347, 0.204892, 0.187423, 0.176044, 0.174276, 0.166955, 0.165042, 0.164523
+- First relevant rank: not retrieved
+- Evidence coverage@10: 0.000
+- Result: FAIL
+- Failure category: required_evidence_not_retrieved
+
+### Q124 - How do you load a project and one of its Test Suites from ALM?
+
+- Type / difficulty: procedure / hard
+- Required units: section-17.1.1-element-001, section-17.1.1-element-003, section-17.1.1-element-005, section-17.1.1-element-007
+- Retrieved chunks: CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00015-c57311a9957c6132, CH-00004-670ce4ee2c267a8a, CH-00000-41497a9164b8523a, CH-00018-258a2d8a298298bf, CH-00001-09af6501ca61bf5c, CH-00005-874e86f6a3e387b2, CH-00019-1554d75458c00e71, CH-00010-5af4d13df37844de
+- Scores: 0.295025, 0.178543, 0.177490, 0.144527, 0.139623, 0.129091, 0.128513, 0.124283, 0.121207, 0.120505
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q125 - Which modified items can be flushed back to ALM?
+
+- Type / difficulty: configuration / medium
+- Required units: section-17.1.2-element-001, section-17.1.2-element-004-labelled
+- Retrieved chunks: CH-00020-87f63ce2d78498cb, CH-00021-2bf48cb9c4186d25, CH-00016-55ca763dab51f472, CH-00013-1c4cce646bd4c003, CH-00012-dd45b31a2dac0184, CH-00007-f9fa2446cf057613, CH-00002-24df62d99d0f8293, CH-00004-670ce4ee2c267a8a, CH-00008-83efb1c9415ce8d4, CH-00017-f8221f543a586580
+- Scores: 0.136531, 0.082634, 0.078589, 0.069750, 0.061401, 0.060362, 0.050981, 0.046902, 0.046872, 0.046011
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q126 - How do you link an ALM requirement to a Test Case?
+
+- Type / difficulty: procedure / hard
+- Required units: section-17.1.3-element-001
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00021-2bf48cb9c4186d25, CH-00020-87f63ce2d78498cb, CH-00015-c57311a9957c6132, CH-00019-1554d75458c00e71, CH-00003-c2b6a1015d5fdac2, CH-00007-f9fa2446cf057613, CH-00012-dd45b31a2dac0184, CH-00004-670ce4ee2c267a8a
+- Scores: 0.353915, 0.249969, 0.223418, 0.222910, 0.211410, 0.200716, 0.193547, 0.182503, 0.180919, 0.175797
+- First relevant rank: 3
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q127 - How do you remove a requirement link from a Test Case?
+
+- Type / difficulty: procedure / easy
+- Required units: section-17.1.3-element-003
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00002-24df62d99d0f8293, CH-00015-c57311a9957c6132, CH-00003-c2b6a1015d5fdac2, CH-00021-2bf48cb9c4186d25, CH-00019-1554d75458c00e71, CH-00004-670ce4ee2c267a8a, CH-00012-dd45b31a2dac0184, CH-00020-87f63ce2d78498cb, CH-00005-874e86f6a3e387b2
+- Scores: 0.352545, 0.243802, 0.212070, 0.202929, 0.200274, 0.192026, 0.180999, 0.175062, 0.169466, 0.164261
+- First relevant rank: 5
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q128 - What do Close, Close Others, and Close All do in a tab context menu?
+
+- Type / difficulty: comparison / easy
+- Required units: section-18-element-005
+- Retrieved chunks: CH-00021-2bf48cb9c4186d25, CH-00018-258a2d8a298298bf, CH-00000-41497a9164b8523a, CH-00011-df739ca95bb6e91b, CH-00001-09af6501ca61bf5c, CH-00020-87f63ce2d78498cb, CH-00017-f8221f543a586580, CH-00006-ef27d2beb598f8c4, CH-00005-874e86f6a3e387b2, CH-00009-a17188f59ff3dce2
+- Scores: 0.200159, 0.104358, 0.089396, 0.084559, 0.084203, 0.079279, 0.072601, 0.069125, 0.067986, 0.066519
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q129 - How can a closed Test Case Editor section be restored, and how can the table size be reset?
+
+- Type / difficulty: procedure / medium
+- Required units: section-18-element-007
+- Retrieved chunks: CH-00010-5af4d13df37844de, CH-00021-2bf48cb9c4186d25, CH-00002-24df62d99d0f8293, CH-00007-f9fa2446cf057613, CH-00004-670ce4ee2c267a8a, CH-00015-c57311a9957c6132, CH-00020-87f63ce2d78498cb, CH-00003-c2b6a1015d5fdac2, CH-00011-df739ca95bb6e91b, CH-00019-1554d75458c00e71
+- Scores: 0.314831, 0.277441, 0.235164, 0.216219, 0.214402, 0.202950, 0.202746, 0.198486, 0.192732, 0.189591
+- First relevant rank: 2
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q130 - Which menu command starts a flush to ALM, and which items are eligible for that operation?
+
+- Type / difficulty: cross-reference / hard
+- Required units: table_1, section-17.1.2-element-001, section-17.1.2-element-004-labelled
+- Retrieved chunks: CH-00020-87f63ce2d78498cb, CH-00000-41497a9164b8523a, CH-00015-c57311a9957c6132, CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00021-2bf48cb9c4186d25, CH-00016-55ca763dab51f472, CH-00017-f8221f543a586580, CH-00001-09af6501ca61bf5c, CH-00011-df739ca95bb6e91b
+- Scores: 0.188980, 0.122117, 0.115574, 0.104055, 0.102804, 0.099248, 0.098678, 0.092479, 0.091138, 0.077137
+- First relevant rank: 1
+- Evidence coverage@10: 0.667
+- Result: FAIL
+- Failure category: multi_unit_evidence_incomplete
+
+### Q131 - Where is a DBC file associated for CANoe, and how is that database added?
+
+- Type / difficulty: cross-reference / hard
+- Required units: section-16.2.2-local-group-01, section-11.1-element-001, section-11.1-element-003
+- Retrieved chunks: CH-00006-ef27d2beb598f8c4, CH-00000-41497a9164b8523a, CH-00018-258a2d8a298298bf, CH-00016-55ca763dab51f472, CH-00014-3c110d7f912469ed, CH-00020-87f63ce2d78498cb, CH-00012-dd45b31a2dac0184, CH-00009-a17188f59ff3dce2, CH-00004-670ce4ee2c267a8a, CH-00017-f8221f543a586580
+- Scores: 0.147132, 0.121730, 0.114988, 0.108931, 0.108308, 0.101540, 0.093035, 0.082422, 0.081970, 0.081385
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS
+
+### Q132 - How can deleting a Signia database affect label validity elsewhere in TESTRX?
+
+- Type / difficulty: multi-section / hard
+- Required units: section-11.2-element-001, section-13.4-element-001
+- Retrieved chunks: CH-00009-a17188f59ff3dce2, CH-00006-ef27d2beb598f8c4, CH-00013-1c4cce646bd4c003, CH-00016-55ca763dab51f472, CH-00012-dd45b31a2dac0184, CH-00018-258a2d8a298298bf, CH-00010-5af4d13df37844de, CH-00005-874e86f6a3e387b2, CH-00014-3c110d7f912469ed, CH-00017-f8221f543a586580
+- Scores: 0.103241, 0.078716, 0.064134, 0.062955, 0.062751, 0.062241, 0.058353, 0.053669, 0.052060, 0.048583
+- First relevant rank: 1
+- Evidence coverage@10: 1.000
+- Result: PASS

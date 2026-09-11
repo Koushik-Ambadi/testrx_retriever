@@ -1,0 +1,23 @@
+{
+  "dataset_size": 132,
+  "failed_at_max_k": 10,
+  "failure_categories": {
+    "multi_unit_evidence_incomplete": 2,
+    "required_evidence_not_retrieved": 8
+  },
+  "mean_evidence_coverage": 0.933081,
+  "mrr": 0.780099,
+  "passed_at_max_k": 122,
+  "recall_at_k": {
+    "1": 0.666667,
+    "10": 0.924242,
+    "3": 0.810606,
+    "5": 0.878788
+  },
+  "semantic_unit_recall_at_k": {
+    "1": 0.688131,
+    "10": 0.933081,
+    "3": 0.820707,
+    "5": 0.887626
+  }
+}
