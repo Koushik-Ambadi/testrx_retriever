@@ -5,7 +5,7 @@
   "output_directory": "output/retrieval_experiments/chunk_dimension_sweep",
   "chunk_sizes": [125, 200, 250, 300],
   "overlap_ratio": 0.1,
-  "embedding_dimensions": [128, 256, 512, 1024, 4096],
+  "embedding_dimensions": [128, 256, 512, 1024, 4096, 8192, 16384],
   "control": {
     "chunk_size": 500,
     "chunk_overlap": 50,

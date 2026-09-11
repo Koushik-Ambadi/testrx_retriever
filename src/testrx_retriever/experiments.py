@@ -247,38 +247,48 @@ def _render_report(result: dict[str, Any]) -> str:
     rows = result["runs"]
     ks = result["configuration"]["retrieval_top_k"]
     reference_dimension = result["reference_dimension"]
+    headers = ["Role", "Chunk / overlap", "Dim", "Chunks", *(f"R@{k}" for k in ks), "MRR", f"Random R@{max(ks)}", "Collision", f"Top-1 vs {reference_dimension}"]
     lines = [
         "# TESTRX Chunk Size and Embedding Dimension Study", "",
         "## Scope", "",
         "The golden questions, parser output, tokenizer, hashing features, cosine index, and metric definitions are fixed. Only token-window size, approximately 10% overlap, and hashing dimension vary. The 500/50/4096 baseline is repeated as a control.", "",
         "## Results", "",
-        f"| Role | Chunk / overlap | Dim | Chunks | " + " | ".join(f"R@{k}" for k in ks) + f" | MRR | Random R@{max(ks)} | Collision | Top-1 vs {reference_dimension} |", 
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| " + " | ".join(headers) + " |",
+        "|---" + "|---:" * (len(headers) - 1) + "|",
     ]
     for row in rows:
         metrics = row["metrics"]
+        agreement = row["top1_agreement_with_reference"]
+        agreement_text = f"{agreement:.3f}" if agreement is not None else "n/a"
         lines.append(
             f"| {row['role']} | {row['chunk_size']} / {row['chunk_overlap']} | {row['embedding_dimension']} | {row['chunk_count']} | "
             + " | ".join(f"{metrics['recall_at_k'][str(k)]:.3f}" for k in ks)
             + f" | {metrics['mrr']:.3f} | {row['random_lineage_recall_at_k'][str(max(ks))]:.3f} | "
-            + f"{row['feature_collisions']['collision_fraction']:.3f} | {row['top1_agreement_with_4096']:.3f} |"
+            + f"{row['feature_collisions']['collision_fraction']:.3f} | {agreement_text} |"
         )
     matrix = [row for row in rows if row["role"] == "sweep"]
-    reference_rows = [row for row in matrix if row["embedding_dimension"] == reference_dimension]
-    best = max(reference_rows, key=lambda row: (row["metrics"]["mrr"], row["metrics"]["recall_at_k"]["1"]))
+    comparison_dimension = 4096 if any(row["embedding_dimension"] == 4096 for row in matrix) else reference_dimension
+    comparison_rows = [row for row in matrix if row["embedding_dimension"] == comparison_dimension]
+    best_comparison = max(comparison_rows, key=lambda row: (row["metrics"]["mrr"], row["metrics"]["recall_at_k"]["1"]))
     dim_spreads = {}
     for size in sorted({row["chunk_size"] for row in matrix}):
         same_size = [row for row in matrix if row["chunk_size"] == size]
         values = [row["metrics"]["mrr"] for row in same_size]
         dim_spreads[size] = max(values) - min(values)
     control = next(row for row in rows if row["role"] == "control")
+    high_dimension_deltas = {}
+    for size in sorted({row["chunk_size"] for row in matrix}):
+        row_comparison = next(row for row in matrix if row["chunk_size"] == size and row["embedding_dimension"] == comparison_dimension)
+        row_reference = next(row for row in matrix if row["chunk_size"] == size and row["embedding_dimension"] == reference_dimension)
+        high_dimension_deltas[size] = row_reference["metrics"]["mrr"] - row_comparison["metrics"]["mrr"]
     lines.extend([
         "", "## Observations", "",
-        f"- At 4,096 dimensions, the strongest MRR among tested smaller windows is {best['metrics']['mrr']:.3f} at {best['chunk_size']}/{best['chunk_overlap']}; its Recall@10 is {best['metrics']['recall_at_k'][str(max(ks))]:.3f}.",
+        f"- At {comparison_dimension:,} dimensions, the strongest MRR among tested smaller windows is {best_comparison['metrics']['mrr']:.3f} at {best_comparison['chunk_size']}/{best_comparison['chunk_overlap']}; its Recall@{max(ks)} is {best_comparison['metrics']['recall_at_k'][str(max(ks))]:.3f}.",
         f"- The 500-token control contains only {control['chunk_count']} chunks, so K=10 searches {10 / control['chunk_count']:.1%} of the entire index. Its measured random-lineage Recall@10 is {control['random_lineage_recall_at_k'][str(max(ks))]:.3f}.",
-        f"- Across dimensions, the MRR range by chunk size is " + ", ".join(f"{size}: {spread:.3f}" for size, spread in dim_spreads.items()) + ". Small ranges indicate that feature hashing dimension is not the main source of performance.",
+        f"- Across the full dimension range, the MRR spread by chunk size is " + ", ".join(f"{size}: {spread:.3f}" for size, spread in dim_spreads.items()) + ". This is material: very small hashing spaces degrade ranking through collisions.",
+        f"- Raising dimension from {comparison_dimension:,} to {reference_dimension:,} changes MRR by " + ", ".join(f"{size}: {delta:+.3f}" for size, delta in high_dimension_deltas.items()) + ". These high-dimension deltas show whether the model has reached a practical collision plateau.",
         "- `Random R@10` is a fixed-seed random-ranking lineage baseline. It exposes score inflation caused by a small index and chunks that each own many source IDs.",
-        f"- `Collision` is the fraction of distinct corpus-and-query unigram/bigram features sharing an occupied hashing bucket. `Top-1 vs {reference_dimension}` measures ranking stability against the {reference_dimension:,}-dimensional run at the same chunk size.",
+        f"- `Collision` is the fraction of distinct corpus-and-query unigram/bigram features sharing an occupied hashing bucket. `Top-1 vs {reference_dimension}` measures ranking stability against the {reference_dimension:,}-dimensional run at the same chunk size; the 4,096-dimensional control has no same-window reference and is marked `n/a`.",
         "- The query/evidence lexical and lineage-density diagnostics are recorded in `summary.json`; per-question rank and relevant-versus-irrelevant score margins are in `question_diagnostics.jsonl`.",
         "", "## Interpretation guardrails", "",
         "These results characterize this manual and this frozen seed benchmark. They do not demonstrate semantic generalization. The embedder is lexical, the questions were written from the same source, and source-lineage recall gives a whole chunk credit when any recorded required ID is present.",
@@ -343,9 +353,12 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
     reference_dimension = max(config.embedding_dimensions)
     for row in rows:
         reference_key = (row["chunk_size"], row["chunk_overlap"], reference_dimension)
-        reference = top1_by_spec.get(reference_key, top1_by_spec[(row["chunk_size"], row["chunk_overlap"], row["embedding_dimension"])])
+        if reference_key not in top1_by_spec:
+            row["top1_agreement_with_reference"] = None
+            continue
+        reference = top1_by_spec[reference_key]
         current = top1_by_spec[(row["chunk_size"], row["chunk_overlap"], row["embedding_dimension"])]
-        row["top1_agreement_with_4096"] = round(sum(a == b for a, b in zip(current, reference)) / len(reference), 6)
+        row["top1_agreement_with_reference"] = round(sum(a == b for a, b in zip(current, reference)) / len(reference), 6)
 
     result = {
         "schema_version": "1.0",
