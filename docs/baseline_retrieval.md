@@ -9,7 +9,7 @@ deliberately not optimized.
 ## Pipeline
 
 ```text
-output/document.json
+output/parsing/document.json
   -> versioned regex tokenization
   -> fixed token windows
   -> local hashing embeddings
@@ -66,7 +66,7 @@ multi-unit evidence. No speculative root-cause label is assigned.
 ## Artifact layout
 
 ```text
-output/retrieval_baseline/
+output/retrieval/reference/
 ├── run_config.json
 ├── manifest.json
 ├── chunks/

@@ -10,7 +10,7 @@
 
 ## Verification method
 
-Every required semantic-unit ID was resolved against `output/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.
+Every required semantic-unit ID was resolved against `output/parsing/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.
 
 Procedure questions cite all parser elements needed to reconstruct the complete printed procedure. Table questions cite the canonical table element, including joined fragments for Tables 1 and 7.
 

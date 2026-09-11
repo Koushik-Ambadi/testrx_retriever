@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import { Workbook } from "@oai/artifact-tool";
 
-const inputPath = new URL("../output/golden_dataset/golden_dataset.csv", import.meta.url);
+const inputPath = new URL("../output/datasets/golden/golden_dataset.csv", import.meta.url);
 const previewPath = new URL("../tmp/golden_dataset_csv_preview.png", import.meta.url);
 const csvText = await fs.readFile(inputPath, "utf8");
 const workbook = await Workbook.fromCSV(csvText, { sheetName: "Golden Dataset" });

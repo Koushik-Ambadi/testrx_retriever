@@ -10,10 +10,10 @@ from pypdf import PdfReader
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCUMENT_PATH = ROOT / "output" / "document.json"
-WARNINGS_PATH = ROOT / "output" / "parsing_warnings.json"
+DOCUMENT_PATH = ROOT / "output" / "parsing" / "document.json"
+WARNINGS_PATH = ROOT / "output" / "parsing" / "parsing_warnings.json"
 PDF_PATH = ROOT / "source" / "TESTRX_User_Manual.pdf"
-OUT_DIR = ROOT / "output" / "golden_dataset"
+OUT_DIR = ROOT / "output" / "datasets" / "golden"
 
 
 def norm(text: str) -> str:
@@ -444,7 +444,7 @@ qc_lines = [
     f"- Exact duplicate questions: {len(duplicates)}", "- Rejected questions: 0",
     "- Ambiguous questions retained: 0", "- Questions requiring external knowledge: 0", "",
     "## Verification method", "",
-    "Every required semantic-unit ID was resolved against `output/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.",
+    "Every required semantic-unit ID was resolved against `output/parsing/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.",
     "", "Procedure questions cite all parser elements needed to reconstruct the complete printed procedure. Table questions cite the canonical table element, including joined fragments for Tables 1 and 7.",
     "", "## Parser warnings carried into review", "",
 ]

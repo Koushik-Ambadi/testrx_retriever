@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DATASET_DIR = ROOT / "output" / "golden_dataset"
+DATASET_DIR = ROOT / "output" / "datasets" / "golden"
 
 
 class GoldenDatasetContractTests(unittest.TestCase):
@@ -16,7 +16,9 @@ class GoldenDatasetContractTests(unittest.TestCase):
             for line in (DATASET_DIR / "golden_dataset.jsonl").read_text(encoding="utf-8").splitlines()
             if line.strip()
         ]
-        cls.document = json.loads((ROOT / "output" / "document.json").read_text(encoding="utf-8"))
+        cls.document = json.loads(
+            (ROOT / "output" / "parsing" / "document.json").read_text(encoding="utf-8")
+        )
         cls.element_ids = set()
 
         def walk(element):

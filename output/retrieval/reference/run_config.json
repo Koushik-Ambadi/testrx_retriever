@@ -6,14 +6,14 @@
       "chunk_size": 500,
       "strategy": "token_window"
     },
-    "document_path": "output/document.json",
+    "document_path": "output/parsing/document.json",
     "embedding": {
       "dimension": 4096,
       "model": "stable_hashing_word_bigram",
       "model_version": "1.0"
     },
-    "golden_dataset_path": "output/golden_dataset/golden_dataset.jsonl",
-    "output_directory": "output/retrieval_baseline",
+    "golden_dataset_path": "output/datasets/golden/golden_dataset.jsonl",
+    "output_directory": "output/retrieval/reference",
     "retrieval": {
       "algorithm": "cosine_similarity_exact",
       "top_k": [
@@ -30,7 +30,7 @@
     }
   },
   "document_source_sha256": "9CC50B1955AB92884CB0C1AA1A1B6ED437BDBD419962A2FDC6818B4D17073B99",
-  "golden_dataset_sha256": "5DD366C8B5948C06542B53038F93D4A0569219C8628A52B8C3657D128BF8A7D5",
+  "golden_dataset_sha256": "F27F5EC860D97B9F472385A3CBD4D3998DB7392E39B43967461D468210218FD2",
   "runtime": {
     "numpy": "2.3.5",
     "python": "3.12.14"

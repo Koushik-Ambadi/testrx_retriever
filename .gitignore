@@ -4,14 +4,8 @@ __pycache__/
 .venv/
 node_modules/
 *.egg-info/
-tmp/
+tmp/pdfs/
 
-# Generated parser artifacts are reproducible from the preserved source PDF.
-output/*
-!output/.gitkeep
-!output/golden_dataset/
-!output/golden_dataset/**
-!output/retrieval_baseline/
-!output/retrieval_baseline/**
-!output/retrieval_experiments/
-!output/retrieval_experiments/**
+# Parser artifacts are reproducible and can be large. Dataset, reference-run,
+# and compact experiment evidence remain versioned under their own directories.
+output/parsing/

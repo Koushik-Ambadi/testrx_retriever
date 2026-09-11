@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "document_path": "output/document.json",
-  "golden_dataset_path": "output/golden_dataset/golden_dataset.jsonl",
-  "output_directory": "output/retrieval_baseline",
+  "document_path": "output/parsing/document.json",
+  "golden_dataset_path": "output/datasets/golden/golden_dataset.jsonl",
+  "output_directory": "output/retrieval/reference",
   "chunking": {
     "strategy": "token_window",
     "chunk_size": 500,

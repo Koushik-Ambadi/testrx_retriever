@@ -82,7 +82,7 @@ Verdict:
 
 - Source: `source/TESTRX_User_Manual.pdf`
 - SHA-256: `9CC50B1955AB92884CB0C1AA1A1B6ED437BDBD419962A2FDC6818B4D17073B99`
-- Output at review time: `output/canonical.json` (superseded by `output/document.json`)
+- Output at review time: `output/canonical.json` (superseded by `output/parsing/document.json`)
 - Validation: 25 checks. 24 pass. 1 warning. 0 fail.
 - Tests: 13 pass.
 - Result: 61 pages. 89 sections. 217 elements. 9 tables. 51 captions.

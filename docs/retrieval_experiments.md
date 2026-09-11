@@ -128,7 +128,7 @@ Configuration: `configs/retrieval_sweep.json`
 Artifacts:
 
 ```text
-output/retrieval_experiments/chunk_dimension_sweep/
+output/retrieval/experiments/
 ├── summary.json
 ├── question_diagnostics.jsonl
 ├── report.md

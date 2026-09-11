@@ -8,7 +8,7 @@ retrieval, reranking, context construction, and generation.
 
 ## Authority and lineage
 
-The approved PDF is the factual source of truth. `output/document.json` provides
+The approved PDF is the factual source of truth. `output/parsing/document.json` provides
 stable hierarchy, semantic element IDs, page ranges, and structure. Required
 units are also checked against independently extracted text from the PDF pages.
 

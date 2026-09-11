@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "document_path": "output/document.json",
-  "golden_dataset_path": "output/golden_dataset/golden_dataset.jsonl",
-  "output_directory": "output/retrieval_experiments/chunk_dimension_sweep",
+  "document_path": "output/parsing/document.json",
+  "golden_dataset_path": "output/datasets/golden/golden_dataset.jsonl",
+  "output_directory": "output/retrieval/experiments",
   "chunk_sizes": [125, 200, 250, 300],
   "overlap_ratio": 0.1,
   "embedding_dimensions": [128, 256, 512, 1024, 4096, 8192, 16384],

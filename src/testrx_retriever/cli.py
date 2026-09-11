@@ -12,7 +12,10 @@ from .parser import parse_manual, write_outputs
 def main() -> int:
     parser = argparse.ArgumentParser(description="Parse the TESTRX User Manual into canonical JSON.")
     parser.add_argument("pdf", type=Path, help="Path to the preserved source PDF")
-    parser.add_argument("--output", type=Path, default=Path("output"), help="Output directory")
+    parser.add_argument(
+        "--output", type=Path, default=Path("output/parsing"),
+        help="Directory for the five parsing artifacts",
+    )
     arguments = parser.parse_args()
 
     document = parse_manual(arguments.pdf)

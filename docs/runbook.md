@@ -6,7 +6,7 @@ From the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output
+python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output/parsing
 python -m unittest discover -s tests -v
 ```
 
@@ -23,11 +23,11 @@ Expected current result:
 
 ## Review order
 
-1. Read `output/validation_report.json`. Stop if any check is `FAIL`.
-2. Read `output/parsing_warnings.json`; inspect every error and new warning type.
-3. Scan `output/page_inventory.csv` for pages with unusual counts.
-4. Read `output/semantic_structure.md` for hierarchy and group ownership.
-5. Inspect `output/document.json` when exact provenance is needed.
+1. Read `output/parsing/validation_report.json`. Stop if any check is `FAIL`.
+2. Read `output/parsing/parsing_warnings.json`; inspect every error and new warning type.
+3. Scan `output/parsing/page_inventory.csv` for pages with unusual counts.
+4. Read `output/parsing/semantic_structure.md` for hierarchy and group ownership.
+5. Inspect `output/parsing/document.json` when exact provenance is needed.
 6. Compare difficult cases to the PDF:
    - pages 9-10: Table 1 continuation;
    - pages 20-23: mixed-font section 12 hierarchy and cross-page lists;

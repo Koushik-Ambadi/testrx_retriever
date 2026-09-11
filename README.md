@@ -40,7 +40,7 @@ in `source/README.md`. The original Downloads copy is not modified.
 
 ```powershell
 python -m pip install -e .
-python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output
+python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output/parsing
 python -m testrx_retriever.baseline --config configs/retrieval_baseline.json
 python -m testrx_retriever.experiments --config configs/retrieval_sweep.json
 ```
@@ -53,22 +53,11 @@ python -m unittest discover -s tests -v
 
 ## Outputs
 
-- `output/document.json`: physical pages plus reconstructed logical sections.
-- `output/semantic_structure.md`: readable hierarchy and semantic groups.
-- `output/page_inventory.csv`: compact per-page inspection index.
-- `output/validation_report.json`: named checks and measured coverage.
-- `output/parsing_warnings.json`: inspectable ambiguity and continuation events.
-- `output/golden_dataset/golden_dataset.jsonl`: retrieval-oriented seed benchmark.
-- `output/golden_dataset/golden_dataset.csv`: human-readable flat export.
-- `output/golden_dataset/golden_dataset_report.md`: distribution statistics.
-- `output/golden_dataset/source_coverage_report.md`: represented and missing areas.
-- `output/golden_dataset/quality_control_report.md`: PDF lineage and review findings.
-- `output/retrieval_baseline/run_config.json`: resolved run configuration and source identity.
-- `output/retrieval_baseline/chunks/chunks.jsonl`: deterministic baseline chunks.
-- `output/retrieval_baseline/index/`: chunk-to-vector mapping and embeddings.
-- `output/retrieval_baseline/evaluation/`: raw results, metrics, and report.
-- `output/retrieval_baseline/manifest.json`: artifact SHA-256 checksums.
-- `output/retrieval_experiments/chunk_dimension_sweep/`: compact sweep summary,
+- `output/parsing/`: five reproducible parser artifacts.
+- `output/datasets/golden/`: golden JSONL/CSV and dataset review reports.
+- `output/retrieval/reference/`: the one full reference run, including chunks,
+  embeddings, raw ranked results, configuration, report, and manifest.
+- `output/retrieval/experiments/`: shared compact run metrics,
   per-question diagnostics, human report, and checksums.
 
 Generate and validate the benchmark:
@@ -111,7 +100,7 @@ testrx_retriever/
 ├── docs/                      intent, decisions, design, progress, operations
 ├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
 ├── tests/                     parser, dataset, retrieval, and determinism tests
-├── output/                    generated parsing, golden, and baseline artifacts
+├── output/                    parsing, dataset, reference, and experiment layers
 ├── tmp/                       ignored render/verification intermediates
 ├── pyproject.toml             package metadata and dependency contract
 └── README.md                  project entry point

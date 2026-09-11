@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`output/document.json` contains two linked views of the same manual:
+`output/parsing/document.json` contains two linked views of the same manual:
 
 - `pages`: physical evidence as extracted from the PDF.
 - `sections`: logical content reconstructed for later structure-aware use.
@@ -102,13 +102,13 @@ the raw form shows exactly what transformation produced it.
 
 ## Validation output
 
-`output/validation_report.json` contains an overall status, aggregate counts, and named
+`output/parsing/validation_report.json` contains an overall status, aggregate counts, and named
 checks with `PASS`, `WARN`, or `FAIL`. A warning records a known source anomaly or
 accepted limitation. A failure means parsing is not acceptable for the approved
 source and must be investigated before later phases.
 
-`output/parsing_warnings.json` separately records ambiguity type, severity,
-message, section, element, and pages. `output/semantic_structure.md` is a human
+`output/parsing/parsing_warnings.json` separately records ambiguity type, severity,
+message, section, element, and pages. `output/parsing/semantic_structure.md` is a human
 inspection view. It intentionally omits geometry and source IDs.
 
 ## Missing fields
@@ -126,7 +126,7 @@ part of this contract.
 
 ## Golden evaluation schema
 
-`output/golden_dataset/golden_dataset.jsonl` is a separate derived contract. Each
+`output/datasets/golden/golden_dataset.jsonl` is a separate derived contract. Each
 line contains:
 
 - question identity, text, type, and difficulty;
@@ -144,7 +144,7 @@ No chunk IDs exist because the benchmark precedes chunk-policy selection.
 
 ## Baseline chunk schema
 
-`output/retrieval_baseline/chunks/chunks.jsonl` contains one record per token
+`output/retrieval/reference/chunks/chunks.jsonl` contains one record per token
 window:
 
 - deterministic `chunk_id`, zero-based `chunk_index`, and `document_id`;
