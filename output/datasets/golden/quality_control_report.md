@@ -1,16 +1,20 @@
 # Quality-Control Report
 
-- Questions reviewed: 132
+- Questions reviewed: 196
 - PDF lineage failures: 0
 - Weaker PDF text matches retained for review: 48
 - Exact duplicate questions: 0
 - Rejected questions: 0
+- Paraphrases above level-specific overlap review threshold: 1
+- Mean-overlap trend inversions: 1
 - Ambiguous questions retained: 0
 - Questions requiring external knowledge: 0
 
 ## Verification method
 
 Every required semantic-unit ID was resolved against `output/parsing/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.
+
+Lexical overlap is the number of unique, case-folded RegexTokenizer query tokens found in the concatenated required-source text divided by the number of unique query tokens. Level-specific thresholds flag unexpectedly lexical paraphrases without rejecting them.
 
 Procedure questions cite all parser elements needed to reconstruct the complete printed procedure. Table questions cite the canonical table element, including joined fragments for Tables 1 and 7.
 
@@ -27,6 +31,18 @@ Procedure questions cite all parser elements needed to reconstruct the complete 
 - Q071: The parser split the two printed creation steps across procedure and paragraph elements; the complete source set is required.
 - Q089: The source wording is awkward; retain for manual review if strict semantic interpretation of Entire Range is required.
 - Q099: The complete five-step procedure is the answer-bearing unit.
+- Q071-P1: The parser split the two printed creation steps across procedure and paragraph elements; the complete source set is required.
+- Q071-P2: The parser split the two printed creation steps across procedure and paragraph elements; the complete source set is required.
+- Q071-P3: The parser split the two printed creation steps across procedure and paragraph elements; the complete source set is required.
+- Q071-P4: The parser split the two printed creation steps across procedure and paragraph elements; the complete source set is required.
+- Q089-P1: The source wording is awkward; retain for manual review if strict semantic interpretation of Entire Range is required.
+- Q089-P2: The source wording is awkward; retain for manual review if strict semantic interpretation of Entire Range is required.
+- Q089-P3: The source wording is awkward; retain for manual review if strict semantic interpretation of Entire Range is required.
+- Q089-P4: The source wording is awkward; retain for manual review if strict semantic interpretation of Entire Range is required.
+- Q099-P1: The complete five-step procedure is the answer-bearing unit.
+- Q099-P2: The complete five-step procedure is the answer-bearing unit.
+- Q099-P3: The complete five-step procedure is the answer-bearing unit.
+- Q099-P4: The complete five-step procedure is the answer-bearing unit.
 - Q004 / section-3-element-001: independent PDF token match 0.8.
 - Q010 / section-5-element-001: independent PDF token match 0.667.
 - Q012 / section-6-element-002: independent PDF token match 0.6.
@@ -75,6 +91,8 @@ Procedure questions cite all parser elements needed to reconstruct the complete 
 - Q130 / section-17.1.2-element-001: independent PDF token match 0.8.
 - Q131 / section-16.2.2-local-group-01: independent PDF token match 0.725.
 - Q131 / section-11.1-element-001: independent PDF token match 0.636.
+- Q048-P4: exceeds its paraphrase level's lexical-overlap review threshold.
+- Mean overlap increased from level_2_moderate to level_3_strong; retain as a measured design limitation.
 
 ## Duplicate candidates
 

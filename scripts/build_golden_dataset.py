@@ -5,15 +5,27 @@ import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
+import sys
 
 from pypdf import PdfReader
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from testrx_retriever.golden_paraphrases import (
+    canonical_legacy_hash,
+    extend_with_paraphrases,
+    load_paraphrase_specification,
+)
+
+
 DOCUMENT_PATH = ROOT / "output" / "parsing" / "document.json"
 WARNINGS_PATH = ROOT / "output" / "parsing" / "parsing_warnings.json"
 PDF_PATH = ROOT / "source" / "TESTRX_User_Manual.pdf"
 OUT_DIR = ROOT / "output" / "datasets" / "golden"
+PARAPHRASE_SPEC_PATH = ROOT / "configs" / "datasets" / "golden_paraphrases.json"
+LEGACY_QUESTION_HASH = "055FD96DCE85DDD2483024F809E33AA8FBFA1F527D78B9F8984B41110E9D8E1A"
 
 
 def norm(text: str) -> str:
@@ -289,6 +301,11 @@ for question in questions:
 
 if not 100 <= len(questions) <= 200:
     raise AssertionError(f"Expected a 100-200 question seed set, got {len(questions)}")
+legacy_question_hash = canonical_legacy_hash(questions)
+if legacy_question_hash != LEGACY_QUESTION_HASH:
+    raise AssertionError(
+        f"Existing golden questions changed before paraphrase extension: {legacy_question_hash}"
+    )
 
 
 def source_text(element: dict) -> str:
@@ -335,6 +352,10 @@ lineage_failures, weak_matches = verify_pdf_lineage()
 if lineage_failures:
     raise AssertionError(f"PDF lineage verification failed: {lineage_failures[:10]}")
 
+legacy_question_count = len(questions)
+paraphrase_specification = load_paraphrase_specification(PARAPHRASE_SPEC_PATH)
+questions = extend_with_paraphrases(questions, paraphrase_specification, elements)
+
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 jsonl_path = OUT_DIR / "golden_dataset.jsonl"
@@ -348,12 +369,15 @@ with jsonl_path.open("w", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(question, ensure_ascii=False) + "\n")
 
 csv_fields = [
-    "question_id", "question", "question_type", "difficulty", "expected_answer",
+    "question_id", "source_question_id", "paraphrase_level", "question",
+    "question_type", "difficulty", "expected_answer",
     "source_document", "source_pages", "source_section_paths", "source_semantic_unit_ids",
     "source_element_ids", "primary_source", "required_source_set", "acceptable_source_set",
     "required_evidence", "supporting_evidence", "hard_negative_sources", "answerability",
     "requires_single_unit", "requires_multiple_units", "requires_parent_context", "requires_table",
     "requires_procedure", "requires_cross_reference", "requires_multi_hop", "notes",
+    "query_token_count", "unique_query_token_count", "relevant_source_token_count",
+    "query_source_lexical_overlap", "overlap_review_threshold", "overlap_review_flag",
 ]
 with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
     writer = csv.DictWriter(handle, fieldnames=csv_fields)
@@ -362,8 +386,12 @@ with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
         src = question["source"]
         gt = question["retrieval_ground_truth"]
         flags = question["evaluation_metadata"]
+        lexical = question["lexical_diagnostics"]
         writer.writerow({
-            "question_id": question["question_id"], "question": question["question"],
+            "question_id": question["question_id"],
+            "source_question_id": question["source_question_id"],
+            "paraphrase_level": question["paraphrase_level"],
+            "question": question["question"],
             "question_type": question["question_type"], "difficulty": question["difficulty"],
             "expected_answer": question["expected_answer"], "source_document": src["document"],
             "source_pages": "|".join(map(str, src["pages"])),
@@ -376,6 +404,12 @@ with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
             "supporting_evidence": "|".join(question["supporting_evidence"]),
             "hard_negative_sources": "|".join(question["hard_negative_sources"]),
             "answerability": question["answerability"], **flags, "notes": question["notes"],
+            "query_token_count": lexical["query_token_count"],
+            "unique_query_token_count": lexical["unique_query_token_count"],
+            "relevant_source_token_count": lexical["relevant_source_token_count"],
+            "query_source_lexical_overlap": lexical["query_source_lexical_overlap"],
+            "overlap_review_threshold": lexical["overlap_review_threshold"],
+            "overlap_review_flag": lexical["overlap_review_flag"],
         })
 
 
@@ -385,6 +419,24 @@ def markdown_counts(counter: Counter) -> str:
 
 type_counts = Counter(q["question_type"] for q in questions)
 difficulty_counts = Counter(q["difficulty"] for q in questions)
+paraphrase_counts = Counter(q["paraphrase_level"] for q in questions)
+overlap_by_level = {
+    level: round(
+        sum(q["lexical_diagnostics"]["query_source_lexical_overlap"] for q in questions if q["paraphrase_level"] == level)
+        / paraphrase_counts[level],
+        6,
+    )
+    for level in paraphrase_counts
+}
+ordered_overlap_levels = [level for level in paraphrase_specification["levels"]]
+overlap_trend_inversions = [
+    {"less_abstract": left, "more_abstract": right}
+    for left, right in zip(ordered_overlap_levels, ordered_overlap_levels[1:])
+    if overlap_by_level[right] > overlap_by_level[left]
+]
+overlap_review_questions = [
+    q["question_id"] for q in questions if q["lexical_diagnostics"]["overlap_review_flag"]
+]
 flag_counts = Counter()
 section_counts = Counter()
 unit_counts = Counter()
@@ -406,6 +458,14 @@ report_path.write_text(
     f"Source: `{document['source_file']}`  \n"
     f"Source SHA-256: `{document['source_sha256']}`  \n"
     f"Total questions: **{len(questions)}**\n\n"
+    f"- Original questions preserved: {legacy_question_count}\n"
+    f"- Controlled paraphrases appended: {len(questions) - legacy_question_count}\n"
+    f"- Paraphrase families: {len(paraphrase_specification['families'])}\n\n"
+    "## Questions by paraphrase level\n\n" + markdown_counts(paraphrase_counts) + "\n\n"
+    "## Mean query/source lexical overlap by level\n\n"
+    + "\n".join(f"- {level}: {overlap_by_level[level]:.3f}" for level in sorted(overlap_by_level)) + "\n\n"
+    f"- Level-threshold review flags: {len(overlap_review_questions)}\n"
+    f"- Mean-overlap trend inversions: {len(overlap_trend_inversions)}\n\n"
     "## Questions by type\n\n" + markdown_counts(type_counts) + "\n\n"
     "## Questions by difficulty\n\n" + markdown_counts(difficulty_counts) + "\n\n"
     "## Retrieval requirements\n\n" + markdown_counts(flag_counts) + "\n\n"
@@ -442,9 +502,12 @@ qc_lines = [
     f"- Questions reviewed: {len(questions)}", f"- PDF lineage failures: {len(lineage_failures)}",
     f"- Weaker PDF text matches retained for review: {len(weak_matches)}",
     f"- Exact duplicate questions: {len(duplicates)}", "- Rejected questions: 0",
+    f"- Paraphrases above level-specific overlap review threshold: {len(overlap_review_questions)}",
+    f"- Mean-overlap trend inversions: {len(overlap_trend_inversions)}",
     "- Ambiguous questions retained: 0", "- Questions requiring external knowledge: 0", "",
     "## Verification method", "",
     "Every required semantic-unit ID was resolved against `output/parsing/document.json`. Its page range and source text were then checked against text independently extracted from the corresponding page(s) of the original PDF with pypdf. The build fails if the sampled source-token match falls below 35%; matches below 85% remain explicit manual-review candidates because PDF extractors tokenize lists, ligatures, punctuation, and wrapped text differently.",
+    "", "Lexical overlap is the number of unique, case-folded RegexTokenizer query tokens found in the concatenated required-source text divided by the number of unique query tokens. Level-specific thresholds flag unexpectedly lexical paraphrases without rejecting them.",
     "", "Procedure questions cite all parser elements needed to reconstruct the complete printed procedure. Table questions cite the canonical table element, including joined fragments for Tables 1 and 7.",
     "", "## Parser warnings carried into review", "",
 ]
@@ -456,11 +519,21 @@ for question in questions:
         qc_lines.append(f"- {question['question_id']}: {question['notes']}")
 for item in weak_matches:
     qc_lines.append(f"- {item['question_id']} / {item['element_id']}: independent PDF token match {item.get('token_match_ratio', 'n/a')}.")
+for question_id in overlap_review_questions:
+    qc_lines.append(f"- {question_id}: exceeds its paraphrase level's lexical-overlap review threshold.")
+for inversion in overlap_trend_inversions:
+    qc_lines.append(
+        f"- Mean overlap increased from {inversion['less_abstract']} to {inversion['more_abstract']}; retain as a measured design limitation."
+    )
 qc_lines.extend(["", "## Duplicate candidates", "", "- None by exact normalized-question comparison." if not duplicates else json.dumps(duplicates, indent=2), ""])
 qc_path.write_text("\n".join(qc_lines), encoding="utf-8")
 
 print(json.dumps({
     "questions": len(questions), "jsonl": str(jsonl_path), "csv": str(csv_path),
     "report": str(report_path), "coverage": str(coverage_path), "qc": str(qc_path),
-    "types": type_counts, "difficulty": difficulty_counts, "weak_pdf_matches": len(weak_matches),
+    "types": type_counts, "difficulty": difficulty_counts,
+    "paraphrase_levels": paraphrase_counts, "mean_lexical_overlap": overlap_by_level,
+    "overlap_review_questions": overlap_review_questions,
+    "overlap_trend_inversions": overlap_trend_inversions,
+    "weak_pdf_matches": len(weak_matches),
 }, ensure_ascii=False, indent=2, default=dict))

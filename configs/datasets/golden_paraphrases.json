@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "lexical-overlap-paraphrases-v1",
+  "levels": [
+    "level_1_light",
+    "level_2_moderate",
+    "level_3_strong",
+    "level_4_conceptual"
+  ],
+  "families": [
+    {
+      "source_question_id": "Q001",
+      "questions": {
+        "level_1_light": "What is the expanded form of TESTRX?",
+        "level_2_moderate": "What words make up the TESTRX acronym?",
+        "level_3_strong": "Which phrase is abbreviated by the product's name?",
+        "level_4_conceptual": "What full name lies behind the tool's shortened name?"
+      }
+    },
+    {
+      "source_question_id": "Q007",
+      "questions": {
+        "level_1_light": "How can I select the workspace folder when starting TESTRX for the first time?",
+        "level_2_moderate": "What steps let a first-time user choose the folder where work will be stored?",
+        "level_3_strong": "During initial startup, how is the working-area destination chosen?",
+        "level_4_conceptual": "On opening the application for the first time, how do I decide where its project data should live?"
+      }
+    },
+    {
+      "source_question_id": "Q010",
+      "questions": {
+        "level_1_light": "What primary regions are displayed on the TESTRX Home screen?",
+        "level_2_moderate": "How is the application's landing view divided?",
+        "level_3_strong": "What sections of the interface greet a user after entering the tool?",
+        "level_4_conceptual": "How is the starting workspace laid out for someone who has just opened the application?"
+      }
+    },
+    {
+      "source_question_id": "Q012",
+      "questions": {
+        "level_1_light": "What does the Project Navigator display for the Test Case role compared with the Test Session role?",
+        "level_2_moderate": "How does navigator content change between authoring individual tests and organizing a run?",
+        "level_3_strong": "What appears in the browsing panel under the two working roles?",
+        "level_4_conceptual": "When switching from designing tests to arranging an execution, how does the browsing tree differ?"
+      }
+    },
+    {
+      "source_question_id": "Q017",
+      "questions": {
+        "level_1_light": "Which File menu option saves all pending changes in open test-case tabs?",
+        "level_2_moderate": "How can unsaved edits across every test-authoring tab be stored at once?",
+        "level_3_strong": "What command writes all outstanding changes instead of saving each open item separately?",
+        "level_4_conceptual": "How do I preserve every edit across my currently open work in one action?"
+      }
+    },
+    {
+      "source_question_id": "Q041",
+      "questions": {
+        "level_1_light": "What occurs if the same database is pasted again into the same Test Suite?",
+        "level_2_moderate": "How does TESTRX respond when a suite receives a database it already contains?",
+        "level_3_strong": "If I duplicate an existing data definition inside its current suite, what will the application do?",
+        "level_4_conceptual": "What feedback should I expect after trying to add an already-present data source to the same container?"
+      }
+    },
+    {
+      "source_question_id": "Q048",
+      "questions": {
+        "level_1_light": "How do Test Suite and Test Case parameters differ in scope and priority?",
+        "level_2_moderate": "If both a suite and a case define parameters, where do they apply and which one wins?",
+        "level_3_strong": "How are shared configuration values inherited and overridden between a collection and an individual test?",
+        "level_4_conceptual": "When the same setting exists at a broad grouping level and a specific test level, which value governs and where?"
+      }
+    },
+    {
+      "source_question_id": "Q056",
+      "questions": {
+        "level_1_light": "Why can't 1,,2 be used in a parameter Value field?",
+        "level_2_moderate": "What input rule does the value 1,,2 violate?",
+        "level_3_strong": "Why is a comma-separated entry with a missing middle item rejected?",
+        "level_4_conceptual": "What makes a list containing two adjacent separators unacceptable as an input value?"
+      }
+    },
+    {
+      "source_question_id": "Q071",
+      "questions": {
+        "level_1_light": "What two methods can create a Test Case or Heading?",
+        "level_2_moderate": "How can a user add either a test item or an organizational heading?",
+        "level_3_strong": "What available workflows insert a new executable item or divider into the repository?",
+        "level_4_conceptual": "If I need another test or a label-like organizer in the project tree, what are my creation options?"
+      }
+    },
+    {
+      "source_question_id": "Q083",
+      "questions": {
+        "level_1_light": "What controls the Identifier suggestion list?",
+        "level_2_moderate": "How does the application decide which identifiers to propose?",
+        "level_3_strong": "What information determines the entries offered for a step's target field?",
+        "level_4_conceptual": "Where do the automatic choices for what a step acts on come from?"
+      }
+    },
+    {
+      "source_question_id": "Q089",
+      "questions": {
+        "level_1_light": "How are the In Range and Entire Range modes different?",
+        "level_2_moderate": "How do the two time-constraint modes judge an allowed interval differently?",
+        "level_3_strong": "What changes when timing is evaluated only within a window rather than across the whole window?",
+        "level_4_conceptual": "How does accepting a condition during part of a period differ from requiring it throughout?"
+      }
+    },
+    {
+      "source_question_id": "Q099",
+      "questions": {
+        "level_1_light": "What are the complete steps for adding Test Bench Configuration details?",
+        "level_2_moderate": "How do I finish setting up the execution-bench information?",
+        "level_3_strong": "After creating a session, what sequence attaches its hardware and environment configuration?",
+        "level_4_conceptual": "What must I do to prepare a session with the external setup it needs before it can run?"
+      }
+    },
+    {
+      "source_question_id": "Q106",
+      "questions": {
+        "level_1_light": "How do VTE and FPGA configuration requirements differ?",
+        "level_2_moderate": "What different information is entered for virtual test environment and programmable hardware setups?",
+        "level_3_strong": "How does setup for simulated execution compare with setup for a reconfigurable device?",
+        "level_4_conceptual": "What changes when preparing a software-based test environment instead of the hardware logic platform?"
+      }
+    },
+    {
+      "source_question_id": "Q112",
+      "questions": {
+        "level_1_light": "Where do entries in the Test Labels tab come from?",
+        "level_2_moderate": "What supplies the items shown in the test-side label list?",
+        "level_3_strong": "How are the labels in the mapping view populated?",
+        "level_4_conceptual": "Which earlier authoring activity causes candidate test signals to appear for connection?"
+      }
+    },
+    {
+      "source_question_id": "Q121",
+      "questions": {
+        "level_1_light": "How do you open the latest report for one test case compared with the entire run?",
+        "level_2_moderate": "Which separate links show the most recent result for one case and for the full execution?",
+        "level_3_strong": "Where should I click to inspect the newest outcome of a single check compared with the whole batch?",
+        "level_4_conceptual": "How do I review the last result for one test independently of the most recent overall execution?"
+      }
+    },
+    {
+      "source_question_id": "Q130",
+      "questions": {
+        "level_1_light": "Which menu command begins a flush to ALM, and which items are eligible?",
+        "level_2_moderate": "How do I start synchronization back to ALM, and what modified artifacts qualify?",
+        "level_3_strong": "Which application action sends edits to lifecycle management, and what loaded objects may be sent?",
+        "level_4_conceptual": "How do I return local changes to the external requirements system, and which kinds of previously imported content are allowed?"
+      }
+    }
+  ]
+}
