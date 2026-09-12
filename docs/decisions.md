@@ -711,3 +711,23 @@ Decision:
 
 Status:
 - Accepted. CLI and reference JSON/Markdown summaries implemented 2026-09-12.
+
+---
+
+## O040 - Keep two anchors for the next retrieval investigation
+
+Observation:
+- The 500/50/4,096 reference has the highest MRR but exposes 45.5% of its index
+  at K=10 and assigns broad lineage to each chunk.
+- The 300/30/8,192 run has eight K=10 failures, 0.752 MRR, and 27.0% index
+  exposure; 16,384 dimensions do not improve every metric.
+
+Decision:
+- Retain 500/50/4,096 as the historical control.
+- Use 300/30/8,192 as the second diagnostic anchor, not yet as a production
+  selection.
+- Audit persistent evidence failures and add span-complete/fixed-fraction views
+  before learned models or reranking.
+
+Status:
+- Accepted from the 2026-09-12 failure analysis.

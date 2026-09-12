@@ -21,3 +21,5 @@ status remain in the top-level `docs/` files.
   effects, lexical overlap, lineage density, and collision analysis.
 - `paraphrase_bias_study.md`: controlled paraphrase families, lexical-overlap
   diagnostics, paired retrieval degradation, and interpretation boundaries.
+- `failure_decision_report.md`: settings, types, categories, persistent failures,
+  paraphrase failure modes, and the next-experiment decision.

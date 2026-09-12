@@ -832,3 +832,19 @@ Review verdict:
 - **Controlled extension, evaluation, analytics, and recorded artifacts pass.**
 - Do not claim learned semantic generalization from this result.
 - Use low-count slices for diagnosis and follow-up design, not model selection.
+
+## 2026-09-12 - Failure decision review
+
+Evidence:
+- Filtered shared-store analytics reproduce setting, type, category, level,
+  semantic-source, and family summaries without new run artifacts.
+- Dimension failure rates fall from 27.3% at 128 to 8.0% at 8,192 and 7.4% at
+  16,384 across the comparable 125-300-token matrix.
+- Q080 and Q092 fail all 29 original-question settings.
+- Strong paraphrases fail only 2/16 at K=10 but fall to 0.125 Recall@1, proving
+  that high-K completeness hides substantial ranking degradation.
+
+Verdict:
+- **Failure analysis is sufficient for the next experimental decision.**
+- Use the dual-control strategy and audit persistent evidence failures before
+  interpreting another model comparison.

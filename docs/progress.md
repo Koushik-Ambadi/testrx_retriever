@@ -280,3 +280,18 @@ NEXT
 - Use the recorded category/source-family views to select failure-focused tests.
 - Consider unigram/bigram, shuffled-query, fixed-index-fraction, and span-complete
   ablations before adding learned embedding families or reranking.
+
+## 2026-09-12 - Cross-setting failure analysis complete
+
+DONE
+- Added exact reusable analytics filters and explicit max-K failure counts/rates.
+- Compared all settings by dimension and token window, then sliced failures by
+  question type, difficulty, category, paraphrase level, source, and family.
+- Identified persistent question failures and separated rank degradation from
+  complete-evidence misses.
+
+DECIDED
+- Keep 500/50/4,096 as the historical control.
+- Carry 300/30/8,192 as the next diagnostic anchor because it records the fewest
+  K=10 failures with substantially lower index exposure.
+- Audit Q080 and Q092 before expanding model complexity.
