@@ -20,19 +20,28 @@ def score_ranked_results(
     required_source_ids: Iterable[str],
     results: list[RetrievedChunk],
     top_k_values: tuple[int, ...],
+    acceptable_source_ids: Iterable[str] | None = None,
 ) -> dict[str, Any]:
     required = set(required_source_ids)
+    acceptable = set(acceptable_source_ids) if acceptable_source_ids is not None else set(required)
     if not required:
         raise ValueError("required_source_ids cannot be empty")
+    if not acceptable:
+        raise ValueError("acceptable_source_ids cannot be empty")
     coverage_at_k: dict[str, float] = {}
     complete_at_k: dict[str, bool] = {}
     retrieved_required_at_k: dict[str, list[str]] = {}
+    precision_at_k: dict[str, float] = {}
     for top_k in top_k_values:
-        retrieved = set().union(*(result_source_ids(result) for result in results[:top_k])) if results[:top_k] else set()
+        ranked = results[:top_k]
+        retrieved = set().union(*(result_source_ids(result) for result in ranked)) if ranked else set()
         matched = sorted(required & retrieved)
         coverage_at_k[str(top_k)] = round(len(matched) / len(required), 6)
         complete_at_k[str(top_k)] = len(matched) == len(required)
         retrieved_required_at_k[str(top_k)] = matched
+        precision_at_k[str(top_k)] = round(
+            sum(bool(acceptable & result_source_ids(result)) for result in ranked) / len(ranked), 6
+        ) if ranked else 0.0
     first_relevant_rank = next(
         (result.rank for result in results if required & result_source_ids(result)),
         None,
@@ -49,6 +58,7 @@ def score_ranked_results(
         "retrieved_required_source_ids_at_k": retrieved_required_at_k,
         "coverage_at_k": coverage_at_k,
         "complete_at_k": complete_at_k,
+        "precision_at_k": precision_at_k,
         "first_relevant_rank": first_relevant_rank,
         "reciprocal_rank": round(1 / first_relevant_rank, 10) if first_relevant_rank else 0.0,
         "pass": complete_at_k[str(max(top_k_values))],
@@ -68,13 +78,19 @@ def evaluate_retrieval(
     for question in questions:
         results = retriever.retrieve(question["question"], max_k)
         required = question["retrieval_ground_truth"]["required_source_set"]
-        evaluation = score_ranked_results(required, results, top_k_values)
+        acceptable = question["retrieval_ground_truth"].get("acceptable_source_set", required)
+        evaluation = score_ranked_results(required, results, top_k_values, acceptable)
         records.append(
             {
                 "question_id": question["question_id"],
                 "question": question["question"],
                 "question_type": question["question_type"],
                 "difficulty": question["difficulty"],
+                "paraphrase_level": question.get("paraphrase_level", "original"),
+                "source_question_id": question.get("source_question_id"),
+                "lexical_diagnostics": question.get("lexical_diagnostics", {}),
+                "evaluation_metadata": question.get("evaluation_metadata", {}),
+                "source": question.get("source", {}),
                 "required_semantic_units": required,
                 "required_evidence": question.get("required_evidence", []),
                 "retrieved_chunks": [result.to_dict() for result in results],
@@ -98,6 +114,10 @@ def evaluate_retrieval(
             str(k): round(sum(record["evaluation"]["coverage_at_k"][str(k)] for record in records) / count, 6)
             for k in top_k_values
         },
+        "precision_at_k": {
+            str(k): round(sum(record["evaluation"]["precision_at_k"][str(k)] for record in records) / count, 6)
+            for k in top_k_values
+        },
         "mrr": round(sum(record["evaluation"]["reciprocal_rank"] for record in records) / count, 6),
         "mean_evidence_coverage": round(
             sum(record["evaluation"]["coverage_at_k"][str(max_k)] for record in records) / count,
@@ -105,6 +125,11 @@ def evaluate_retrieval(
         ),
         "passed_at_max_k": sum(record["evaluation"]["pass"] for record in records),
         "failed_at_max_k": sum(not record["evaluation"]["pass"] for record in records),
+        "evidence_coverage_distribution": {
+            "zero": round(sum(record["evaluation"]["coverage_at_k"][str(max_k)] == 0 for record in records) / count, 6),
+            "partial": round(sum(0 < record["evaluation"]["coverage_at_k"][str(max_k)] < 1 for record in records) / count, 6),
+            "complete": round(sum(record["evaluation"]["coverage_at_k"][str(max_k)] == 1 for record in records) / count, 6),
+        },
         "failure_categories": dict(
             sorted(
                 Counter(
@@ -136,6 +161,7 @@ def render_retrieval_report(run: dict[str, Any], records: list[dict[str, Any]]) 
         f"- Retriever: {config['retrieval']['algorithm']}",
     ]
     lines.extend(f"- Recall@{k}: {metrics['recall_at_k'][str(k)]:.3f}" for k in top_k_values)
+    lines.extend(f"- Precision@{k}: {metrics['precision_at_k'][str(k)]:.3f}" for k in top_k_values)
     lines.extend(
         [
             f"- MRR: {metrics['mrr']:.3f}",

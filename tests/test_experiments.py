@@ -30,7 +30,10 @@ def write_config(root: Path, experiment_id: str) -> Path:
             "run_metrics": True, "question_metrics": True, "chunks": False,
             "embeddings": False, "ranked_results": False,
         },
-        "evaluation": {"top_k": [1], "random_baseline": {"seed": 7, "trials": 5}},
+        "evaluation": {
+            "top_k": [1], "random_baseline": {"seed": 7, "trials": 5},
+            "question_filter": {"paraphrase_levels": ["original"]},
+        },
         "components": {
             "chunkers": [{
                 "strategy": "token_window",
@@ -40,6 +43,7 @@ def write_config(root: Path, experiment_id: str) -> Path:
                 },
             }],
             "embedders": [{
+                "family": "lexical",
                 "model": "stable_hashing_word_bigram", "model_version": "1.0",
                 "parameters": {"dimensions": [32, 64]},
             }],
@@ -49,7 +53,7 @@ def write_config(root: Path, experiment_id: str) -> Path:
         "controls": [{
             "label": "control",
             "chunking": {"strategy": "token_window", "chunk_size": 10, "chunk_overlap": 1},
-            "embedding": {"model": "stable_hashing_word_bigram", "model_version": "1.0", "dimension": 64},
+            "embedding": {"family": "lexical", "model": "stable_hashing_word_bigram", "model_version": "1.0", "dimension": 64},
             "retrieval": {"algorithm": "cosine_similarity_exact", "parameters": {}},
             "reranking": {"algorithm": "none", "parameters": {}},
         }],
@@ -83,6 +87,8 @@ class ExperimentStoreTests(unittest.TestCase):
         question = {
             "question_id": "Q001", "question": "Where is alpha?", "question_type": "factual",
             "difficulty": "easy", "retrieval_ground_truth": {"required_source_set": ["unit-1"]},
+            "paraphrase_level": "original", "source_question_id": None,
+            "lexical_diagnostics": {"query_source_lexical_overlap": 0.5},
             "source": {"pages": [1], "section_paths": [["1 Example"]], "semantic_unit_ids": ["unit-1"]},
             "evaluation_metadata": {"requires_single_unit": True, "requires_table": False},
         }
@@ -120,6 +126,9 @@ class ExperimentStoreTests(unittest.TestCase):
         self.assertEqual(len(questions), 6)
         self.assertEqual(questions[0]["source_semantic_unit_ids"], ["unit-1"])
         self.assertEqual(questions[0]["categories"], ["single_unit"])
+        self.assertEqual(questions[0]["paraphrase_level"], "original")
+        self.assertEqual(questions[0]["precision_at_k"], {"1": 1.0})
+        self.assertEqual(runs[0]["components"]["embedding"]["family"], "lexical")
 
 
 if __name__ == "__main__":

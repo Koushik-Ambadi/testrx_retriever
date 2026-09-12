@@ -33,11 +33,20 @@ class FakeRetriever:
 
 class EvaluationTests(unittest.TestCase):
     def test_single_unit_complete_and_mrr(self) -> None:
-        scored = score_ranked_results(["a"], [result(1, ("x",)), result(2, ("a",))], (1, 3))
+        scored = score_ranked_results(["a"], [result(1, ("x",)), result(2, ("a",))], (1, 3), ["a", "alias"])
         self.assertFalse(scored["complete_at_k"]["1"])
         self.assertTrue(scored["complete_at_k"]["3"])
         self.assertEqual(scored["first_relevant_rank"], 2)
         self.assertEqual(scored["reciprocal_rank"], 0.5)
+        self.assertEqual(scored["precision_at_k"], {"1": 0.0, "3": 0.5})
+
+    def test_precision_uses_acceptable_lineage(self) -> None:
+        scored = score_ranked_results(
+            ["required"], [result(1, ("acceptable",)), result(2, ("noise",))], (1, 2),
+            ["required", "acceptable"],
+        )
+        self.assertEqual(scored["precision_at_k"], {"1": 1.0, "2": 0.5})
+        self.assertFalse(scored["complete_at_k"]["2"])
 
     def test_multi_unit_partial_and_complete_coverage(self) -> None:
         partial = score_ranked_results(["a", "b"], [result(1, ("a",))], (1,))

@@ -17,7 +17,8 @@
   },
   "evaluation": {
     "top_k": [1, 3, 5, 10],
-    "random_baseline": {"seed": 20260911, "trials": 1000}
+    "random_baseline": {"seed": 20260911, "trials": 1000},
+    "question_filter": {"paraphrase_levels": ["original"]}
   },
   "components": {
     "chunkers": [{
@@ -28,6 +29,7 @@
       }
     }],
     "embedders": [{
+      "family": "lexical",
       "model": "stable_hashing_word_bigram",
       "model_version": "1.0",
       "parameters": {"dimensions": [128, 256, 512, 1024, 4096, 8192, 16384]}
@@ -38,7 +40,7 @@
   "controls": [{
     "label": "baseline-reference",
     "chunking": {"strategy": "token_window", "chunk_size": 500, "chunk_overlap": 50},
-    "embedding": {"model": "stable_hashing_word_bigram", "model_version": "1.0", "dimension": 4096},
+    "embedding": {"family": "lexical", "model": "stable_hashing_word_bigram", "model_version": "1.0", "dimension": 4096},
     "retrieval": {"algorithm": "cosine_similarity_exact"},
     "reranking": {"algorithm": "none", "parameters": {}}
   }]

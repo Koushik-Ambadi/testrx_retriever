@@ -44,6 +44,7 @@ class SweepConfig:
     random_seed: int
     random_trials: int
     retrieval_top_k: tuple[int, ...]
+    question_filter: dict[str, Any]
 
     @classmethod
     def load(cls, path: Path) -> "SweepConfig":
@@ -70,6 +71,7 @@ class SweepConfig:
             random_seed=int(random_baseline["seed"]),
             random_trials=int(random_baseline["trials"]),
             retrieval_top_k=tuple(int(k) for k in evaluation["top_k"]),
+            question_filter=dict(evaluation.get("question_filter", {})),
         )
         config.validate()
         return config
@@ -112,13 +114,23 @@ class SweepConfig:
             raise ValueError("random_trials must be positive")
         if not self.retrieval_top_k or tuple(sorted(set(self.retrieval_top_k))) != self.retrieval_top_k:
             raise ValueError("retrieval_top_k must be unique and sorted")
+        unsupported_filters = set(self.question_filter) - {"paraphrase_levels"}
+        if unsupported_filters:
+            raise ValueError(f"unsupported question filters: {sorted(unsupported_filters)}")
+        levels = self.question_filter.get("paraphrase_levels", [])
+        if levels and (not isinstance(levels, list) or any(not isinstance(level, str) for level in levels)):
+            raise ValueError("question_filter.paraphrase_levels must be a list of strings")
         for control in self.controls:
             ChunkingConfig(
                 strategy=control["chunking"]["strategy"],
                 chunk_size=int(control["chunking"]["chunk_size"]),
                 chunk_overlap=int(control["chunking"]["chunk_overlap"]),
             ).validate()
-            EmbeddingConfig(**control["embedding"]).validate()
+            EmbeddingConfig(
+                model=control["embedding"]["model"],
+                model_version=control["embedding"]["model_version"],
+                dimension=int(control["embedding"]["dimension"]),
+            ).validate()
             if control["retrieval"]["algorithm"] != "cosine_similarity_exact" or control["reranking"]["algorithm"] != "none":
                 raise ValueError("unsupported control retrieval or reranking component")
 
@@ -144,6 +156,7 @@ class SweepConfig:
                         "chunk_overlap": self.overlap_for(chunker, int(size)),
                     },
                     "embedding": {
+                        "family": embedder.get("family", "unspecified"),
                         "model": embedder["model"],
                         "model_version": embedder["model_version"],
                         "dimension": int(dimension),
@@ -169,6 +182,7 @@ class SweepConfig:
             "evaluation": {
                 "top_k": list(self.retrieval_top_k),
                 "random_baseline": {"seed": self.random_seed, "trials": self.random_trials},
+                "question_filter": self.question_filter,
             },
             "components": {
                 "chunkers": list(self.chunkers),
@@ -271,6 +285,8 @@ def _retrieval_diagnostics(
         margins.append(margin)
         details.append({
             "question_id": question["question_id"],
+            "source_question_id": question.get("source_question_id"),
+            "paraphrase_level": question.get("paraphrase_level", "original"),
             "question_type": question["question_type"],
             "difficulty": question["difficulty"],
             "required_source_ids": sorted(required),
@@ -282,8 +298,10 @@ def _retrieval_diagnostics(
                 for key, enabled in question.get("evaluation_metadata", {}).items()
                 if key.startswith("requires_") and enabled
             ),
+            "lexical_diagnostics": question.get("lexical_diagnostics", {}),
             "first_relevant_rank": record["evaluation"]["first_relevant_rank"],
             "reciprocal_rank": record["evaluation"]["reciprocal_rank"],
+            "precision_at_k": record["evaluation"]["precision_at_k"],
             "coverage_at_k": record["evaluation"]["coverage_at_k"],
             "complete_at_k": record["evaluation"]["complete_at_k"],
             "failure_category": record["evaluation"]["failure_category"],
@@ -320,7 +338,11 @@ def _slice_metrics(records: list[dict[str, Any]], max_k: int) -> dict[str, Any]:
 def _run_one(
     chunks: list[Chunk], questions: list[dict[str, Any]], embedding: dict[str, Any], top_k: tuple[int, ...]
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[str]]:
-    embedder = StableHashingEmbedder(EmbeddingConfig(**embedding))
+    embedder = StableHashingEmbedder(EmbeddingConfig(
+        model=embedding["model"],
+        model_version=embedding["model_version"],
+        dimension=int(embedding["dimension"]),
+    ))
     index = ExactVectorIndex(embedder)
     index.build_index(chunks)
     records, metrics = evaluate_retrieval(index, questions, top_k)
@@ -367,6 +389,11 @@ def _upsert_records(path: Path, experiment_id: str, records: list[dict[str, Any]
 def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
     document = json.loads(config.document_path.read_text(encoding="utf-8"))
     questions = read_jsonl(config.golden_dataset_path)
+    selected_levels = set(config.question_filter.get("paraphrase_levels", []))
+    if selected_levels:
+        questions = [question for question in questions if question.get("paraphrase_level", "original") in selected_levels]
+    if not questions:
+        raise ValueError("question filter selected no evaluation questions")
     tokenizer = RegexTokenizer()
     run_specs = config.run_specs()
     source_identity = {
@@ -414,6 +441,7 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
                 "top_k": list(config.retrieval_top_k),
                 "random_seed": config.random_seed,
                 "random_trials": config.random_trials,
+                "question_filter": config.question_filter,
             },
         }
         run_digest = hashlib.sha256(

@@ -11,6 +11,7 @@ import platform
 import numpy as np
 
 from .baseline_config import BaselineConfig, find_project_root
+from .analytics import build_retrieval_analysis, render_analysis_report
 from .chunking import TokenChunker
 from .embedding import StableHashingEmbedder
 from .evaluation import evaluate_retrieval, render_retrieval_report
@@ -53,6 +54,7 @@ def run_baseline(config: BaselineConfig, project_root: Path) -> dict:
     index = ExactVectorIndex(embedder)
     index.build_index(chunks)
     records, metrics = evaluate_retrieval(index, questions, config.retrieval.top_k)
+    analytics = build_retrieval_analysis(records, config.retrieval.top_k)
 
     output = config.output_directory
     evaluation_dir = output / "evaluation"
@@ -77,8 +79,14 @@ def run_baseline(config: BaselineConfig, project_root: Path) -> dict:
     write_json(index_dir / "chunk_ids.json", [chunk.chunk_id for chunk in chunks])
     write_jsonl(evaluation_dir / "retrieval_results.jsonl", records)
     write_json(evaluation_dir / "retrieval_metrics.json", metrics)
+    write_json(evaluation_dir / "retrieval_analytics.json", analytics)
+    analytics_report = render_analysis_report(analytics, config.retrieval.top_k)
+    (evaluation_dir / "retrieval_analytics.md").write_text(
+        analytics_report, encoding="utf-8", newline="\n"
+    )
     report_path = evaluation_dir / "retrieval_report.md"
-    report_path.write_text(render_retrieval_report(run, records), encoding="utf-8", newline="\n")
+    combined_report = render_retrieval_report(run, records) + "\n\n" + analytics_report
+    report_path.write_text(combined_report, encoding="utf-8", newline="\n")
 
     artifact_paths = sorted(
         path for path in output.rglob("*") if path.is_file() and path.name != "manifest.json"

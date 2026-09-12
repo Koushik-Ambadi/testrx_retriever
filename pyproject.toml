@@ -18,6 +18,7 @@ dependencies = [
 testrx-parse = "testrx_retriever.cli:main"
 testrx-baseline = "testrx_retriever.baseline:main"
 testrx-experiments = "testrx_retriever.experiments:main"
+testrx-analyze = "testrx_retriever.analytics:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
