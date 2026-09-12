@@ -1,23 +1,34 @@
 {
-  "dataset_size": 132,
-  "failed_at_max_k": 10,
-  "failure_categories": {
-    "multi_unit_evidence_incomplete": 2,
-    "required_evidence_not_retrieved": 8
+  "dataset_size": 196,
+  "evidence_coverage_distribution": {
+    "complete": 0.892857,
+    "partial": 0.030612,
+    "zero": 0.076531
   },
-  "mean_evidence_coverage": 0.933081,
-  "mrr": 0.780099,
-  "passed_at_max_k": 122,
+  "failed_at_max_k": 21,
+  "failure_categories": {
+    "multi_unit_evidence_incomplete": 6,
+    "required_evidence_not_retrieved": 15
+  },
+  "mean_evidence_coverage": 0.912415,
+  "mrr": 0.703403,
+  "passed_at_max_k": 175,
+  "precision_at_k": {
+    "1": 0.602041,
+    "10": 0.121429,
+    "3": 0.30102,
+    "5": 0.215306
+  },
   "recall_at_k": {
-    "1": 0.666667,
-    "10": 0.924242,
-    "3": 0.810606,
-    "5": 0.878788
+    "1": 0.561224,
+    "10": 0.892857,
+    "3": 0.72449,
+    "5": 0.826531
   },
   "semantic_unit_recall_at_k": {
-    "1": 0.688131,
-    "10": 0.933081,
-    "3": 0.820707,
-    "5": 0.887626
+    "1": 0.585884,
+    "10": 0.912415,
+    "3": 0.747449,
+    "5": 0.85119
   }
 }
