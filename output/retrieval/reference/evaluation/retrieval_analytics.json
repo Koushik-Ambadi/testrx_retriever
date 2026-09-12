@@ -6,10 +6,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "cross_reference",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.642857,
       "mrr": 1.0,
@@ -33,10 +39,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "cross_reference",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -60,10 +72,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "cross_reference",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.294118,
       "mrr": 0.5,
@@ -87,10 +105,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "cross_reference",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.318182,
       "mrr": 1.0,
@@ -114,10 +138,16 @@
         "partial": 0.5,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "category": "cross_reference",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.833333,
       "mean_lexical_overlap": 0.619607,
       "mrr": 1.0,
@@ -141,10 +171,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "multi_hop",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.642857,
       "mrr": 1.0,
@@ -168,10 +204,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "multi_hop",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -195,10 +237,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "multi_hop",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.294118,
       "mrr": 0.5,
@@ -222,10 +270,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "multi_hop",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.318182,
       "mrr": 1.0,
@@ -249,10 +303,16 @@
         "partial": 0.333333,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "category": "multi_hop",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.888889,
       "mean_lexical_overlap": 0.541277,
       "mrr": 1.0,
@@ -276,10 +336,16 @@
         "partial": 0.125,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.125,
       "group": {
         "category": "multiple_units",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.958333,
       "mean_lexical_overlap": 0.475929,
       "mrr": 0.822917,
@@ -303,10 +369,16 @@
         "partial": 0.125,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.125,
       "group": {
         "category": "multiple_units",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.958333,
       "mean_lexical_overlap": 0.322035,
       "mrr": 0.770833,
@@ -330,10 +402,17 @@
         "partial": 0.125,
         "zero": 0.125
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.25,
       "group": {
         "category": "multiple_units",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.833333,
       "mean_lexical_overlap": 0.228413,
       "mrr": 0.232292,
@@ -357,10 +436,17 @@
         "partial": 0.125,
         "zero": 0.25
       },
+      "failed_at_max_k": 3,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.375,
       "group": {
         "category": "multiple_units",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.708333,
       "mean_lexical_overlap": 0.245726,
       "mrr": 0.417857,
@@ -384,10 +470,17 @@
         "partial": 0.071429,
         "zero": 0.035714
       },
+      "failed_at_max_k": 3,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 2,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.107143,
       "group": {
         "category": "multiple_units",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.934524,
       "mean_lexical_overlap": 0.554144,
       "mrr": 0.849405,
@@ -411,10 +504,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "parent_context",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 1.0,
@@ -438,10 +535,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "parent_context",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.3,
       "mrr": 0.2,
@@ -465,10 +566,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "parent_context",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.555556,
       "mrr": 0.5,
@@ -492,10 +597,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "parent_context",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.2,
@@ -519,10 +628,16 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "category": "parent_context",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.522728,
       "mrr": 0.5,
@@ -546,10 +661,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "procedure",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.373377,
       "mrr": 0.75,
@@ -573,10 +692,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "category": "procedure",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.253846,
       "mrr": 0.222222,
@@ -600,10 +725,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "category": "procedure",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.348485,
       "mrr": 0.4,
@@ -627,10 +758,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "category": "procedure",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.242398,
       "mrr": 0.222222,
@@ -654,10 +791,17 @@
         "partial": 0.04,
         "zero": 0.04
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.08,
       "group": {
         "category": "procedure",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.94,
       "mean_lexical_overlap": 0.571019,
       "mrr": 0.779333,
@@ -681,10 +825,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "single_unit",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.509278,
       "mrr": 0.75,
@@ -708,10 +856,16 @@
         "partial": 0.0,
         "zero": 0.375
       },
+      "failed_at_max_k": 3,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 3
+      },
+      "failure_rate_at_max_k": 0.375,
       "group": {
         "category": "single_unit",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.625,
       "mean_lexical_overlap": 0.232692,
       "mrr": 0.425,
@@ -735,10 +889,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "single_unit",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.360762,
       "mrr": 0.525,
@@ -762,10 +920,16 @@
         "partial": 0.0,
         "zero": 0.125
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.125,
       "group": {
         "category": "single_unit",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.875,
       "mean_lexical_overlap": 0.247057,
       "mrr": 0.417857,
@@ -789,10 +953,16 @@
         "partial": 0.0,
         "zero": 0.067308
       },
+      "failed_at_max_k": 7,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 7
+      },
+      "failure_rate_at_max_k": 0.067308,
       "group": {
         "category": "single_unit",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.932692,
       "mean_lexical_overlap": 0.519697,
       "mrr": 0.761439,
@@ -816,10 +986,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "table",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 1.0,
@@ -843,10 +1017,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "category": "table",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.0,
@@ -870,10 +1050,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "table",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.214286,
       "mrr": 0.25,
@@ -897,10 +1081,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "category": "table",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.266667,
       "mrr": 0.142857,
@@ -924,10 +1112,16 @@
         "partial": 0.0,
         "zero": 0.117647
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.117647,
       "group": {
         "category": "table",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.882353,
       "mean_lexical_overlap": 0.56721,
       "mrr": 0.794118,
@@ -953,10 +1147,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "difficulty": "easy",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.361722,
       "mrr": 0.5,
@@ -980,10 +1178,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "difficulty": "easy",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.226923,
       "mrr": 0.177778,
@@ -1007,10 +1211,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "difficulty": "easy",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.404762,
       "mrr": 0.216667,
@@ -1034,10 +1242,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "difficulty": "easy",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.21967,
       "mrr": 0.214286,
@@ -1061,10 +1275,16 @@
         "partial": 0.0,
         "zero": 0.065574
       },
+      "failed_at_max_k": 4,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 4
+      },
+      "failure_rate_at_max_k": 0.065574,
       "group": {
         "difficulty": "easy",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.934426,
       "mean_lexical_overlap": 0.494212,
       "mrr": 0.764793,
@@ -1088,10 +1308,16 @@
         "partial": 0.142857,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.142857,
       "group": {
         "difficulty": "hard",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.952381,
       "mean_lexical_overlap": 0.525242,
       "mrr": 1.0,
@@ -1115,10 +1341,17 @@
         "partial": 0.142857,
         "zero": 0.142857
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.285714,
       "group": {
         "difficulty": "hard",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.809524,
       "mean_lexical_overlap": 0.305915,
       "mrr": 0.57619,
@@ -1142,10 +1375,17 @@
         "partial": 0.142857,
         "zero": 0.142857
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.285714,
       "group": {
         "difficulty": "hard",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.809524,
       "mean_lexical_overlap": 0.296977,
       "mrr": 0.52381,
@@ -1169,10 +1409,17 @@
         "partial": 0.142857,
         "zero": 0.142857
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.285714,
       "group": {
         "difficulty": "hard",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.809524,
       "mean_lexical_overlap": 0.247469,
       "mrr": 0.334694,
@@ -1196,10 +1443,16 @@
         "partial": 0.117647,
         "zero": 0.0
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 2
+      },
+      "failure_rate_at_max_k": 0.117647,
       "group": {
         "difficulty": "hard",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.95098,
       "mean_lexical_overlap": 0.52477,
       "mrr": 0.887255,
@@ -1223,10 +1476,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "difficulty": "medium",
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.519966,
       "mrr": 0.680556,
@@ -1250,10 +1507,16 @@
         "partial": 0.0,
         "zero": 0.166667
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.166667,
       "group": {
         "difficulty": "medium",
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.833333,
       "mean_lexical_overlap": 0.269274,
       "mrr": 0.833333,
@@ -1277,10 +1540,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "difficulty": "medium",
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.236712,
       "mrr": 0.290278,
@@ -1304,10 +1571,16 @@
         "partial": 0.0,
         "zero": 0.166667
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.166667,
       "group": {
         "difficulty": "medium",
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.833333,
       "mean_lexical_overlap": 0.258494,
       "mrr": 0.616667,
@@ -1331,10 +1604,16 @@
         "partial": 0.0,
         "zero": 0.074074
       },
+      "failed_at_max_k": 4,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 4
+      },
+      "failure_rate_at_max_k": 0.074074,
       "group": {
         "difficulty": "medium",
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.925926,
       "mean_lexical_overlap": 0.56475,
       "mrr": 0.763654,
@@ -1360,10 +1639,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.25,
@@ -1387,10 +1670,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.2,
@@ -1414,10 +1701,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.454545,
       "mrr": 0.2,
@@ -1441,10 +1732,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.181818,
       "mrr": 0.0,
@@ -1468,10 +1765,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 0.0,
@@ -1495,10 +1798,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.142857,
       "mrr": 0.25,
@@ -1522,10 +1829,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.2,
       "mrr": 0.333333,
@@ -1549,10 +1860,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 0.2,
@@ -1576,10 +1891,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.210526,
       "mrr": 0.5,
@@ -1603,10 +1922,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.454545,
       "mrr": 1.0,
@@ -1630,10 +1953,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q010"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.272727,
       "mrr": 1.0,
@@ -1657,10 +1984,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q010"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.1,
       "mrr": 1.0,
@@ -1684,10 +2015,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q010"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.083333,
       "mrr": 0.25,
@@ -1711,10 +2046,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q010"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.066667,
       "mrr": 1.0,
@@ -1738,10 +2077,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q010"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.3,
       "mrr": 1.0,
@@ -1765,10 +2108,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q012"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -1792,10 +2139,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q012"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.214286,
       "mrr": 1.0,
@@ -1819,10 +2170,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q012"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.090909,
       "mrr": 0.2,
@@ -1846,10 +2201,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q012"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.117647,
       "mrr": 0.0,
@@ -1873,10 +2234,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q012"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.538462,
       "mrr": 1.0,
@@ -1900,10 +2265,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q017"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 1.0,
@@ -1927,10 +2296,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q017"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.0,
@@ -1954,10 +2329,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q017"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.214286,
       "mrr": 0.25,
@@ -1981,10 +2360,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q017"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.266667,
       "mrr": 0.142857,
@@ -2008,10 +2391,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q017"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.615385,
       "mrr": 1.0,
@@ -2035,10 +2422,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q041"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 0.5,
@@ -2062,10 +2453,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q041"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.0,
@@ -2089,10 +2486,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q041"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.444444,
       "mrr": 0.5,
@@ -2116,10 +2517,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q041"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.235294,
       "mrr": 1.0,
@@ -2143,10 +2548,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q041"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 0.5,
@@ -2170,10 +2579,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q048"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.583333,
       "mrr": 0.333333,
@@ -2197,10 +2610,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q048"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.470588,
       "mrr": 1.0,
@@ -2224,10 +2641,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q048"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 0.125,
@@ -2251,10 +2672,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q048"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.526316,
       "mrr": 0.2,
@@ -2278,10 +2703,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q048"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.666667,
       "mrr": 0.333333,
@@ -2305,10 +2734,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q056"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.266667,
       "mrr": 1.0,
@@ -2332,10 +2765,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q056"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.272727,
       "mrr": 1.0,
@@ -2359,10 +2796,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q056"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.0,
       "mrr": 0.333333,
@@ -2386,10 +2827,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q056"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.0,
       "mrr": 0.5,
@@ -2413,10 +2858,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q056"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 1.0,
@@ -2440,10 +2889,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q071"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.727273,
       "mrr": 1.0,
@@ -2467,10 +2920,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q071"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.461538,
       "mrr": 0.333333,
@@ -2494,10 +2951,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q071"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.285714,
       "mrr": 0.0,
@@ -2521,10 +2984,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q071"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.35,
       "mrr": 0.0,
@@ -2548,10 +3017,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q071"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.769231,
       "mrr": 1.0,
@@ -2575,10 +3048,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q083"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.571429,
       "mrr": 0.25,
@@ -2602,10 +3079,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q083"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -2629,10 +3110,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q083"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.357143,
       "mrr": 0.5,
@@ -2656,10 +3141,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q083"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.428571,
       "mrr": 0.5,
@@ -2683,10 +3172,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q083"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.625,
       "mrr": 1.0,
@@ -2710,10 +3203,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q089"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.8,
       "mrr": 1.0,
@@ -2737,10 +3234,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q089"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 1.0,
@@ -2764,10 +3265,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q089"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5625,
       "mrr": 1.0,
@@ -2791,10 +3296,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q089"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 0.333333,
@@ -2818,10 +3327,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q089"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.625,
       "mrr": 1.0,
@@ -2845,10 +3358,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q099"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 1.0,
@@ -2872,10 +3389,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q099"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.1,
       "mrr": 0.0,
@@ -2899,10 +3422,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q099"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.214286,
       "mrr": 1.0,
@@ -2926,10 +3453,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q099"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.166667,
       "mrr": 0.166667,
@@ -2953,10 +3484,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q099"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 1.0,
@@ -2980,10 +3515,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q106"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.444444,
       "mrr": 1.0,
@@ -3007,10 +3546,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q106"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.357143,
       "mrr": 0.5,
@@ -3034,10 +3577,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q106"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.166667,
       "mrr": 0.333333,
@@ -3061,10 +3608,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q106"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.266667,
       "mrr": 0.142857,
@@ -3088,10 +3639,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q106"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -3115,10 +3670,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q112"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 1.0,
@@ -3142,10 +3701,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q112"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.3,
       "mrr": 0.2,
@@ -3169,10 +3732,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q112"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.555556,
       "mrr": 0.5,
@@ -3196,10 +3763,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q112"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.2,
@@ -3223,10 +3794,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q112"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -3250,10 +3825,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q121"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -3277,10 +3856,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q121"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.2,
       "mrr": 1.0,
@@ -3304,10 +3887,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q121"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.111111,
       "mrr": 0.166667,
@@ -3331,10 +3918,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q121"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.176471,
       "mrr": 1.0,
@@ -3358,10 +3949,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q121"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -3385,10 +3980,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "source_question_id": "Q130"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.642857,
       "mrr": 1.0,
@@ -3412,10 +4013,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "source_question_id": "Q130"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -3439,10 +4046,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "source_question_id": "Q130"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.294118,
       "mrr": 0.5,
@@ -3466,10 +4079,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "source_question_id": "Q130"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.318182,
       "mrr": 1.0,
@@ -3493,10 +4112,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "original",
         "source_question_id": "Q130"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.705882,
       "mrr": 1.0,
@@ -3522,9 +4147,15 @@
         "partial": 0.0625,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.0625,
       "group": {
         "paraphrase_level": "level_1_light"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.979167,
       "mean_lexical_overlap": 0.492604,
       "mrr": 0.786458,
@@ -3548,9 +4179,16 @@
         "partial": 0.0625,
         "zero": 0.1875
       },
+      "failed_at_max_k": 4,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 3
+      },
+      "failure_rate_at_max_k": 0.25,
       "group": {
         "paraphrase_level": "level_2_moderate"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.791667,
       "mean_lexical_overlap": 0.277364,
       "mrr": 0.597917,
@@ -3574,9 +4212,16 @@
         "partial": 0.0625,
         "zero": 0.0625
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.125,
       "group": {
         "paraphrase_level": "level_3_strong"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.916667,
       "mean_lexical_overlap": 0.294588,
       "mrr": 0.378646,
@@ -3600,9 +4245,16 @@
         "partial": 0.0625,
         "zero": 0.1875
       },
+      "failed_at_max_k": 4,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 3
+      },
+      "failure_rate_at_max_k": 0.25,
       "group": {
         "paraphrase_level": "level_4_conceptual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.791667,
       "mean_lexical_overlap": 0.246391,
       "mrr": 0.417857,
@@ -3626,9 +4278,16 @@
         "partial": 0.015152,
         "zero": 0.060606
       },
+      "failed_at_max_k": 10,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 2,
+        "required_evidence_not_retrieved": 8
+      },
+      "failure_rate_at_max_k": 0.075758,
       "group": {
         "paraphrase_level": "original"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.933081,
       "mean_lexical_overlap": 0.527004,
       "mrr": 0.780099,
@@ -3654,10 +4313,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "comparison"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.595833,
       "mrr": 0.833333,
@@ -3681,10 +4344,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "comparison"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.283718,
       "mrr": 1.0,
@@ -3708,10 +4375,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "comparison"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.274463,
       "mrr": 0.372917,
@@ -3735,10 +4406,16 @@
         "partial": 0.0,
         "zero": 0.25
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.25,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "comparison"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.75,
       "mean_lexical_overlap": 0.305109,
       "mrr": 0.383333,
@@ -3762,10 +4439,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "question_type": "comparison"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.555329,
       "mrr": 0.842593,
@@ -3789,10 +4470,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "configuration"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.571429,
       "mrr": 0.25,
@@ -3816,10 +4501,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "configuration"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -3843,10 +4532,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "configuration"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.357143,
       "mrr": 0.5,
@@ -3870,10 +4563,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "configuration"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.428571,
       "mrr": 0.5,
@@ -3897,10 +4594,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "question_type": "configuration"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.503017,
       "mrr": 0.859524,
@@ -3924,10 +4625,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "cross-reference"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.642857,
       "mrr": 1.0,
@@ -3951,10 +4658,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "cross-reference"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -3978,10 +4691,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "cross-reference"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.294118,
       "mrr": 0.5,
@@ -4005,10 +4724,16 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "cross-reference"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.318182,
       "mrr": 1.0,
@@ -4032,10 +4757,16 @@
         "partial": 0.5,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "paraphrase_level": "original",
         "question_type": "cross-reference"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.833333,
       "mean_lexical_overlap": 0.619607,
       "mrr": 1.0,
@@ -4059,10 +4790,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "definition"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.25,
@@ -4086,10 +4821,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "definition"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.2,
@@ -4113,10 +4852,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "definition"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.454545,
       "mrr": 0.2,
@@ -4140,10 +4883,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "definition"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.181818,
       "mrr": 0.0,
@@ -4167,10 +4916,16 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "paraphrase_level": "original",
         "question_type": "definition"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.463248,
       "mrr": 0.6,
@@ -4194,10 +4949,16 @@
         "partial": 0.0,
         "zero": 0.068966
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.068966,
       "group": {
         "paraphrase_level": "original",
         "question_type": "factual"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.931034,
       "mean_lexical_overlap": 0.55198,
       "mrr": 0.637247,
@@ -4221,10 +4982,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "figure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.272727,
       "mrr": 1.0,
@@ -4248,10 +5013,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "figure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.1,
       "mrr": 1.0,
@@ -4275,10 +5044,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "figure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.083333,
       "mrr": 0.25,
@@ -4302,10 +5075,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "figure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.066667,
       "mrr": 1.0,
@@ -4329,10 +5106,16 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "paraphrase_level": "original",
         "question_type": "figure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.286363,
       "mrr": 0.5,
@@ -4356,10 +5139,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "multi-section"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.49495,
       "mrr": 1.0,
@@ -4383,10 +5170,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "multi-section"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.328572,
       "mrr": 0.35,
@@ -4410,10 +5201,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "multi-section"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.361112,
       "mrr": 0.416667,
@@ -4437,10 +5232,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "multi-section"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.248718,
       "mrr": 0.171429,
@@ -4464,10 +5263,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "question_type": "multi-section"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.476923,
       "mrr": 1.0,
@@ -4491,10 +5294,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "procedure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.373377,
       "mrr": 0.75,
@@ -4518,10 +5325,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "procedure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.253846,
       "mrr": 0.222222,
@@ -4545,10 +5358,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "procedure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.348485,
       "mrr": 0.4,
@@ -4572,10 +5391,16 @@
         "partial": 0.0,
         "zero": 0.333333
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.333333,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "procedure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.666667,
       "mean_lexical_overlap": 0.242398,
       "mrr": 0.222222,
@@ -4599,10 +5424,17 @@
         "partial": 0.04,
         "zero": 0.04
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1,
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.08,
       "group": {
         "paraphrase_level": "original",
         "question_type": "procedure"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.94,
       "mean_lexical_overlap": 0.571019,
       "mrr": 0.779333,
@@ -4626,10 +5458,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "table"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 1.0,
@@ -4653,10 +5489,16 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "table"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.230769,
       "mrr": 0.0,
@@ -4680,10 +5522,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "table"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.214286,
       "mrr": 0.25,
@@ -4707,10 +5553,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "table"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.266667,
       "mrr": 0.142857,
@@ -4734,10 +5584,16 @@
         "partial": 0.0,
         "zero": 0.125
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.125,
       "group": {
         "paraphrase_level": "original",
         "question_type": "table"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.875,
       "mean_lexical_overlap": 0.564199,
       "mrr": 0.78125,
@@ -4761,10 +5617,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_1_light",
         "question_type": "troubleshooting"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.479488,
       "mrr": 0.75,
@@ -4788,10 +5648,16 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "paraphrase_level": "level_2_moderate",
         "question_type": "troubleshooting"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.251748,
       "mrr": 0.5,
@@ -4815,10 +5681,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_3_strong",
         "question_type": "troubleshooting"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.222222,
       "mrr": 0.416667,
@@ -4842,10 +5712,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "level_4_conceptual",
         "question_type": "troubleshooting"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.117647,
       "mrr": 0.75,
@@ -4869,10 +5743,14 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "paraphrase_level": "original",
         "question_type": "troubleshooting"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.415619,
       "mrr": 0.9,
@@ -4898,9 +5776,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-1.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.293939,
       "mrr": 0.13,
@@ -4924,9 +5808,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-10-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 1.0,
@@ -4950,9 +5838,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-10-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 1.0,
@@ -4976,9 +5868,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-10.1-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.460228,
       "mrr": 1.0,
@@ -5002,9 +5898,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-10.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.769231,
       "mrr": 1.0,
@@ -5028,9 +5928,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-10.3-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.769231,
       "mrr": 1.0,
@@ -5054,9 +5958,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-11-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.58042,
       "mrr": 1.0,
@@ -5080,9 +5988,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-11.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.516666,
       "mrr": 1.0,
@@ -5106,9 +6018,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-11.1-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.477778,
       "mrr": 1.0,
@@ -5132,9 +6048,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-11.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.560023,
       "mrr": 1.0,
@@ -5158,9 +6078,15 @@
         "partial": 0.0,
         "zero": 0.2
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.2,
       "group": {
         "source_semantic_id": "section-11.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.8,
       "mean_lexical_overlap": 0.459025,
       "mrr": 0.5,
@@ -5184,9 +6110,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-11.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.623932,
       "mrr": 1.0,
@@ -5210,9 +6140,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.142857,
@@ -5236,9 +6170,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.612699,
       "mrr": 1.0,
@@ -5262,9 +6200,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.2.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.516047,
       "mrr": 0.398333,
@@ -5288,9 +6230,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.2.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.516047,
       "mrr": 0.398333,
@@ -5314,9 +6260,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.2.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.668182,
       "mrr": 1.0,
@@ -5340,9 +6290,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.3-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.295767,
       "mrr": 1.0,
@@ -5366,9 +6320,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.4-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.454545,
       "mrr": 1.0,
@@ -5392,9 +6350,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.166667,
       "mrr": 1.0,
@@ -5418,9 +6380,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.1-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.166667,
       "mrr": 1.0,
@@ -5444,9 +6410,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.1-element-003-labelled"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.174545,
       "mrr": 0.766667,
@@ -5470,9 +6440,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.1-element-005-labelled"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.174545,
       "mrr": 0.766667,
@@ -5496,9 +6470,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -5522,9 +6500,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.2-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -5548,9 +6530,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.5.2-element-004"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.583333,
       "mrr": 1.0,
@@ -5574,9 +6560,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.6-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.645833,
       "mrr": 0.75,
@@ -5600,9 +6590,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.6-element-002-labelled"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.625,
       "mrr": 0.5,
@@ -5626,9 +6620,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-12.7-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.666667,
       "mrr": 1.0,
@@ -5652,9 +6650,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.538462,
       "mrr": 1.0,
@@ -5678,9 +6680,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.554945,
       "mrr": 0.571429,
@@ -5704,9 +6710,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.2-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.611111,
       "mrr": 0.6,
@@ -5730,9 +6740,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.3.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 1.0,
@@ -5756,9 +6770,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.3.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 1.0,
@@ -5782,9 +6800,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.3.2-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.692308,
       "mrr": 1.0,
@@ -5808,9 +6830,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-13.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.416084,
       "mrr": 1.0,
@@ -5834,9 +6860,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-14-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.518751,
       "mrr": 0.466667,
@@ -5860,9 +6892,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-14-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.518751,
       "mrr": 0.466667,
@@ -5886,9 +6924,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-14-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.518751,
       "mrr": 0.466667,
@@ -5912,9 +6956,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-14-element-004"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.518751,
       "mrr": 0.466667,
@@ -5938,9 +6988,15 @@
         "partial": 0.0,
         "zero": 0.4
       },
+      "failed_at_max_k": 2,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.4,
       "group": {
         "source_semantic_id": "section-14-element-005"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.6,
       "mean_lexical_overlap": 0.518751,
       "mrr": 0.466667,
@@ -5964,9 +7020,15 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-14-element-006"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.416667,
       "mrr": 0.0,
@@ -5990,9 +7052,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 1.0,
@@ -6016,9 +7082,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.3-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.689743,
       "mrr": 0.35,
@@ -6042,9 +7112,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 1.0,
@@ -6068,9 +7142,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.6-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.476429,
       "mrr": 0.65,
@@ -6094,9 +7172,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -6120,9 +7202,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.454545,
       "mrr": 0.333333,
@@ -6146,9 +7232,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.583333,
       "mrr": 0.5,
@@ -6172,9 +7262,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.578853,
       "mrr": 0.904762,
@@ -6198,9 +7292,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.888889,
       "mrr": 1.0,
@@ -6224,9 +7322,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-14.7.4-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.671717,
       "mrr": 1.0,
@@ -6250,9 +7352,15 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-16-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.4,
       "mrr": 0.25,
@@ -6276,9 +7384,15 @@
         "partial": 1.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-16-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.4,
       "mrr": 0.25,
@@ -6302,9 +7416,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.583333,
       "mrr": 1.0,
@@ -6328,9 +7446,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.1.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.727273,
       "mrr": 1.0,
@@ -6354,9 +7476,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.1.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.666667,
       "mrr": 1.0,
@@ -6380,9 +7506,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.1.2-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.717949,
       "mrr": 1.0,
@@ -6406,9 +7536,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.1.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.615385,
       "mrr": 1.0,
@@ -6432,9 +7566,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.444444,
       "mrr": 1.0,
@@ -6458,9 +7596,15 @@
         "partial": 0.0,
         "zero": 0.2
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.2,
       "group": {
         "source_semantic_id": "section-16.2.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.8,
       "mean_lexical_overlap": 0.196191,
       "mrr": 0.633333,
@@ -6484,9 +7628,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.2-local-group-01"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.488888,
       "mrr": 1.0,
@@ -6510,9 +7658,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.2-local-group-02"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 1.0,
@@ -6536,9 +7688,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.2-local-group-03"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.444444,
       "mrr": 0.5,
@@ -6562,9 +7718,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.2-local-group-04"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.363227,
       "mrr": 0.662698,
@@ -6588,9 +7748,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.2-local-group-05"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.346984,
       "mrr": 0.595238,
@@ -6614,9 +7778,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.3-element-004"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.540179,
       "mrr": 0.75,
@@ -6640,9 +7808,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.625,
       "mrr": 1.0,
@@ -6666,9 +7838,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.714286,
       "mrr": 1.0,
@@ -6692,9 +7868,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.43863,
       "mrr": 0.65,
@@ -6718,9 +7898,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -6744,9 +7928,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.25,
       "mrr": 0.25,
@@ -6770,9 +7958,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.5-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.560606,
       "mrr": 0.625,
@@ -6796,9 +7988,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.2.4.6-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 0.5,
@@ -6822,9 +8018,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 0.5,
@@ -6848,9 +8048,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.3-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 0.5,
@@ -6874,9 +8078,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.3-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 0.5,
@@ -6900,9 +8108,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.3-element-004-labelled"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.428571,
       "mrr": 0.5,
@@ -6926,9 +8138,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 1.0,
@@ -6952,9 +8168,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.4-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 1.0,
@@ -6978,9 +8198,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.5-element-007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.297516,
       "mrr": 0.833333,
@@ -7004,9 +8228,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.5-element-009"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.297516,
       "mrr": 0.833333,
@@ -7030,9 +8258,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-16.5-element-011"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.444444,
       "mrr": 1.0,
@@ -7056,9 +8288,15 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-17-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 0.0,
@@ -7082,9 +8320,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.533333,
       "mrr": 1.0,
@@ -7108,9 +8350,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.1-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.533333,
       "mrr": 1.0,
@@ -7134,9 +8380,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.1-element-005"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.533333,
       "mrr": 1.0,
@@ -7160,9 +8410,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.1-element-007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.533333,
       "mrr": 1.0,
@@ -7186,9 +8440,15 @@
         "partial": 0.833333,
         "zero": 0.0
       },
+      "failed_at_max_k": 5,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 5
+      },
+      "failure_rate_at_max_k": 0.833333,
       "group": {
         "source_semantic_id": "section-17.1.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.722222,
       "mean_lexical_overlap": 0.493507,
       "mrr": 0.916667,
@@ -7212,9 +8472,15 @@
         "partial": 0.833333,
         "zero": 0.0
       },
+      "failed_at_max_k": 5,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 5
+      },
+      "failure_rate_at_max_k": 0.833333,
       "group": {
         "source_semantic_id": "section-17.1.2-element-004-labelled"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.722222,
       "mean_lexical_overlap": 0.493507,
       "mrr": 0.916667,
@@ -7238,9 +8504,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.583333,
       "mrr": 0.333333,
@@ -7264,9 +8534,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-17.1.3-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.636364,
       "mrr": 0.2,
@@ -7290,9 +8564,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-18-element-005"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.461538,
       "mrr": 1.0,
@@ -7316,9 +8594,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-18-element-007"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.705882,
       "mrr": 0.5,
@@ -7342,9 +8624,15 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-2.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 0.0,
@@ -7368,9 +8656,15 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "source_semantic_id": "section-2.1-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.415585,
       "mrr": 0.05,
@@ -7394,9 +8688,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.142857,
       "mrr": 1.0,
@@ -7420,9 +8718,15 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "source_semantic_id": "section-3.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.258929,
       "mrr": 0.5,
@@ -7446,9 +8750,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-4.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.328342,
       "mrr": 0.404365,
@@ -7472,9 +8780,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-4.1-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.319503,
       "mrr": 0.547222,
@@ -7498,9 +8810,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-5-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.164545,
       "mrr": 0.85,
@@ -7524,9 +8840,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-5-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 0.25,
@@ -7550,9 +8870,15 @@
         "partial": 0.0,
         "zero": 0.2
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.2,
       "group": {
         "source_semantic_id": "section-6-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.8,
       "mean_lexical_overlap": 0.292261,
       "mrr": 0.64,
@@ -7576,9 +8902,15 @@
         "partial": 0.0,
         "zero": 0.2
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.2,
       "group": {
         "source_semantic_id": "section-6-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.8,
       "mean_lexical_overlap": 0.292261,
       "mrr": 0.64,
@@ -7602,9 +8934,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-6.1-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.466666,
       "mrr": 1.0,
@@ -7628,9 +8964,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-6.2-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.333333,
       "mrr": 1.0,
@@ -7654,9 +8994,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-6.3-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.375,
       "mrr": 1.0,
@@ -7680,9 +9024,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-6.4-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.4,
       "mrr": 0.5,
@@ -7706,9 +9054,15 @@
         "partial": 0.0,
         "zero": 1.0
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 1.0,
       "group": {
         "source_semantic_id": "section-8-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.0,
       "mean_lexical_overlap": 0.272727,
       "mrr": 0.0,
@@ -7732,9 +9086,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-9-element-001"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.666667,
       "mrr": 0.2,
@@ -7758,9 +9116,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-9-element-002"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 0.2,
@@ -7784,9 +9146,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-9-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 0.2,
@@ -7810,9 +9176,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-9.1.1-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.642857,
       "mrr": 0.111111,
@@ -7836,9 +9206,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "section-9.1.2-element-003"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.461538,
       "mrr": 0.333333,
@@ -7862,9 +9236,16 @@
         "partial": 0.333333,
         "zero": 0.133333
       },
+      "failed_at_max_k": 7,
+      "failure_categories": {
+        "multi_unit_evidence_incomplete": 5,
+        "required_evidence_not_retrieved": 2
+      },
+      "failure_rate_at_max_k": 0.466667,
       "group": {
         "source_semantic_id": "table_1"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.755556,
       "mean_lexical_overlap": 0.499466,
       "mrr": 0.670635,
@@ -7888,9 +9269,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_2"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.6,
       "mrr": 1.0,
@@ -7914,9 +9299,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_3"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.533333,
       "mrr": 0.333333,
@@ -7940,9 +9329,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_4"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.5,
       "mrr": 1.0,
@@ -7966,9 +9359,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_5"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.545455,
       "mrr": 1.0,
@@ -7992,9 +9389,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_6"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.615385,
       "mrr": 1.0,
@@ -8018,9 +9419,15 @@
         "partial": 0.0,
         "zero": 0.5
       },
+      "failed_at_max_k": 1,
+      "failure_categories": {
+        "required_evidence_not_retrieved": 1
+      },
+      "failure_rate_at_max_k": 0.5,
       "group": {
         "source_semantic_id": "table_7"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 0.5,
       "mean_lexical_overlap": 0.414772,
       "mrr": 0.5,
@@ -8044,9 +9451,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_8"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.55,
       "mrr": 1.0,
@@ -8070,9 +9481,13 @@
         "partial": 0.0,
         "zero": 0.0
       },
+      "failed_at_max_k": 0,
+      "failure_categories": {},
+      "failure_rate_at_max_k": 0.0,
       "group": {
         "source_semantic_id": "table_9"
       },
+      "maximum_k": 10,
       "mean_evidence_coverage": 1.0,
       "mean_lexical_overlap": 0.59596,
       "mrr": 1.0,
@@ -8098,6 +9513,13 @@
       "partial": 0.030612,
       "zero": 0.076531
     },
+    "failed_at_max_k": 21,
+    "failure_categories": {
+      "multi_unit_evidence_incomplete": 6,
+      "required_evidence_not_retrieved": 15
+    },
+    "failure_rate_at_max_k": 0.107143,
+    "maximum_k": 10,
     "mean_evidence_coverage": 0.912415,
     "mean_lexical_overlap": 0.461937,
     "mrr": 0.703403,
