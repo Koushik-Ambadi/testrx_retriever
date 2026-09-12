@@ -34,6 +34,8 @@ class AnalyticsTests(unittest.TestCase):
         self.assertEqual(summary["mean_lexical_overlap"], 0.5)
         self.assertEqual(summary["recall_at_k"]["1"], 0.5)
         self.assertEqual(summary["precision_at_k"]["1"], 0.5)
+        self.assertEqual(summary["failed_at_max_k"], 1)
+        self.assertEqual(summary["failure_rate_at_max_k"], 0.5)
 
     def test_shared_store_groups_run_and_question_dimensions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -61,6 +63,13 @@ class AnalyticsTests(unittest.TestCase):
                 "token_size": 500, "embedding_family": "lexical", "paraphrase_level": "original",
             })
             self.assertEqual(rows[0]["mrr"], 1.0)
+            filtered = analyze_shared_store(
+                store, ("question_type",), {"embedding_family": "lexical"}
+            )
+            self.assertEqual(filtered[0]["group"], {"question_type": "factual"})
+            self.assertEqual(
+                analyze_shared_store(store, ("question_type",), {"embedding_family": "transformer"}), []
+            )
 
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
 python -m testrx_retriever.analytics --group-by token_size,embedding_dimension
 python -m testrx_retriever.analytics --group-by embedding_family,embedding_model,category
 python -m testrx_retriever.analytics --group-by source_semantic_id --format json
+python -m testrx_retriever.analytics --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,question_type
 ```
 
 Supported dimensions are experiment/run identity and role; chunking strategy,
@@ -25,6 +26,9 @@ reranking algorithms; difficulty, question type, paraphrase level, evaluation
 category, semantic source ID, and source-question family. Multi-valued category
 and source dimensions intentionally contribute a question to each applicable
 group.
+
+Repeat `--where DIMENSION=VALUE` to restrict a view to an experiment, run,
+component setting, question property, category, or source before grouping.
 
 ## Metric contract
 
@@ -35,6 +39,8 @@ group.
 - MRR uses the first chunk intersecting the required source set.
 - Evidence coverage is the fraction of required source IDs retrieved at maximum
   K; the distribution reports zero, partial, and complete cases.
+- `failed_at_max_k` and `failure_rate_at_max_k` make the selected evaluation
+  population and failure denominator explicit.
 - Lexical overlap is unique case-folded query tokens found in concatenated
   required-source text divided by unique query tokens, using the same pinned
   regex tokenizer as chunking.

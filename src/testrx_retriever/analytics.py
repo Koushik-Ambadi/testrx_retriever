@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from collections import defaultdict
+from collections import Counter, defaultdict
 import itertools
 import json
 import math
@@ -41,6 +41,11 @@ def summarize_evaluations(records: list[dict[str, Any]], top_k_values: tuple[int
         raise ValueError("Cannot summarize an empty record group")
     max_k = max(top_k_values)
     coverage = [record["evaluation"]["coverage_at_k"][str(max_k)] for record in records]
+    failed = [not record["evaluation"]["complete_at_k"][str(max_k)] for record in records]
+    failure_categories = Counter(
+        record["evaluation"].get("failure_category") or record.get("failure_category")
+        for record, is_failed in zip(records, failed) if is_failed
+    )
     overlaps = [
         record.get("lexical_diagnostics", {}).get("query_source_lexical_overlap")
         for record in records
@@ -48,6 +53,10 @@ def summarize_evaluations(records: list[dict[str, Any]], top_k_values: tuple[int
     overlaps = [value for value in overlaps if value is not None]
     return {
         "question_count": len(records),
+        "maximum_k": max_k,
+        "failed_at_max_k": sum(failed),
+        "failure_rate_at_max_k": round(sum(failed) / len(records), 6),
+        "failure_categories": dict(sorted((key or "unspecified", value) for key, value in failure_categories.items())),
         "mean_lexical_overlap": round(mean(overlaps), 6) if overlaps else None,
         "recall_at_k": {
             str(k): round(mean(record["evaluation"]["complete_at_k"][str(k)] for record in records), 6)
@@ -182,19 +191,32 @@ def _compact_as_full(question: dict[str, Any]) -> dict[str, Any]:
             "complete_at_k": question["complete_at_k"],
             "precision_at_k": question["precision_at_k"],
             "reciprocal_rank": question["reciprocal_rank"],
+            "failure_category": question.get("failure_category"),
         },
     }
 
 
-def analyze_shared_store(store: Path, dimensions: tuple[str, ...]) -> list[dict[str, Any]]:
+def analyze_shared_store(
+    store: Path, dimensions: tuple[str, ...], filters: dict[str, str] | None = None
+) -> list[dict[str, Any]]:
     invalid = [dimension for dimension in dimensions if dimension not in AVAILABLE_DIMENSIONS]
     if invalid:
         raise ValueError(f"Unknown dimensions {invalid}; choose from {sorted(AVAILABLE_DIMENSIONS)}")
     runs = {record["run_id"]: record for record in _read_jsonl(store / "runs.jsonl")}
     questions = _read_jsonl(store / "question_metrics.jsonl")
+    filters = filters or {}
+    invalid_filters = [dimension for dimension in filters if dimension not in AVAILABLE_DIMENSIONS]
+    if invalid_filters:
+        raise ValueError(f"Unknown filter dimensions {invalid_filters}; choose from {sorted(AVAILABLE_DIMENSIONS)}")
     grouped: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
     for question in questions:
         run = runs[question["run_id"]]
+        if any(
+            str(expected) not in [str(item) for item in (value if isinstance(value, list) else [value])]
+            for dimension, expected in filters.items()
+            for value in [AVAILABLE_DIMENSIONS[dimension](run, question)]
+        ):
+            continue
         values: list[list[Any]] = []
         for dimension in dimensions:
             value = AVAILABLE_DIMENSIONS[dimension](run, question)
@@ -220,13 +242,23 @@ def main() -> int:
         help=f"Comma-separated dimensions: {', '.join(sorted(AVAILABLE_DIMENSIONS))}",
     )
     parser.add_argument("--format", choices=("json", "table"), default="table")
+    parser.add_argument(
+        "--where", action="append", default=[], metavar="DIMENSION=VALUE",
+        help="Filter records before grouping; repeat for multiple exact filters.",
+    )
     args = parser.parse_args()
     dimensions = tuple(part.strip() for part in args.group_by.split(",") if part.strip())
-    rows = analyze_shared_store(args.store, dimensions)
+    filters: dict[str, str] = {}
+    for expression in args.where:
+        if "=" not in expression:
+            parser.error("--where must use DIMENSION=VALUE")
+        dimension, value = expression.split("=", 1)
+        filters[dimension.strip()] = value.strip()
+    rows = analyze_shared_store(args.store, dimensions, filters)
     if args.format == "json":
         print(json.dumps(rows, ensure_ascii=False, indent=2))
     else:
-        columns = [*dimensions, "N", "Overlap", "R@1", "MRR", "Coverage"]
+        columns = [*dimensions, "N", "Overlap", "R@1", "MRR", "Coverage", "Failed@maxK"]
         print(" | ".join(columns))
         print(" | ".join("---" for _ in columns))
         for row in rows:
@@ -236,6 +268,7 @@ def main() -> int:
                 str(row["question_count"]), "n/a" if overlap is None else f"{overlap:.3f}",
                 f"{row['recall_at_k'].get('1', 0):.3f}", f"{row['mrr']:.3f}",
                 f"{row['mean_evidence_coverage']:.3f}",
+                f"{row['failed_at_max_k']} ({row['failure_rate_at_max_k']:.1%})",
             ]))
     return 0
 
