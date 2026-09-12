@@ -22,6 +22,8 @@ Included:
   evaluation.
 - Controlled 125/200/250/300-token and 128-16,384-dimension retrieval study with
   random-lineage, collision, lexical, and ranking-stability diagnostics.
+- Controlled four-level paraphrase extension and reusable analytics by run,
+  configuration, category, source, and question family.
 
 Explicitly excluded:
 
@@ -43,6 +45,8 @@ python -m pip install -e .
 python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output/parsing
 python -m testrx_retriever.baseline --config configs/retrieval/reference.json
 python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
+python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
+python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
 ```
 
 Run tests with the standard library:
@@ -88,6 +92,7 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/limitations.md`: known limitations and intentionally deferred work.
 - `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
 - `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
+- `docs/analytics.md`: reusable dimensions, metric definitions, and commands.
 - `docs/experiments/`: experiment-specific designs and findings; project-wide
   decisions and operating rules remain in the top-level documentation.
 
@@ -108,8 +113,9 @@ testrx_retriever/
 
 ## Current review state
 
-The parser and 132-question golden dataset remain unchanged. The reproducible
-baseline produces 22 chunks. The controlled study records 29 runs across four
-smaller chunk sizes, seven hashing dimensions, and the unchanged control. The
-results support a closed-domain lexical explanation and expose index-size and
-lineage-density inflation; they do not establish semantic generalization.
+The 132-question legacy set remains unchanged and 64 controlled paraphrases are
+appended in 16 families. The reproducible reference produces 22 chunks. The
+shared store records 29 original-only chunk/dimension runs and one 196-question
+paraphrase run. Strong/conceptual MRR degradation supports a material lexical
+explanation; index-size and lineage-density inflation remain important, and the
+results do not establish semantic generalization.

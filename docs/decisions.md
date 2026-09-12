@@ -658,3 +658,56 @@ Decision:
 
 Status:
 - Accepted. Supports dataset, category, and semantic-source failure analysis.
+
+---
+
+## O036 - Paraphrases extend rather than replace the golden set
+
+Decision:
+- Preserve all 132 original records and append 16 families with four controlled
+  paraphrase levels each.
+- Derive IDs as `<source>-P1` through `<source>-P4`; clone every grounded field.
+- Guard the legacy set with a canonical hash and record source-family linkage.
+
+Status:
+- Accepted. The dataset contains 196 questions and all legacy fields are exact.
+
+---
+
+## O037 - Lexical bias is measured with the production tokenizer
+
+Decision:
+- Measure unique query-token overlap against concatenated required-source text
+  using `testrx_regex_tokenizer` 1.0.
+- Store token counts, overlap, review threshold, and review flag on each record.
+- Keep non-monotonic level means and threshold exceptions visible in QC.
+
+Status:
+- Accepted. Q048-P4 and one moderate-to-strong trend inversion are flagged.
+
+---
+
+## O038 - Precision uses acceptable lineage; recall uses required lineage
+
+Decision:
+- A retrieved chunk is precision-relevant when its semantic/source lineage
+  intersects the acceptable source set.
+- Recall, coverage, completeness, failures, and MRR continue to use required
+  source IDs. Required-evidence strings remain audit-only.
+
+Status:
+- Accepted and tested at K=1, 3, 5, and 10.
+
+---
+
+## O039 - Analytics are views over normalized records
+
+Decision:
+- Do not create an output directory or report for every slice or run.
+- Compute summaries from shared run/question JSONL by component, data, category,
+  semantic-source, and family dimensions.
+- Record embedding family separately from model and dimension so future lexical,
+  static, transformer, and attention implementations remain comparable.
+
+Status:
+- Accepted. CLI and reference JSON/Markdown summaries implemented 2026-09-12.

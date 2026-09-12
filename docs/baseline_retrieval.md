@@ -59,6 +59,8 @@ through strategy-specific chunk IDs.
 - Semantic-unit recall@K is mean required-unit coverage at K.
 - Evidence coverage is the fraction of required units retrieved.
 - MRR uses the first chunk containing any required source unit.
+- Precision@K is the fraction of returned chunks whose lineage intersects the
+  acceptable source set.
 
 At K=10, failures are grouped only as no required evidence or incomplete
 multi-unit evidence. No speculative root-cause label is assigned.
@@ -77,13 +79,15 @@ output/retrieval/reference/
 └── evaluation/
     ├── retrieval_results.jsonl
     ├── retrieval_metrics.json
+    ├── retrieval_analytics.json
+    ├── retrieval_analytics.md
     └── retrieval_report.md
 ```
 
 `retrieval_results.jsonl` intentionally stores the full top-10 chunks, scores,
 metadata, and per-question evaluation so failures remain inspectable.
 
-## Current baseline
+## Original-question reference
 
 - Chunks: 22
 - Questions: 132
@@ -96,3 +100,16 @@ metadata, and per-question evaluation so failures remain inspectable.
 - Complete at K=10: 122 of 132
 
 These values define the comparison baseline. They are not a performance target.
+
+## Expanded paraphrase-stress reference
+
+The same fixed configuration now also records the complete 196-question view:
+
+- Recall@1/3/5/10: 0.561/0.724/0.827/0.893
+- Precision@1/3/5/10: 0.602/0.301/0.215/0.121
+- MRR: 0.703
+- Mean evidence coverage@10: 0.912
+- Complete at K=10: 175 of 196
+
+The original slice remains 0.780 MRR. Strong and conceptual paraphrase slices
+fall to 0.379 and 0.418 MRR, supporting a material lexical-bias explanation.

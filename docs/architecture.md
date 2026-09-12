@@ -133,6 +133,12 @@ failure category, rank, and score margin. They omit chunk text, vectors, and raw
 ranked payloads. The full reference run remains the only persisted bundle with
 those large intermediates.
 
+`analytics.py` is a read-only view layer over this normalized store. Run-level
+component dimensions join to compact question-level dataset dimensions by
+`run_id`; multi-valued categories and semantic IDs expand only while grouping.
+This supports future chunkers, lexical/static/transformer/attention embedders,
+retrievers, and rerankers without changing the output directory shape.
+
 ## Golden dataset layer
 
 The benchmark is a derived evaluation layer, not part of the parser contract.
@@ -145,6 +151,11 @@ stable lineage and structure.
 canonical document and independently checks the associated page text against the
 PDF. JSONL is the machine contract. CSV is a flat review view. Reports summarize
 distribution, coverage, and quality-control exceptions.
+
+The paraphrase extension is declarative: a versioned configuration selects
+source questions and provides four texts per family. The builder clones grounded
+fields, assigns deterministic IDs, verifies a legacy hash, and measures lexical
+overlap with the pinned production tokenizer.
 
 ## Not carried forward
 

@@ -171,3 +171,22 @@ the explicitly configured reference pipeline.
 Verdict: **Parsing, golden dataset, and baseline retrieval gates passed.**
 
 See `docs/review.md` for each phase's findings and resolution.
+
+## Paraphrase-bias and reusable analytics operation
+
+```powershell
+$env:PYTHONPATH = "src"
+python scripts/build_golden_dataset.py
+python -m testrx_retriever.baseline --config configs/retrieval/reference.json
+python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
+python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
+python -m testrx_retriever.analytics --group-by token_size,embedding_family,embedding_dimension
+python -m unittest discover -s tests -v
+```
+
+The older chunk/dimension configuration explicitly filters `original` questions
+so extending the dataset cannot silently change its evaluation population. The
+paraphrase configuration includes all five levels. Review the full reference
+analytics for paired families and detailed slices; use the CLI for arbitrary
+cross-run views without writing new files. See `docs/analytics.md` for all
+dimensions and metric definitions.

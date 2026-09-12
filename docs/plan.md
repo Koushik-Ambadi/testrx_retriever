@@ -147,3 +147,18 @@ Status: implemented and verified on 2026-09-12.
 6. Keep large chunks, vectors, and raw rankings only for designated references.
 7. Preserve experiment-specific findings under `docs/experiments/` and update
    project-level decisions, progress, runbook, schema, review, and limitations.
+
+## Phase 2E - Controlled paraphrase and reusable analytics
+
+Status: implemented and verified on 2026-09-12.
+
+1. Append controlled paraphrases without changing the 132-question legacy set.
+2. Store deterministic family/level metadata and tokenizer-aligned lexical
+   diagnostics per question.
+3. Add precision and zero/partial/complete evidence distributions without
+   changing strict recall, coverage, or MRR semantics.
+4. Re-run the fixed 500/50/4096 reference on all 196 questions.
+5. Keep the earlier chunk/dimension experiment filtered to original questions.
+6. Provide reusable shared-store analytics across run, component, dataset,
+   category, and semantic-source dimensions.
+7. Record measured exceptions, findings, limitations, and reproduction commands.

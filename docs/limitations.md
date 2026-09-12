@@ -91,3 +91,18 @@
   unanswerable, or unseen-document split.
 - The compact artifact bundle does not store 29 redundant embedding matrices or
   chunk files. They are deterministically regenerable from recorded inputs.
+
+## Controlled paraphrase study limitations
+
+- Sixteen families provide a diagnostic stress set, not a statistically broad
+  sample of language variation.
+- Paraphrases were manually controlled, not independently authored or blinded.
+- Mean overlap is not perfectly monotonic: strong exceeds moderate; Q048-P4 is
+  above its conceptual review threshold. QC retains both observations.
+- The same required/acceptable lineage is cloned across a family. This isolates
+  wording but does not test alternate valid evidence annotations.
+- Precision is lineage precision per returned chunk, not token-span precision.
+- The 22-chunk reference index means K=10 exposes 45.5% of the corpus; high-K
+  recall cannot be treated as semantic-generalization evidence.
+- Category/family slices can contain one question and should guide follow-up
+  inspection rather than model selection.

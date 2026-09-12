@@ -246,3 +246,37 @@ DECIDED
 - New experiments add shared records, not directories.
 - Experiment-specific notes live in `docs/experiments/`; all material decisions
   and status changes also update project-level documentation.
+
+## 2026-09-12 - Controlled paraphrase and analytics phase complete
+
+DONE
+- Appended 64 paraphrases in 16 source families while preserving all 132 legacy
+  questions and grounded fields.
+- Added deterministic family IDs, five paraphrase levels, tokenizer-aligned
+  lexical diagnostics, threshold flags, and legacy-hash protection.
+- Added acceptable-lineage Precision@K and reusable analytics across run,
+  component, dataset, category, semantic source, and family dimensions.
+- Reproduced the fixed 500/50/4096 reference on all 196 questions and retained
+  the earlier 29-run study as an original-only comparison.
+- Passed all 44 tests and stored two experiments, 30 runs, and 4,024 compact
+  run-question records in the shared store.
+
+MEASURED
+- Original versus strong MRR: 0.780 versus 0.379; original versus conceptual:
+  0.780 versus 0.418.
+- Original/light/moderate/strong/conceptual Recall@1: 0.667, 0.625, 0.438,
+  0.125, and 0.188.
+- Paired lexical-overlap versus reciprocal-rank Pearson correlation: 0.350.
+- Full 196-question Recall@1/3/5/10: 0.561/0.724/0.827/0.893; MRR: 0.703.
+
+FOUND
+- Same-document lexical wording materially contributes to the basic hashing
+  model's strong original score.
+- Broad chunks, lineage density, and a small index still inflate high-K recall.
+- The level ladder is not perfectly monotonic: strong mean overlap exceeds
+  moderate mean overlap, and Q048-P4 exceeds its review threshold.
+
+NEXT
+- Use the recorded category/source-family views to select failure-focused tests.
+- Consider unigram/bigram, shuffled-query, fixed-index-fraction, and span-complete
+  ablations before adding learned embedding families or reranking.

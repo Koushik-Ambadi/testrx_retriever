@@ -19,3 +19,5 @@ status remain in the top-level `docs/` files.
 
 - `chunk_dimension_study.md`: token-window size, hashing dimension, index-size
   effects, lexical overlap, lineage density, and collision analysis.
+- `paraphrase_bias_study.md`: controlled paraphrase families, lexical-overlap
+  diagnostics, paired retrieval degradation, and interpretation boundaries.

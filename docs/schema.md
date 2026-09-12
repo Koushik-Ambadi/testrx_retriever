@@ -138,6 +138,13 @@ line contains:
 - answerability and retrieval-analysis flags;
 - notes for exceptional semantic or parsing cases.
 
+Every record also carries `paraphrase_level`, nullable `source_question_id`, and
+`lexical_diagnostics`. Original questions use level `original`; derived records
+use `level_1_light` through `level_4_conceptual` and IDs `<source>-P1` through
+`<source>-P4`. Diagnostics record tokenizer identity, query token counts,
+required-source token count, unique query/source overlap, and level-specific
+review threshold/flag.
+
 The flat CSV uses the same fields. Lists are serialized with `|`; multiple
 section paths and evidence strings use ` || `. Boolean flags remain explicit.
 No chunk IDs exist because the benchmark precedes chunk-policy selection.
@@ -164,8 +171,9 @@ semantic units, ranked chunks with scores and complete metadata, retrieved IDs,
 and the per-question evaluation. Coverage and completion are keyed by K.
 
 `evaluation/retrieval_metrics.json` contains dataset size, strict Recall@K,
-semantic-unit recall@K, MRR, mean evidence coverage at the maximum K, pass/fail
-counts, and simple failure categories.
+acceptable-lineage Precision@K, semantic-unit recall@K, MRR, mean evidence
+coverage and its zero/partial/complete distribution, pass/fail counts, and simple
+failure categories. `retrieval_analytics.json` and `.md` add reusable slices.
 
 `run_config.json` records source and golden-set hashes, resolved configuration,
 runtime versions, and chunk count. `manifest.json` records SHA-256 for every other
@@ -185,7 +193,8 @@ controls, aggregate retrieval metrics, category slices, and ranking stability.
 `question_metrics.jsonl` contains compact per-run/per-question facts keyed by
 `run_id` and `question_id`: type, difficulty, required and source semantic IDs,
 pages, section paths, evaluation categories, rank, reciprocal rank, coverage and
-completion at K, failure category, and relevant-score margin. It intentionally
+completion/precision at K, paraphrase/family metadata, lexical diagnostics,
+failure category, and relevant-score margin. It intentionally
 contains no question text, chunk text, embeddings, or ranked result payload.
 
 `manifest.json` checksums the three shared JSONL stores. A rerun replaces all

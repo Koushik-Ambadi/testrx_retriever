@@ -30,12 +30,18 @@ source set, optional hard negatives, expected answer, required and supporting
 evidence, and flags for structural retrieval demands. Expected answer wording is
 separate from evidence so retrieval can be evaluated independently of generation.
 
-## Seed distribution
+## Dataset distribution
 
-The committed seed contains 132 questions. It balances direct lookups with
+The committed dataset contains 132 original questions plus 64 controlled
+paraphrases in 16 families. The original set balances direct lookups with
 procedures, tables, comparisons, configuration, troubleshooting, multi-section
 assembly, and cross-reference following. Large chapters do not receive questions
 merely in proportion to length.
+
+Each selected family adds light, moderate, strong, and conceptual wording while
+cloning all answer, source, evidence, hard-negative, type, difficulty, and
+evaluation metadata. A canonical hash protects the legacy records. Lexical
+diagnostics use the same versioned regex tokenizer as chunking.
 
 ## Quality controls
 
@@ -49,7 +55,9 @@ merely in proportion to length.
 
 ## Evaluation lifecycle
 
-Use the same committed dataset for initial chunking and retrieval comparisons.
+Use an explicit evaluation population for every comparison. The historical
+chunk/dimension study filters `original`; the paraphrase-bias reference evaluates
+all five levels. Never allow dataset growth to silently alter an earlier study.
 Report Recall@K for required source sets, MRR for primary sources, and nDCG when
 graded acceptable sources are introduced. Do not tune questions to favor a
 chosen chunker.

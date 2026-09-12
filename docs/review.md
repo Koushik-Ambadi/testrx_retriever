@@ -801,3 +801,34 @@ Review verdict:
   directory; compact experiments cannot enable those retention flags.
 - New model, chunker, retriever, or reranker implementations can extend the
   component layer without changing the store schema or directory layout.
+
+## 2026-09-12 - Controlled paraphrase and analytics review
+
+Scope reviewed:
+- Legacy preservation, controlled family construction, lexical formula,
+  acceptable-versus-required metric semantics, fixed reference configuration,
+  normalized analytics dimensions, compact retention, and documentation.
+
+Evidence:
+- All 44 repository tests pass.
+- Dataset contains 132 original and 64 derived questions; the canonical legacy
+  hash is `055FD96DCE85DDD2483024F809E33AA8FBFA1F527D78B9F8984B41110E9D8E1A`.
+- Every derived record exactly matches its source record outside the explicitly
+  mutable identity/text/paraphrase/diagnostic fields.
+- Shared store contains two experiments, 30 runs, and 4,024 compact question
+  records; the historical study remains 29 × 132 and the new run is 1 × 196.
+- Repeating the complete generation produced unchanged manifest hashes:
+  reference `982A041346103AAD7CF959359B371E6F91F7239FF5C6BB2C972B4E6690927505` and
+  experiments `691978F6A453B91FE821B6C03ED2799E49D168F305B29C09AB5327067DF6E093`.
+- QC explicitly records Q048-P4 and the moderate-to-strong overlap inversion.
+
+Findings:
+- Original MRR 0.780 falls to 0.379 for strong and 0.418 for conceptual wording.
+- Paired lexical overlap and reciprocal rank correlate at 0.350.
+- The lexical hypothesis is supported, but broad lineage and 45.5% index
+  exposure at K=10 remain strong alternative contributors to high-K recall.
+
+Review verdict:
+- **Controlled extension, evaluation, analytics, and recorded artifacts pass.**
+- Do not claim learned semantic generalization from this result.
+- Use low-count slices for diagnosis and follow-up design, not model selection.
