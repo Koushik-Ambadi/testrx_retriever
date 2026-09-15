@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "models": [
+    {
+      "id": "lexical_hashing",
+      "algorithm": "stable_hashing_word_bigram",
+      "artifact_required": false,
+      "status": "baseline"
+    },
+    {
+      "id": "semantic_lsa",
+      "algorithm": "latent_semantic_lsa",
+      "artifact_required": false,
+      "status": "baseline"
+    },
+    {
+      "id": "dense_bge_small_en_v15",
+      "algorithm": "sentence_transformer",
+      "repository": "BAAI/bge-small-en-v1.5",
+      "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+      "artifact_path": "model_store/encoders/artifacts/dense_bge_small_en_v15",
+      "artifact_required": true,
+      "status": "production_candidate"
+    },
+    {
+      "id": "dense_e5_small_v2",
+      "algorithm": "sentence_transformer",
+      "repository": "intfloat/e5-small-v2",
+      "revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+      "artifact_path": "model_store/encoders/artifacts/dense_e5_small_v2",
+      "artifact_required": true,
+      "status": "production_candidate"
+    }
+  ]
+}

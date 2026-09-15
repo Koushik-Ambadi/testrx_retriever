@@ -731,3 +731,61 @@ Decision:
 
 Status:
 - Accepted from the 2026-09-12 failure analysis.
+
+---
+
+## O041 - Model selection is a gated family comparison
+
+Observation:
+- The controlled paraphrases isolate a material lexical ranking loss, while the
+  existing high-K lineage metric is inflated by broad chunks and index exposure.
+- Static word vectors, contextual attention-based bi-encoders, and cross-encoder
+  rerankers solve different parts of the retrieval problem and should not be
+  treated as interchangeable embedding substitutions.
+
+Decision:
+- Establish and freeze a viable chunk policy using span-complete evidence and
+  fixed-index-fraction diagnostics before comparing learned models.
+- Compare lexical, static semantic, and contextual attention-based retrieval on
+  identical chunks and evaluation populations before enabling reranking.
+- Add reranking only to systems whose candidate sets already meet an explicit
+  evidence-coverage threshold.
+- Keep family-related original and paraphrased questions in the same partition;
+  tune on a development partition and select on held-out families.
+- Permit a hybrid final system only when its held-out gain justifies its added
+  latency and operational complexity.
+
+Status:
+- Accepted as the Phase 2F experiment policy on 2026-09-13. The baseline flow
+  and adapters are implemented; controlled attention-model selection is pending.
+
+---
+
+## O042 - Downstream product work follows retrieval and generation gates
+
+Decision:
+- Freeze the selected retriever before generator evaluation, while allowing a
+  later retriever change only for a documented generator-facing failure.
+- Defer UI, user/session storage, telemetry, and feedback collection until the
+  retrieval and generation contracts are measurable.
+- Define consent, privacy, schema, and retention requirements before collecting
+  user telemetry or feedback.
+
+Status:
+- Accepted as sequencing guidance on 2026-09-13.
+
+---
+
+## O043 - Production candidate models are pinned and role-separated
+
+Decision:
+- Store weights only under `model_store/{encoders,rerankers,generators}` and
+  keep executable adapters under `retrieval/`.
+- Pin BGE small English v1.5 and E5 small v2 as the first dense candidates and
+  MS MARCO MiniLM-L6 as the first learned cross-encoder candidate.
+- Preserve repository revision, query/document prefix policy, and local artifact
+  path in registries/configuration.
+
+Status:
+- Accepted and evaluated on 2026-09-13. Candidate status does not imply final
+  retriever selection.

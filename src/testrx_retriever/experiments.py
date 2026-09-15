@@ -17,13 +17,13 @@ from typing import Any, Iterable
 
 import numpy as np
 
-from .baseline import read_jsonl, sha256, write_json, write_jsonl
+from .common.files import read_jsonl, sha256, write_json, write_jsonl
 from .baseline_config import ChunkingConfig, EmbeddingConfig, find_project_root
-from .chunking import Chunk, TokenChunker
-from .embedding import StableHashingEmbedder
+from .retrieval.chunking import Chunk, TokenChunker
+from .retrieval.encoders.lexical_hashing import StableHashingEmbedder
 from .evaluation import evaluate_retrieval
-from .tokenization import RegexTokenizer
-from .vector_index import ExactVectorIndex
+from .retrieval.tokenization import RegexTokenizer
+from .retrieval.indexes import ExactVectorIndex
 
 
 @dataclass(frozen=True)

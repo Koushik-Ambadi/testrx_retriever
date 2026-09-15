@@ -295,3 +295,62 @@ DECIDED
 - Carry 300/30/8,192 as the next diagnostic anchor because it records the fewest
   K=10 failures with substantially lower index exposure.
 - Audit Q080 and Q092 before expanding model complexity.
+
+## 2026-09-13 - Retrieval expansion roadmap agreed
+
+PLANNED
+- Establish one evidence-backed chunk policy using span-complete containment,
+  fixed-index-fraction views, and persistent-failure audits.
+- Compare lexical, static semantic, and contextual attention-based bi-encoder
+  families on identical chunks and original/paraphrased evaluation populations.
+- Add a cross-encoder reranker only after candidate evidence coverage is
+  sufficient, preserving a no-reranker control and identical candidate lists.
+- Use family-grouped development and held-out partitions to prevent paraphrase
+  variants of the same question from leaking across tuning and selection.
+- Select a single or hybrid retriever using held-out quality plus latency and
+  resource cost, then proceed to generator evaluation before product UI work.
+
+NOT YET IMPLEMENTED
+- BM25, installed attention-model artifacts, the new evidence metrics, and
+  controlled model-selection experiment configurations.
+
+## 2026-09-13 - End-to-end retrieval baseline implemented
+
+DONE
+- Added separate model stores and registries for bi-encoders, cross-encoders,
+  and future LLMs; large model artifacts are ignored by Git.
+- Added a single configurable chunk-to-evaluation pipeline with exact vector
+  retrieval, reciprocal-rank fusion, pairwise reranking, and per-system outputs.
+- Added built-in lexical hashing and corpus-fitted LSA bi-encoder baselines.
+- Added a deterministic lexical pairwise reranker to validate candidate-to-rank
+  flow without requiring downloaded weights.
+- Added lazy Sentence Transformers adapters for attention-based bi-encoders and
+  cross-encoders, with an explicit optional dependency and local model path.
+
+NEXT
+- Run and verify the full baseline configuration on the controlled dataset.
+- Add span-complete and fixed-index-fraction evaluation before selecting chunks.
+- Install and register pinned attention-model candidates, then run controlled
+  model and reranker comparisons through the same pipeline.
+
+## 2026-09-13 - Production candidate comparison complete
+
+DONE
+- Applied the repository audit's first safe migration stages: isolated package
+  imports, extracted shared artifact I/O, formed retrieval/evaluation/workflow
+  packages, removed duplicate dense ranking, and retained compatibility imports.
+- Renamed the local weight area to generic role directories under
+  `model_store/{encoders,rerankers,generators}`.
+- Installed pinned BGE and E5 encoder snapshots plus the MiniLM cross-encoder in
+  the ignored local model store.
+- Generalized the comparison workflow for multiple encoders, fusions, and
+  rerankers, with cached bulk cross-encoder inference.
+- Added reusable analysis over all golden-set columns and a complete per-system,
+  category, question-type, paraphrase, difficulty, source, and evidence report.
+- Ran ten candidate systems on all 196 questions and passed all 48 tests.
+
+MEASURED
+- E5 + MiniLM reranker: R@1 0.760, R@10 0.980, MRR 0.872, coverage 0.983.
+- BGE + MiniLM reranker: R@1 0.755, R@10 0.980, MRR 0.869, coverage 0.986.
+- Dense retrieval materially outperformed lexical hashing; current RRF hybrids
+  did not improve aggregate results but led selected categories.

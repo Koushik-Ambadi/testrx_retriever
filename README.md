@@ -20,6 +20,12 @@ Included:
 - Deterministic 500-token chunks with 50-token overlap and source lineage.
 - One local hashing embedder, exact cosine index, top-K retrieval, and golden-set
   evaluation.
+- One runnable 300/30 baseline flow comparing lexical hashing, corpus-fitted LSA
+  bi-encoding, reciprocal-rank fusion, and deterministic pairwise reranking.
+- Separate model stores and lazy adapters for attention-based bi-encoders and
+  cross-encoders; LLMs remain outside the retrieval runtime.
+- A pinned production-candidate comparison covering BGE, E5, MiniLM reranking,
+  lexical controls, and reciprocal-rank fusion over all 196 questions.
 - Controlled 125/200/250/300-token and 128-16,384-dimension retrieval study with
   random-lineage, collision, lexical, and ranking-stability diagnostics.
 - Controlled four-level paraphrase extension and reusable analytics by run,
@@ -28,8 +34,9 @@ Included:
 Explicitly excluded:
 
 - OCR or screenshot interpretation.
-- Alternative or semantic chunkers, embedding models, and retrievers.
-- BM25, hybrid retrieval, reranking, query rewriting, and multi-query retrieval.
+- Alternative or semantic chunkers, BM25, committed model weights, query rewriting,
+  and multi-query retrieval.
+- A selected production retriever; current fusion and reranking are baselines.
 - Answer generation and LLM-based evaluation.
 - A service or API layer.
 
@@ -47,6 +54,7 @@ python -m testrx_retriever.baseline --config configs/retrieval/reference.json
 python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
 python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
 python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
+python -m testrx_retriever.pipeline --config configs/pipelines/baseline.json
 ```
 
 Run tests with the standard library:
@@ -63,6 +71,8 @@ python -m unittest discover -s tests -v
   embeddings, raw ranked results, configuration, report, and manifest.
 - `output/retrieval/experiments/`: shared experiment catalog, run metrics,
   question-level analysis metadata, and checksums. It has no per-run folders.
+- `output/retrieval/pipeline_baseline/`: complete lexical/static-semantic,
+  hybrid-fusion, and pairwise-reranking baseline flow with per-system metrics.
 
 Generate and validate the benchmark:
 
@@ -81,6 +91,8 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 
 ## Documentation map
 
+- `docs/retrieval_program_report.md`: authoritative current retrieval evidence,
+  complete parameter map, staged decision plan, action items, and fallbacks.
 - `docs/decisions.md`: accepted and superseded observations/decisions.
 - `docs/plan.md`: scope, milestones, definition of done, and work sequence.
 - `docs/architecture.md`: data flow, component responsibilities, schemas, and
@@ -93,6 +105,8 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 - `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
 - `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
 - `docs/analytics.md`: reusable dimensions, metric definitions, and commands.
+- `docs/full_pipeline.md`: runnable retrieval flow and model-role boundaries.
+- `docs/artifact_policy.md`: source, benchmark, run, evidence, and weight retention.
 - `docs/experiments/`: experiment-specific designs and findings; project-wide
   decisions and operating rules remain in the top-level documentation.
 
@@ -104,6 +118,7 @@ testrx_retriever/
 ├── configs/retrieval/         reference and reusable experiment configurations
 ├── docs/                      intent, decisions, design, progress, operations
 ├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
+├── model_store/               encoder, reranker, and generator artifacts
 ├── tests/                     parser, dataset, retrieval, and determinism tests
 ├── output/                    parsing, dataset, reference, and experiment layers
 ├── tmp/                       ignored render/verification intermediates

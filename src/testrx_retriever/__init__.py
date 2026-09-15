@@ -1,7 +1,9 @@
-"""TESTRX User Manual parser."""
+"""TESTRX retrieval package metadata.
+
+Subsystems are imported explicitly so lightweight retrieval imports do not load
+the optional PDF parsing stack.
+"""
 
 __version__ = "0.1.0"
 
-from .parser import parse_manual
-
-__all__ = ["parse_manual"]
+__all__ = ["__version__"]

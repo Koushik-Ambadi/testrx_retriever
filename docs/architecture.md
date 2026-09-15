@@ -1,5 +1,21 @@
 # TESTRX Retriever Architecture
 
+## Current subsystem inventory
+
+The package is being migrated incrementally behind compatibility imports:
+
+- `common/`: deterministic file and hashing foundations;
+- `retrieval/encoders/` and `retrieval/rerankers/`: runtime model adapters;
+- `evaluation/`: grounded metrics, reusable analysis, and comparison reports;
+- `workflows/`: reference-run and configurable model-comparison orchestration;
+- flat parser modules: retained until the parsing migration is characterized;
+- `model_store/{encoders,rerankers,generators}/`: registries and ignored local
+  artifacts, separate from executable code.
+
+Workflow modules depend on lower layers. Lower layers do not import workflows.
+Legacy `baseline.py`, `pipeline.py`, and `analytics.py` are thin compatibility
+entry points only.
+
 ## Data flow
 
 ```text

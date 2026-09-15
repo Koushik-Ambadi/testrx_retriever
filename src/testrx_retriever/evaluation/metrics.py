@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any, Iterable, Protocol
 
-from .vector_index import RetrievedChunk
+from ..retrieval.indexes import RetrievedChunk
 
 
 class Retriever(Protocol):

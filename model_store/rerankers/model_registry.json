@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "models": [
+    {
+      "id": "pairwise_lexical",
+      "algorithm": "lexical_pairwise_baseline",
+      "artifact_required": false,
+      "status": "baseline"
+    },
+    {
+      "id": "reranker_minilm_l6",
+      "algorithm": "sentence_transformer_cross_encoder",
+      "repository": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "artifact_path": "model_store/rerankers/artifacts/reranker_minilm_l6",
+      "artifact_required": true,
+      "status": "production_candidate"
+    }
+  ]
+}

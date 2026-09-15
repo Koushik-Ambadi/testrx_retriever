@@ -1,0 +1,78 @@
+# End-to-end retrieval pipeline
+
+## Purpose
+
+The pipeline makes the complete retrieval path runnable before component-level
+optimization:
+
+```text
+canonical document
+  -> fixed token chunks
+  -> lexical and semantic bi-encoder retrieval
+  -> optional reciprocal-rank fusion
+  -> candidate reranking
+  -> the same grounded evaluator for every system
+```
+
+The default configuration is an engineering baseline, not the final retriever.
+It uses the current 300/30 diagnostic anchor, a lexical hashing encoder, a
+corpus-fitted LSA semantic bi-encoder, reciprocal-rank fusion, and a deterministic
+pairwise lexical reranker. LSA is semantic but not attention-based; the pairwise
+baseline is a reranker but not a learned cross-encoder.
+
+## Model separation
+
+- `model_store/encoders/` stores first-stage query/document encoder manifests and
+  local artifacts.
+- `model_store/rerankers/` stores pairwise reranker manifests and local artifacts.
+- `model_store/generators/` is reserved for the later generator stage.
+- `src/testrx_retriever/retrieval/` contains runtime adapters, separated by the
+  same roles.
+
+Large weights live under each role's ignored `artifacts/` directory. Versioned
+registries describe what is available. A run must explicitly select a local
+artifact or pinned model; the baseline never downloads a model implicitly.
+
+## Run
+
+Install the project dependencies and execute:
+
+```powershell
+python -m pip install -e .
+python -m testrx_retriever.pipeline --config configs/pipelines/baseline.json
+```
+
+The command evaluates six systems: each of the two bi-encoders, their fused
+ranking, and a reranked variant of all three. Outputs are written beneath
+`output/retrieval/pipeline_baseline/` with shared chunks, a resolved run
+configuration, summary metrics, and per-system metrics/results. Every system's
+metrics also record pre-rerank Recall and evidence coverage at the configured
+candidate depth, so reranking cannot hide inadequate candidate generation.
+
+To use attention-based candidates, install the optional runtime and point the
+appropriate config entry at a local model artifact:
+
+```powershell
+python -m pip install -e ".[transformers]"
+```
+
+Use `algorithm: sentence_transformer` for a bi-encoder and
+`algorithm: sentence_transformer_cross_encoder` for a reranker. Both require a
+`model_path`; model choice and acquisition are separate, explicit steps.
+
+Install the pinned candidates into `model_store/` and run the production
+candidate comparison with:
+
+```powershell
+python scripts/install_model_candidates.py
+python -m testrx_retriever.pipeline --config configs/pipelines/candidates.json
+```
+
+## Experiment boundary
+
+The runnable baseline proves component wiring and artifact contracts. It does
+not select a winner. Subsequent experiments must preserve the evaluator and
+ground truth, group question families when splitting data, establish candidate
+coverage before judging reranking, and report original and paraphrased results
+separately. Chunking, retrieval, fusion, and reranking are finalized from
+grounded results rather than from this baseline's aggregate score.

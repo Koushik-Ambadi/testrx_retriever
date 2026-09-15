@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .tokenization import RegexTokenizer
+from .retrieval.tokenization import RegexTokenizer
 
 
 PARAPHRASE_LEVELS = (

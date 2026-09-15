@@ -14,11 +14,17 @@ dependencies = [
     "pypdf>=6,<7",
 ]
 
+[project.optional-dependencies]
+transformers = [
+    "sentence-transformers>=5,<6",
+]
+
 [project.scripts]
 testrx-parse = "testrx_retriever.cli:main"
-testrx-baseline = "testrx_retriever.baseline:main"
+testrx-baseline = "testrx_retriever.workflows.reference_run:main"
 testrx-experiments = "testrx_retriever.experiments:main"
-testrx-analyze = "testrx_retriever.analytics:main"
+testrx-analyze = "testrx_retriever.evaluation.analysis:main"
+testrx-pipeline = "testrx_retriever.workflows.model_comparison:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

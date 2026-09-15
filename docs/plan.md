@@ -162,3 +162,82 @@ Status: implemented and verified on 2026-09-12.
 6. Provide reusable shared-store analytics across run, component, dataset,
    category, and semantic-source dimensions.
 7. Record measured exceptions, findings, limitations, and reproduction commands.
+
+## Phase 2F - Retrieval model selection and reranking
+
+Status: baseline end-to-end flow implemented on 2026-09-13; learned attention
+models and controlled selection experiments remain pending.
+
+### Objective
+
+Determine whether learned semantic representations recover the ranking quality
+lost when lexical overlap disappears, while holding the canonical document,
+question wording, source ground truth, and evaluator fixed. Select a retriever
+or justified hybrid before beginning answer generation.
+
+### Gate 1 - Establish a viable chunking baseline
+
+1. Keep `500/50` as the historical control and `300/30` as the current
+   diagnostic anchor; neither is a production default yet.
+2. Audit persistent failures Q080 and Q092 against chunk text, lineage, and PDF
+   evidence before changing labels or models.
+3. Add span-complete evidence and fixed-index-fraction evaluation so a chunk is
+   rewarded for containing usable evidence, not merely a relevant lineage ID.
+4. Compare a small preregistered set of plausible windows, including the
+   existing 300-token anchor, on evidence containment, focus, index exposure,
+   and retrieval quality.
+5. Freeze one chunk policy for the model comparison. Do not retune chunk size
+   independently for every model unless a later interaction study explicitly
+   tests that hypothesis.
+
+### Gate 2 - Compare representation families without reranking
+
+Use the same frozen chunks, questions, ground truth, candidate depth, and
+evaluator for all families:
+
+1. Lexical: the existing signed word/bigram hashing reference and a standard
+   lexical scorer such as BM25.
+2. Static semantic: a pinned pretrained word-vector model with a documented
+   pooling and out-of-vocabulary policy.
+3. Contextual attention-based: a pinned sentence/document bi-encoder intended
+   for asymmetric retrieval. Record model revision, tokenizer, maximum length,
+   pooling, normalization, device, and batch size.
+4. Evaluate the original questions and every controlled paraphrase level both
+   separately and together. Treat paraphrase Recall@1 and MRR as the primary
+   semantic-sensitivity outcomes.
+5. Tune only declared model parameters on a development partition grouped by
+   `question_family_id`; keep related original/paraphrased questions in the same
+   partition and reserve a held-out selection partition.
+
+### Gate 3 - Candidate retrieval and reranking
+
+1. Carry forward only retrievers that meet a preregistered candidate-coverage
+   threshold. A reranker cannot recover evidence absent from its candidate set.
+2. Implement a no-reranker control and one pinned attention-based cross-encoder
+   reranker over a fixed candidate depth.
+3. Compare reranking with identical candidate lists and report both pre-rerank
+   candidate recall and post-rerank metrics.
+4. Tune candidate depth and reranker batch/length settings on the development
+   partition only. Measure latency and memory alongside retrieval quality.
+
+### Gate 4 - Final retriever decision
+
+Compare eligible systems using strict Recall@K, acceptable-lineage Precision@K,
+MRR, evidence Coverage@K, zero/partial/complete evidence distributions,
+span-complete recall, fixed-index-fraction views, and latency/resource cost.
+Report results by original/paraphrase population, difficulty, question type,
+category, source, and family.
+
+Select the simplest system whose held-out evidence supports the intended use:
+a single lexical, static, or contextual model; a lexical+dense hybrid; or a
+retriever plus reranker. Record the decision and rejected alternatives. Do not
+select solely from one aggregate score.
+
+### Gate 5 - Generator handoff
+
+Only after the retriever is frozen, define the context assembly contract and
+evaluate grounded answer generation. Retriever changes after that point require
+an explicit generator-facing failure hypothesis. UI, user/session storage,
+telemetry, and feedback collection follow retrieval and generation validation;
+telemetry must have a declared schema, consent/privacy policy, and retention
+policy before collecting user data.

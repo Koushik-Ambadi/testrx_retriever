@@ -9,3 +9,10 @@ tmp/
 # Parser artifacts are reproducible and can be large. Dataset, reference-run,
 # and compact experiment evidence remain versioned under their own directories.
 output/parsing/
+output/retrieval/pipeline_baseline/
+output/retrieval/pipeline_candidates/
+
+# Model weights and framework caches are local artifacts. Registries and the
+# empty directory markers remain versioned.
+model_store/*/artifacts/*
+!model_store/*/artifacts/.gitkeep
