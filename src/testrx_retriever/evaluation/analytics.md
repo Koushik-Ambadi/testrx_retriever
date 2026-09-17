@@ -1,5 +1,9 @@
 # Retrieval Analytics
 
+Status: subsystem reference  
+Owner: retrieval evaluation  
+Last reviewed: 2026-09-17
+
 ## Purpose
 
 Analytics are computed from normalized run and question records rather than from
@@ -57,6 +61,8 @@ stable algorithm names and serializable parameters. The runner must validate a
 component before executing it; merely naming an unimplemented component is an
 error.
 
-The current implementation supports only token windows, the lexical hashing
-embedder, exact cosine retrieval, and no reranking. The schema and grouping
-contract are broader so later implementations remain comparable.
+The current implementation covers token-window and hierarchy-aware chunking,
+lexical hashing, LSA and sentence-transformer bi-encoders, exact cosine
+retrieval, reciprocal-rank fusion, lexical and cross-encoder reranking, and
+shared grounded evaluation. New implementations must retain stable component
+identity so later runs remain comparable.

@@ -1,5 +1,9 @@
 # Retrieval Experiment: Chunk Size and Hashing Dimension
 
+Status: frozen experiment record  
+Owner: retrieval experiments  
+Recorded: 2026-09-12
+
 ## Question
 
 Why does the deliberately basic signed word-and-bigram hashing retriever score

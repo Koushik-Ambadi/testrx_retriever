@@ -1,6 +1,12 @@
 # Artifact retention policy
 
-The repository distinguishes four artifact classes even where legacy paths are
+Status: living  
+Owner: project architecture  
+Last reviewed: 2026-09-17  
+Source of truth for: versioning and retention of source, benchmark, run, evidence,
+and model artifacts
+
+The repository distinguishes five artifact classes even where legacy paths are
 temporarily retained for compatibility.
 
 | Class | Current location | Versioned | Policy |

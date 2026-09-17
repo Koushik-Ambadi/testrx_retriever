@@ -1,4 +1,8 @@
-# Parser Runbook
+# Project workflow runbook
+
+Status: workflow operations reference  
+Owner: project operations  
+Last reviewed: 2026-09-17
 
 ## Normal operation
 
@@ -170,7 +174,8 @@ the explicitly configured reference pipeline.
 
 Verdict: **Parsing, golden dataset, and baseline retrieval gates passed.**
 
-See `docs/review.md` for each phase's findings and resolution.
+See `docs/reviews/2026-09-12-project-review-history.md` for the historical phase
+findings and resolutions.
 
 ## Paraphrase-bias and reusable analytics operation
 
@@ -188,5 +193,31 @@ The older chunk/dimension configuration explicitly filters `original` questions
 so extending the dataset cannot silently change its evaluation population. The
 paraphrase configuration includes all five levels. Review the full reference
 analytics for paired families and detailed slices; use the CLI for arbitrary
-cross-run views without writing new files. See `docs/analytics.md` for all
-dimensions and metric definitions.
+cross-run views without writing new files. See
+`src/testrx_retriever/evaluation/analytics.md` for all dimensions and metric
+definitions.
+
+## Production candidate comparison
+
+```powershell
+python -m pip install -e ".[transformers]"
+python scripts/install_model_candidates.py
+python -m testrx_retriever.pipeline --config configs/pipelines/candidates.json
+python -m unittest discover -s tests -v
+```
+
+Model downloads are explicit. Verify registry identity and local artifact paths
+before running. Review candidate recall before reranked metrics; reranking must
+not hide missing evidence at the candidate stage.
+
+## Hierarchical chunking experiment
+
+```powershell
+python -m testrx_retriever.workflows.hierarchy_experiment --config configs/pipelines/hierarchical_chunking_experiment.json
+python -m unittest discover -s tests -v
+```
+
+Treat `output/retrieval/pipeline_hierarchy_chunking/` as reproducible ignored
+run output. Compare fixed-K metrics together with index exposure, evidence
+completeness, emitted chunk counts, fallback splits, and the documented latency
+boundary. Do not select a production policy from aggregate MRR alone.

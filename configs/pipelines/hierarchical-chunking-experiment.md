@@ -4,7 +4,9 @@ Date: 2026-09-15
 
 Experiment ID: `hierarchical-chunking-v1`
 
-Status: implementation and raw-data capture complete; detailed comparison and chunk-policy selection intentionally deferred.
+Status: frozen experiment record; implementation and raw-data capture complete,
+detailed comparison and chunk-policy selection intentionally deferred.  
+Owner: retrieval experiments
 
 ## Objective and fixed contract
 

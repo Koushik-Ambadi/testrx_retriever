@@ -1,4 +1,8 @@
-# Canonical Output Schema
+# Package artifact schemas
+
+Status: package contract reference  
+Owner: parser and retrieval architecture  
+Last reviewed: 2026-09-17
 
 ## Purpose
 
@@ -200,3 +204,22 @@ contains no question text, chunk text, embeddings, or ranked result payload.
 `manifest.json` checksums the three shared JSONL stores. A rerun replaces all
 records for the same experiment ID and preserves other experiments, with stable
 sorting for byte-identical reproduction.
+
+## Model-comparison pipeline artifacts
+
+Each configured pipeline run stores resolved inputs/components in
+`run_config.json`, shared chunks under `chunks/`, aggregate results in
+`summary.json`, and one `metrics.json` plus `results.jsonl` pair per system.
+Candidate-generation fields identify the source system, candidate depth, strict
+recall, evidence coverage, and complete-question count before reranking.
+
+## Hierarchy experiment artifacts
+
+Hierarchy variants additionally store `hierarchy/nodes.jsonl`,
+`hierarchy/statistics.json`, and a generated `hierarchy/summary.md`. Chunk
+records identify their canonical node, hierarchy context, configured maximum,
+fallback part, `fallback_split`, and split reason. Optional latency JSONL records
+store benchmark/question identity, requested and returned depths, chunk IDs,
+scores, candidate retrieval nanoseconds, reranking nanoseconds, and total cycle
+nanoseconds. Model loading, index construction, and chunk generation are outside
+that timing boundary.

@@ -1,5 +1,10 @@
 # Baseline Chunking and Retrieval
 
+Status: frozen reference characterization  
+Owner: retrieval evaluation  
+Created: 2026-09-11  
+Last reviewed: 2026-09-17
+
 ## Purpose
 
 This phase establishes the simplest reproducible retrieval reference for future

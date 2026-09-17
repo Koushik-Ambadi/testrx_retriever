@@ -1,5 +1,10 @@
 # TESTRX Retriever Decisions
 
+Status: append-only  
+Owner: project architecture  
+Last reviewed: 2026-09-17  
+Source of truth for: accepted and superseded project decisions
+
 This is the living source of truth. Entries are never silently rewritten when a
 later observation changes an earlier decision; a new entry supersedes the old.
 
@@ -813,3 +818,34 @@ Decision:
 
 Status:
 - Implemented and run on 2026-09-15. No production chunking decision made.
+
+---
+
+## O045 - Documentation follows ownership boundaries
+
+Observation:
+- Project governance, subsystem contracts, experiment records, generated
+  reports, and dated reviews were mixed under one `docs/` directory.
+- Measurements and future actions were repeated across living and point-in-time
+  documents, creating avoidable update obligations.
+
+Decision:
+- Keep only project-wide architecture, decisions, roadmap, progress,
+  limitations, artifact policy, testing strategy, and dated reviews under
+  `docs/`.
+- Keep subsystem references beside their code, experiment records beside their
+  configurations, benchmark guidance beside the durable benchmark, and source
+  or model-store rules beside the owned directory.
+- Treat generated Markdown as reproducible evidence and never edit it manually.
+- Use dated filenames for frozen reviews and explicit status/owner metadata for
+  authored documents.
+
+Implementation consequence:
+- `docs/README.md` is the documentation ownership index.
+- Active work has one owner in `roadmap.md`; completed chronology remains in
+  `progress.md`; binding choices remain in this decision log.
+- Test intent is documented once in `testing.md`, not in one Markdown file per
+  test or production module.
+
+Status:
+- Accepted and implemented 2026-09-17.

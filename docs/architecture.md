@@ -1,181 +1,88 @@
-# TESTRX Retriever Architecture
+# TESTRX Retriever architecture
 
-## Current subsystem inventory
+Status: living  
+Owner: project architecture  
+Last reviewed: 2026-09-17  
+Source of truth for: current subsystem boundaries and dependency direction
 
-The package is being migrated incrementally behind compatibility imports:
+## System boundary
 
-- `common/`: deterministic file and hashing foundations;
-- `retrieval/encoders/` and `retrieval/rerankers/`: runtime model adapters;
-- `evaluation/`: grounded metrics, reusable analysis, and comparison reports;
-- `workflows/`: reference-run and configurable model-comparison orchestration;
-- flat parser modules: retained until the parsing migration is characterized;
-- `model_store/{encoders,rerankers,generators}/`: registries and ignored local
-  artifacts, separate from executable code.
-
-Workflow modules depend on lower layers. Lower layers do not import workflows.
-Legacy `baseline.py`, `pipeline.py`, and `analytics.py` are thin compatibility
-entry points only.
+The project converts one preserved TESTRX manual into a provenance-rich
+canonical document, a grounded benchmark, and reproducible retrieval evidence.
+It currently stops before context assembly, answer generation, UI, service/API,
+and user-data collection.
 
 ## Data flow
 
 ```text
-source PDF
-  -> physical extraction
-  -> typed page evidence
-  -> conservative normalization/classification
-  -> logical reconstruction
-  -> canonical document
-  -> document + semantic inspection + validation + warnings + inventory
-  -> chunking-independent golden evaluation dataset
-  -> baseline token windows
-  -> deterministic hashing embeddings
-  -> exact cosine index
-  -> golden retrieval evaluation
+immutable PDF
+  -> physical extraction and typed evidence
+  -> conservative logical reconstruction
+  -> canonical document and validation artifacts
+  -> independently grounded golden benchmark
+  -> configurable chunking
+  -> encoder/index/candidate retrieval
+  -> optional fusion and reranking
+  -> grounded evaluation, analytics, and experiment evidence
 ```
 
-The physical and logical views coexist. Logical cleanup never destroys the
-evidence needed to trace an element back to a source page and bounding box.
+The PDF and checksum are factual authority. Canonical structure, benchmark
+lineage, chunks, rankings, metrics, and reports are derived layers with explicit
+schemas and reproducibility rules.
 
-## Responsibilities
+## Subsystems
 
-- `models.py`: small dataclasses and JSON serialization.
-- `parser.py`: orchestration, PDF metadata, physical page extraction, output.
-- `normalize.py`: safe whitespace, control-character, and line-join rules.
-- `structure.py`: heading hierarchy, paragraph/list/procedure reconstruction.
-- `tables.py`: table fragments, merged-cell context, captioning, continuation.
-- `figures.py`: native figure captions and large image-region association.
-- `validation.py`: measurable invariants and document-specific regression checks.
-- `inspection.py`: recursive element walk, warning collection, readable renderer.
-- `cli.py`: one parsing command; no service layer.
-- `baseline_config.py`: validated, versioned baseline configuration.
-- `tokenization.py`: pinned token boundary definition.
-- `chunking.py`: source-order flattening and fixed token windows.
-- `embedding.py`: deterministic local word/bigram feature hashing.
-- `vector_index.py`: exact in-memory cosine index and ranked results.
-- `evaluation.py`: lineage metrics and report rendering.
-- `baseline.py`: baseline build/evaluation orchestration and artifact writing.
+- `parsing/` plus temporary flat compatibility modules: source extraction,
+  domain entities, normalization, structure, tables, figures, inspection, and
+  validation.
+- `retrieval/`: tokenization, token-window and hierarchy-aware chunking,
+  encoders, exact indexes, fusion inputs, and rerankers.
+- `evaluation/`: grounded metrics, cross-run analytics, and model/category
+  comparison views.
+- `workflows/`: reference build, model comparison, and hierarchy experiment
+  orchestration.
+- `common/`: deterministic file and hashing foundations.
+- `configs/`: declarative reference, experiment, and pipeline definitions.
+- `model_store/`: versioned registries and ignored local artifacts separated by
+  encoder, reranker, and generator roles.
+- `output/`: durable benchmark/reference evidence plus ignored ordinary runs,
+  governed by `artifact-policy.md`.
 
-## Physical model
+Subsystem-specific behavior and operation are documented beside the owning code
+or configuration and indexed from `docs/README.md`.
 
-Each page retains dimensions, page type, ordered text lines, table fragments,
-figure regions, and boilerplate lines. A text line retains its original text,
-normalized text, bounding box, dominant font, size, and classification.
-
-Coordinates use PDF points with origin at the top-left, matching pdfplumber's
-`top`/`bottom` coordinate convention.
-
-## Logical model
-
-The document contains numbered sections. Each section records its identifier,
-title, numeric depth, parent, ancestor path, sequence, page range, heading
-source, and ordered typed elements. Elements carry one or more source spans.
-
-Tables are first-class logical elements. They keep normalized rectangular rows,
-forward-filled merged context, captions, and physical fragment provenance.
-Figures are references only: identifier, caption, region, page, and owning
-section. Screenshot pixels are deliberately not interpreted.
-
-Elements may own `children`. `local_group` represents a numbered semantic group
-inside a formal section. `labelled_block` represents a short local label and its
-body. Formal numbered sections remain the only section tree.
-
-## Determinism
-
-- No network calls, OCR engines, LLMs, or probabilistic classifiers.
-- Stable page and reading-order traversal.
-- Stable identifiers derived from page/order or printed section/table/figure IDs.
-- JSON keys and list ordering are deterministic.
-
-## Failure philosophy
-
-Uncertain source content is preserved and surfaced as a warning. The parser
-does not silently invent structure. Document-specific assertions supplement
-generic invariants because this project targets one source manual in Phase 1.
-
-## Actual heuristic boundaries
-
-- Heading: number regex plus font/size/x gate.
-- Paragraph: vertical gap or next-page top threshold.
-- List: known bullet markers. Limited nesting.
-- Procedure: `N. text` plus non-Light font.
-- Table continuation: adjacent page + bottom/top position + same heading owner +
-  compatible column geometry. Repeated continuation headers are removed.
-- Figure: nearest large image above same-page caption.
-- Footer: bottom coordinate or two exact strings.
-- TOC: fixed pages 2-4.
-- Confidence: no numeric score. Ambiguous joins and associations are warnings.
-
-## Phase state
-
-Parsing corrections, a source-grounded seed dataset, and the first baseline
-retriever are implemented and verified. Advanced chunking and retrieval remain
-separate future phases.
-
-## Baseline component boundaries
-
-The baseline follows one-way dependencies:
+## Dependency direction
 
 ```text
-BaselineConfig -> TokenChunker -> StableHashingEmbedder
-               -> ExactVectorIndex -> Evaluator -> Artifacts
+common + parsing domain
+        <- parsing
+        <- retrieval core
+             <- evaluation
+                  <- experiments and workflows
+                       <- CLI entry points
 ```
 
-The chunker accepts a canonical document dictionary. The index accepts chunks
-and owns the single configured embedder. The evaluator depends only on a small
-`retrieve(query, top_k)` protocol and source-lineage metadata. These boundaries
-allow later replacements without implementing alternatives prematurely.
+Lower layers do not import workflows. Evaluation depends on small retrieval
+protocols and source lineage rather than concrete workflow classes. CLI modules
+parse arguments and delegate. Legacy flat imports remain thin compatibility
+shims during migration.
 
-The persisted index is a deterministic `.npy` matrix plus ordered chunk IDs. The
-full chunk records are stored once under `chunks/`; the IDs map vector rows back
-to those records.
+## Reproducibility principles
 
-## Experiment layer
+- No implicit network calls, model downloads, OCR, LLMs, timestamps, or random
+  identities in deterministic artifact paths.
+- Source traversal, tokenization, chunk IDs, ranking tie-breaks, JSON ordering,
+  and manifests are stable.
+- Uncertain parsing evidence is preserved and surfaced as warnings rather than
+  silently invented.
+- Full ranked payloads are retained only for designated references or ignored
+  ordinary runs; normalized experiment stores avoid repeated chunks/vectors.
+- Model artifacts are selected explicitly by registry/configuration identity.
 
-`experiments.py` orchestrates controlled parameter sweeps above the existing
-chunker, embedder, index, and evaluator. It does not change their contracts.
-Chunks are built once per window and reused across dimensions. The runner adds
-random-lineage, lexical-coverage, lineage-density, collision, ranking-stability,
-slice, and per-question margin diagnostics.
+## Current state
 
-Experiment configurations declare input identity, retention, evaluation,
-chunker variants, embedder variants, retrievers, rerankers, and controls. The
-runner expands their Cartesian product and assigns a content-derived `run_id`.
-Unsupported component implementations fail validation before computation.
-
-All experiments upsert into one normalized store: experiment records, run
-records, and question-level metrics. Question records retain difficulty, type,
-analysis categories, source pages, section paths, semantic IDs, coverage,
-failure category, rank, and score margin. They omit chunk text, vectors, and raw
-ranked payloads. The full reference run remains the only persisted bundle with
-those large intermediates.
-
-`analytics.py` is a read-only view layer over this normalized store. Run-level
-component dimensions join to compact question-level dataset dimensions by
-`run_id`; multi-valued categories and semantic IDs expand only while grouping.
-This supports future chunkers, lexical/static/transformer/attention embedders,
-retrievers, and rerankers without changing the output directory shape.
-
-## Golden dataset layer
-
-The benchmark is a derived evaluation layer, not part of the parser contract.
-Each question links an expected answer to required and acceptable semantic-unit
-sets, exact element IDs, section paths, pages, hard negatives, and retrieval
-requirements. The original PDF remains authoritative; parsed metadata supplies
-stable lineage and structure.
-
-`scripts/build_golden_dataset.py` resolves every referenced ID against the
-canonical document and independently checks the associated page text against the
-PDF. JSONL is the machine contract. CSV is a flat review view. Reports summarize
-distribution, coverage, and quality-control exceptions.
-
-The paraphrase extension is declarative: a versioned configuration selects
-source questions and provides four texts per family. The builder clones grounded
-fields, assigns deterministic IDs, verifies a legacy hash, and measures lexical
-overlap with the pinned production tokenizer.
-
-## Not carried forward
-
-- PDF tags/MCIDs, internal links, colors, matrices, style flags.
-- Character-level and exact table-cell geometry.
-- Small/original image objects.
-- Numeric confidence scores.
+Canonical parsing, the grounded benchmark, lexical reference studies, production
+candidate comparison, and raw hierarchy experiments are complete. Learned dense
+retrieval and reranking are available but no production retriever or chunk policy
+is frozen. The active gate is hierarchy comparison and held-out retrieval
+selection before context assembly or generation.

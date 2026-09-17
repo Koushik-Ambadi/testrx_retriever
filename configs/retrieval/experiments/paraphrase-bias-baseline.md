@@ -1,5 +1,9 @@
 # Controlled Paraphrase Bias Study
 
+Status: frozen experiment record  
+Owner: retrieval experiments  
+Recorded: 2026-09-12
+
 ## Question
 
 Why does a basic, unfitted word/bigram hashing embedder score well on the TESTRX

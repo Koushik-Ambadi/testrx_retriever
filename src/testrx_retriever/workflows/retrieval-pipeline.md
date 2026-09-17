@@ -1,4 +1,8 @@
-# End-to-end retrieval pipeline
+# Retrieval model-comparison pipeline
+
+Status: subsystem reference  
+Owner: retrieval workflows  
+Last reviewed: 2026-09-17
 
 ## Purpose
 

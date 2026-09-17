@@ -2,9 +2,13 @@
 
 Date: 2026-09-15
 
-Status: end-to-end retrieval is working; a production retriever has not yet been selected.
+Status: frozen program review; end-to-end retrieval was working and a production
+retriever had not yet been selected at the review date.
 
-This is the current planning document for the retrieval program. Historical experiment details remain in `docs/experiments/`; this document connects their evidence to the next design and decision gates.
+This is a point-in-time planning review for the retrieval program. Current work
+is owned by `docs/roadmap.md`; experiment details remain beside their
+configurations. This document preserves the evidence-to-design reasoning at its
+review date.
 
 ## 1. Executive decision
 
@@ -307,10 +311,10 @@ The immediate next implementation is the configuration/evaluator separation of c
 - Pipeline configurations: `configs/pipelines/baseline.json`, `configs/pipelines/candidates.json`
 - Chunk/dimension experiment: `configs/retrieval/experiments/chunk_dimension_sweep.json`
 - Paraphrase experiment: `configs/retrieval/experiments/paraphrase_bias_baseline.json`
-- Durable candidate summary: `docs/experiments/production_model_comparison.md`
+- Durable candidate summary: `configs/pipelines/candidate-model-comparison.md`
 - Generated complete category report: `output/retrieval/pipeline_candidates/analysis/model_category_report.md`
 - Generated machine-readable analysis: `output/retrieval/pipeline_candidates/analysis/model_category_analysis.json`
-- Full pipeline operation: `docs/full_pipeline.md`
-- Artifact/model retention policy: `docs/artifact_policy.md`
+- Retrieval pipeline operation: `src/testrx_retriever/workflows/retrieval-pipeline.md`
+- Artifact/model retention policy: `docs/artifact-policy.md`
 
 All future model, chunking, fusion, reranking, and context-selection implementations should emit the same question-level schema so the existing reusable category analyzer can compare them without custom analysis code.

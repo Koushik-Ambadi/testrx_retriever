@@ -1,5 +1,9 @@
 # Golden Dataset Strategy
 
+Status: durable benchmark reference  
+Owner: benchmark governance  
+Last reviewed: 2026-09-17
+
 ## Purpose
 
 The seed is a retrieval benchmark with answer evidence, not a simple

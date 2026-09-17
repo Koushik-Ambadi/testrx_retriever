@@ -2,6 +2,10 @@
 
 Date: 2026-09-13
 
+Status: frozen comparison record  
+Owner: retrieval evaluation  
+Recorded in Git: 2026-09-15
+
 ## Decision summary
 
 The production-grade semantic and reranking path is working end to end. On the

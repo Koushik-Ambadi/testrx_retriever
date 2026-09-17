@@ -2,6 +2,9 @@
 
 Date: 2026-09-12
 
+Status: frozen analysis record  
+Owner: retrieval evaluation
+
 ## Executive decision
 
 Retain 500/50/4,096 as the historical reference, but do not select it as a

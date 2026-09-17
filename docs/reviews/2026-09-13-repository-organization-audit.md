@@ -2,6 +2,10 @@
 
 Date: 2026-09-13
 
+Status: frozen; partially resolved by the 2026-09-15 modularization and the
+2026-09-17 documentation reorganization. Current structure is documented in
+`docs/architecture.md` and `docs/README.md`.
+
 ## Executive summary
 
 The repository has a sound conceptual pipeline and good reproducibility habits,

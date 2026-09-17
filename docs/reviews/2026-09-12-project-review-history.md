@@ -1,5 +1,10 @@
 # TESTRX Parser Review
 
+Status: frozen review history  
+Owner: project quality  
+Last reviewed: 2026-09-17  
+Scope: parser review and phase-gate evidence recorded through 2026-09-12
+
 ## Resolution - 2026-09-04
 
 Status: **all agreed parsing corrections implemented. Parsing gate passed.**

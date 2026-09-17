@@ -1,5 +1,10 @@
 # Progress Log
 
+Status: append-only  
+Owner: project delivery  
+Last reviewed: 2026-09-17  
+Source of truth for: chronological completed work and verification
+
 ## 2026-09-03 - Phase 1 started
 
 DONE
@@ -93,7 +98,8 @@ NEXT
 DONE
 - Inspected code, outputs, tests, validation, PDF tags, hardcoding.
 - Viewed pages 20-23, 27-31, 42-45, 47-50.
-- Added `docs/review.md`.
+- Added the review now archived as
+  `docs/reviews/2026-09-12-project-review-history.md`.
 - Documentation changed. Parser code unchanged.
 
 FOUND
@@ -108,7 +114,8 @@ VERDICT
 - Do not freeze. Do not chunk.
 
 NEXT
-- Agree P0/P1 from `docs/review.md`.
+- Agree P0/P1 from the review now archived as
+  `docs/reviews/2026-09-12-project-review-history.md`.
 
 ## 2026-09-04 - Parsing corrections complete
 
@@ -244,7 +251,7 @@ DONE
 DECIDED
 - Only explicitly designated reference runs persist full retrieval artifacts.
 - New experiments add shared records, not directories.
-- Experiment-specific notes live in `docs/experiments/`; all material decisions
+- Experiment-specific notes live beside their configurations; all material decisions
   and status changes also update project-level documentation.
 
 ## 2026-09-12 - Controlled paraphrase and analytics phase complete
@@ -378,3 +385,20 @@ DECIDED
 - Preserve raw outputs locally under the ignored ordinary-run policy.
 - Defer detailed metric comparison, plots, strongest-candidate selection, and
   production decisions to a separate analysis pass.
+
+## 2026-09-17 - Documentation ownership cleanup complete
+
+DONE
+- Restricted `docs/` to project-wide governance, progress, testing, and dated
+  reviews.
+- Moved analytics, retrieval baseline, schemas, runbooks, pipeline guidance,
+  benchmark strategy, and experiment records beside their owning code,
+  configuration, or durable artifact.
+- Renamed the phase plan to `roadmap.md`, standardized Markdown filenames, and
+  added `docs/README.md` as the ownership/navigation index.
+- Added one project testing strategy instead of per-test documentation.
+- Corrected stale descriptions of model comparison, hierarchical chunking,
+  artifact classes, current limitations, and experiment locations.
+- Preserved older audits and reviews as dated frozen evidence with resolution
+  notices rather than rewriting their historical findings.
+- Verified project-local Markdown links and ran 58 tests successfully.

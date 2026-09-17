@@ -34,8 +34,7 @@ Included:
 Explicitly excluded:
 
 - OCR or screenshot interpretation.
-- Alternative or semantic chunkers, BM25, committed model weights, query rewriting,
-  and multi-query retrieval.
+- BM25, committed model weights, query rewriting, and multi-query retrieval.
 - A selected production retriever; current fusion and reranking are baselines.
 - Answer generation and LLM-based evaluation.
 - A service or API layer.
@@ -49,13 +48,13 @@ in `source/README.md`. The original Downloads copy is not modified.
 
 ```powershell
 python -m pip install -e .
-python -m testrx_retriever source/TESTRX_User_Manual.pdf --output output/parsing
-python -m testrx_retriever.baseline --config configs/retrieval/reference.json
-python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
-python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
-python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
-python -m testrx_retriever.pipeline --config configs/pipelines/baseline.json
-python -m testrx_retriever.workflows.hierarchy_experiment --config configs/pipelines/hierarchical_chunking_experiment.json
+testrx-parse source/TESTRX_User_Manual.pdf --output output/parsing
+testrx-baseline --config configs/retrieval/reference.json
+testrx-experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
+testrx-experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
+testrx-analyze --group-by experiment_id,paraphrase_level
+testrx-pipeline --config configs/pipelines/baseline.json
+testrx-hierarchy-experiment --config configs/pipelines/hierarchical_chunking_experiment.json
 ```
 
 Run tests with the standard library:
@@ -92,33 +91,19 @@ source of truth; `docs/decisions.md` records why the parser behaves as it does.
 
 ## Documentation map
 
-- `docs/retrieval_program_report.md`: authoritative current retrieval evidence,
-  complete parameter map, staged decision plan, action items, and fallbacks.
-- `docs/decisions.md`: accepted and superseded observations/decisions.
-- `docs/plan.md`: scope, milestones, definition of done, and work sequence.
-- `docs/architecture.md`: data flow, component responsibilities, schemas, and
-  operating constraints.
-- `docs/schema.md`: field-by-field meaning of physical and logical output.
-- `docs/runbook.md`: repeatable operation, interpretation, and update procedure.
-- `docs/review.md`: evidence-based audit and freeze blockers.
-- `docs/progress.md`: chronological implementation and verification record.
-- `docs/limitations.md`: known limitations and intentionally deferred work.
-- `docs/golden_dataset.md`: benchmark strategy, lifecycle, and evaluation use.
-- `docs/baseline_retrieval.md`: baseline design, metrics, and artifact contract.
-- `docs/analytics.md`: reusable dimensions, metric definitions, and commands.
-- `docs/full_pipeline.md`: runnable retrieval flow and model-role boundaries.
-- `docs/artifact_policy.md`: source, benchmark, run, evidence, and weight retention.
-- `docs/experiments/`: experiment-specific designs and findings; project-wide
-  decisions and operating rules remain in the top-level documentation.
+Project-level documentation is indexed in [`docs/README.md`](docs/README.md).
+Subsystem contracts and experiment records live beside the code, configuration,
+or durable dataset they describe. Generated reports remain under `output/` and
+are not hand-maintained.
 
 ## Repository map
 
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
-├── configs/retrieval/         reference and reusable experiment configurations
-├── docs/                      intent, decisions, design, progress, operations
-├── src/testrx_retriever/      parser, chunker, embedder, index, and evaluator
+├── configs/                   reference, pipeline, and experiment configurations
+├── docs/                      project governance, progress, and dated reviews
+├── src/testrx_retriever/      parsing, retrieval, evaluation, and workflows
 ├── model_store/               encoder, reranker, and generator artifacts
 ├── tests/                     parser, dataset, retrieval, and determinism tests
 ├── output/                    parsing, dataset, reference, and experiment layers
@@ -129,9 +114,9 @@ testrx_retriever/
 
 ## Current review state
 
-The 132-question legacy set remains unchanged and 64 controlled paraphrases are
-appended in 16 families. The reproducible reference produces 22 chunks. The
-shared store records 29 original-only chunk/dimension runs and one 196-question
-paraphrase run. Strong/conceptual MRR degradation supports a material lexical
-explanation; index-size and lineage-density inflation remain important, and the
-results do not establish semantic generalization.
+The grounded benchmark, deterministic reference, controlled lexical studies,
+production candidate comparison, and raw hierarchical-chunking matrix are
+complete. Learned dense retrieval and reranking improve the reference behavior,
+but no production retriever or chunk policy is frozen. The next gate is a
+controlled hierarchy comparison and held-out selection with explicit evidence
+completeness, index exposure, and latency boundaries.
