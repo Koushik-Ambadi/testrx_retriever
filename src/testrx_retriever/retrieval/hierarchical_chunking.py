@@ -204,6 +204,26 @@ def token_statistics(records: list[dict[str, Any]]) -> dict[str, Any]:
     return {"percentile_method": "nearest_rank", "levels": levels}
 
 
+def chunk_statistics(chunks: list[Chunk]) -> dict[str, Any]:
+    """Return deterministic size and provenance counts for one emitted chunk set."""
+    values = [chunk.token_count for chunk in chunks]
+    by_level: dict[str, int] = {}
+    for chunk in chunks:
+        level = chunk.hierarchy_level or "token_window"
+        by_level[level] = by_level.get(level, 0) + 1
+    return {
+        "chunk_count": len(chunks),
+        "min_tokens": min(values) if values else 0,
+        "max_tokens": max(values) if values else 0,
+        "avg_tokens": round(mean(values), 6) if values else 0.0,
+        "median_tokens": median(values) if values else 0,
+        "p90_tokens": _percentile(values, 0.90),
+        "p95_tokens": _percentile(values, 0.95),
+        "chunks_at_each_hierarchy_level": by_level,
+        "fallback_split_count": sum(chunk.fallback_split for chunk in chunks),
+    }
+
+
 def render_hierarchy_summary(statistics: dict[str, Any]) -> str:
     lines = ["# TESTRX pure hierarchy token statistics", ""]
     for item in statistics["levels"]:

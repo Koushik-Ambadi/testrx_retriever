@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 from pathlib import Path
 import platform
@@ -14,7 +14,14 @@ import numpy as np
 
 from ..common.files import read_jsonl, sha256, write_json, write_jsonl
 from ..baseline_config import ChunkingConfig, find_project_root
-from ..retrieval.chunking import Chunk, TokenChunker
+from ..retrieval.chunking import Chunk
+from ..retrieval.hierarchical_chunking import (
+    build_chunker,
+    chunk_statistics,
+    hierarchy_node_records,
+    render_hierarchy_summary,
+    token_statistics,
+)
 from ..evaluation import evaluate_retrieval
 from ..evaluation.model_comparison import analyze_model_comparison, render_model_comparison_report
 from ..retrieval import build_bi_encoder, build_reranker
@@ -45,6 +52,21 @@ class RerankedRetriever:
             return self.prepared[query][:top_k]
         candidates = self.base.retrieve(query, max(top_k, self.candidate_k))
         return self.reranker.rerank(query, candidates, top_k)
+
+    def retrieve_with_timing(self, query: str, top_k: int) -> tuple[list[RetrievedChunk], dict[str, int]]:
+        cycle_started = time.perf_counter_ns()
+        candidate_started = time.perf_counter_ns()
+        candidates = self.base.retrieve(query, max(top_k, self.candidate_k))
+        candidate_finished = time.perf_counter_ns()
+        rerank_started = time.perf_counter_ns()
+        results = self.reranker.rerank(query, candidates, top_k)
+        finished = time.perf_counter_ns()
+        return results, {
+            "candidate_retrieval_ns": candidate_finished - candidate_started,
+            "reranking_ns": finished - rerank_started,
+            "total_retrieval_cycle_ns": finished - cycle_started,
+            "candidate_result_count": len(candidates),
+        }
 
 
 class ReciprocalRankFusionRetriever:
@@ -83,6 +105,7 @@ class PipelineConfig:
     bi_encoders: tuple[dict[str, Any], ...]
     fusions: tuple[dict[str, Any], ...]
     rerankers: tuple[dict[str, Any], ...]
+    latency: dict[str, Any] = field(default_factory=lambda: {"enabled": False})
 
     @classmethod
     def load(cls, path: Path) -> "PipelineConfig":
@@ -106,6 +129,7 @@ class PipelineConfig:
             bi_encoders=tuple(resolve_model_path(spec) for spec in value["bi_encoders"]),
             fusions=tuple(value.get("fusions", [value["fusion"]] if "fusion" in value else [])),
             rerankers=tuple(resolve_model_path(spec) for spec in value.get("rerankers", [value["reranker"]] if "reranker" in value else [])),
+            latency=dict(value.get("latency", {"enabled": False})),
         )
         config.validate()
         return config
@@ -126,12 +150,64 @@ class PipelineConfig:
             raise ValueError("top_k must be unique and sorted")
         if self.candidate_k < max(self.top_k):
             raise ValueError("candidate_k must be at least max(top_k)")
+        for key in ("first_stage_question_limit", "reranked_question_limit"):
+            limit = self.latency.get(key)
+            if limit is not None and int(limit) <= 0:
+                raise ValueError(f"latency.{key} must be positive or null")
+
+
+def _latency_questions(
+    questions: list[dict[str, Any]], limit: int | None,
+    explicit_ids: list[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Select a deterministic round-robin sample across benchmark dimensions."""
+    if explicit_ids is not None:
+        by_id = {question["question_id"]: question for question in questions}
+        missing = [question_id for question_id in explicit_ids if question_id not in by_id]
+        if missing:
+            raise ValueError(f"Unknown latency question IDs: {missing}")
+        return [by_id[question_id] for question_id in explicit_ids]
+    if limit is None or limit >= len(questions):
+        return questions
+    groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+    for question in questions:
+        key = (
+            str(question.get("paraphrase_level", "original")),
+            str(question.get("question_type", "unknown")),
+            str(question.get("difficulty", "unknown")),
+        )
+        groups.setdefault(key, []).append(question)
+    ordered_groups = [
+        sorted(groups[key], key=lambda item: item["question_id"])
+        for key in sorted(groups)
+    ]
+    if limit <= len(ordered_groups):
+        indexes = [
+            min(len(ordered_groups) - 1, int((position + 0.5) * len(ordered_groups) / limit))
+            for position in range(limit)
+        ]
+        return [ordered_groups[index][0] for index in indexes]
+    selected: list[dict[str, Any]] = []
+    offset = 0
+    while len(selected) < limit:
+        added = False
+        for group in ordered_groups:
+            if offset < len(group):
+                selected.append(group[offset])
+                added = True
+                if len(selected) == limit:
+                    break
+        if not added:
+            break
+        offset += 1
+    return selected
 
 
 def run_pipeline(config: PipelineConfig, project_root: Path) -> dict[str, Any]:
     document = json.loads(config.document_path.read_text(encoding="utf-8"))
     questions = read_jsonl(config.golden_dataset_path)
-    chunks = TokenChunker(config.chunking, RegexTokenizer()).chunk_document(document)
+    tokenizer = RegexTokenizer()
+    chunks = build_chunker(config.chunking, tokenizer).chunk_document(document)
     retrievers: dict[str, Any] = {}
     encoder_metadata: list[dict[str, Any]] = []
     build_metrics: dict[str, float] = {}
@@ -175,6 +251,72 @@ def run_pipeline(config: PipelineConfig, project_root: Path) -> dict[str, Any]:
             "complete_questions": metrics["passed_at_max_k"],
         }
     for name, retriever in systems.items():
+        allowed_reranked = config.latency.get("reranked_system_ids")
+        measure_latency = bool(config.latency.get("enabled", False)) and (
+            not isinstance(retriever, RerankedRetriever)
+            or allowed_reranked is None
+            or name in allowed_reranked
+        )
+        latency_path = output / "systems" / name / "query_latency.jsonl"
+        if measure_latency:
+            cache_snapshot = None
+            if (
+                isinstance(retriever, RerankedRetriever)
+                and hasattr(retriever.reranker, "cache_snapshot")
+            ):
+                cache_snapshot = retriever.reranker.cache_snapshot()
+            if (
+                isinstance(retriever, RerankedRetriever)
+                and hasattr(retriever.reranker, "clear_cache")
+            ):
+                retriever.reranker.clear_cache()
+            limit_key = (
+                "reranked_question_limit" if isinstance(retriever, RerankedRetriever)
+                else "first_stage_question_limit"
+            )
+            ids_key = (
+                "reranked_question_ids" if isinstance(retriever, RerankedRetriever)
+                else "first_stage_question_ids"
+            )
+            selected_questions = _latency_questions(
+                questions, config.latency.get(limit_key), config.latency.get(ids_key)
+            )
+            latency_records: list[dict[str, Any]] = []
+            for question in selected_questions:
+                if isinstance(retriever, RerankedRetriever):
+                    timed_results, timing = retriever.retrieve_with_timing(
+                        question["question"], max(config.top_k)
+                    )
+                else:
+                    started_ns = time.perf_counter_ns()
+                    candidates = retriever.retrieve(question["question"], config.candidate_k)
+                    finished_ns = time.perf_counter_ns()
+                    timed_results = candidates[:max(config.top_k)]
+                    timing = {
+                        "candidate_retrieval_ns": finished_ns - started_ns,
+                        "reranking_ns": 0,
+                        "total_retrieval_cycle_ns": finished_ns - started_ns,
+                        "candidate_result_count": len(candidates),
+                    }
+                latency_records.append({
+                    "question_id": question["question_id"],
+                    "question": question["question"],
+                    "question_type": question.get("question_type"),
+                    "difficulty": question.get("difficulty"),
+                    "paraphrase_level": question.get("paraphrase_level", "original"),
+                    "system": name,
+                    "requested_candidate_k": config.candidate_k,
+                    "requested_top_k": max(config.top_k),
+                    "returned_result_count": len(timed_results),
+                    **timing,
+                    "retrieved_chunk_ids": [item.chunk_id for item in timed_results],
+                    "retrieval_scores": [item.score for item in timed_results],
+                })
+            write_jsonl(latency_path, latency_records)
+            if cache_snapshot is not None:
+                retriever.reranker.restore_cache(cache_snapshot)
+        elif latency_path.exists():
+            latency_path.unlink()
         if isinstance(retriever, RerankedRetriever):
             retriever.prepare([question["question"] for question in questions], max(config.top_k))
         started = time.perf_counter()
@@ -192,6 +334,14 @@ def run_pipeline(config: PipelineConfig, project_root: Path) -> dict[str, Any]:
         write_jsonl(output / "systems" / name / "results.jsonl", records)
         write_json(output / "systems" / name / "metrics.json", metrics)
 
+    resolved_chunking: dict[str, Any] = {"strategy": config.chunking.strategy}
+    if config.chunking.strategy == "token_window":
+        resolved_chunking.update({
+            "chunk_size": config.chunking.chunk_size,
+            "chunk_overlap": config.chunking.chunk_overlap,
+        })
+    else:
+        resolved_chunking["max_tokens"] = config.chunking.max_tokens
     resolved = {
         "schema_version": "1.0",
         "inputs": {
@@ -200,16 +350,13 @@ def run_pipeline(config: PipelineConfig, project_root: Path) -> dict[str, Any]:
             "golden_dataset_path": config.golden_dataset_path.relative_to(project_root).as_posix(),
             "golden_dataset_sha256": sha256(config.golden_dataset_path),
         },
-        "chunking": {
-            "strategy": config.chunking.strategy,
-            "chunk_size": config.chunking.chunk_size,
-            "chunk_overlap": config.chunking.chunk_overlap,
-        },
+        "chunking": resolved_chunking,
         "retrieval": {"candidate_k": config.candidate_k, "algorithm": "cosine_similarity_exact"},
         "bi_encoders": encoder_metadata,
         "fusions": list(config.fusions),
         "rerankers": reranker_metadata,
         "evaluation": {"top_k": list(config.top_k)},
+        "latency": config.latency,
     }
     run = {
         "schema_version": "1.0",
@@ -223,6 +370,16 @@ def run_pipeline(config: PipelineConfig, project_root: Path) -> dict[str, Any]:
     }
     write_json(output / "run_config.json", resolved)
     write_jsonl(output / "chunks" / "chunks.jsonl", [chunk.to_dict() for chunk in chunks])
+    write_json(output / "chunks" / "statistics.json", chunk_statistics(chunks))
+    if config.chunking.strategy.startswith("hierarchical"):
+        node_records = hierarchy_node_records(document, tokenizer)
+        hierarchy_statistics = token_statistics(node_records)
+        write_jsonl(output / "hierarchy" / "nodes.jsonl", node_records)
+        write_json(output / "hierarchy" / "statistics.json", hierarchy_statistics)
+        (output / "hierarchy" / "summary.md").parent.mkdir(parents=True, exist_ok=True)
+        (output / "hierarchy" / "summary.md").write_text(
+            render_hierarchy_summary(hierarchy_statistics), encoding="utf-8", newline="\n"
+        )
     comparison = analyze_model_comparison(system_records, questions, config.top_k)
     write_json(output / "analysis" / "model_category_analysis.json", comparison)
     (output / "analysis" / "model_category_report.md").write_text(

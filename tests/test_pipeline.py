@@ -22,6 +22,8 @@ from testrx_retriever.pipeline import (
     RerankedRetriever,
     run_pipeline,
 )
+from testrx_retriever.workflows.model_comparison import _latency_questions
+from testrx_retriever.workflows.hierarchy_experiment import run_hierarchy_experiment
 from testrx_retriever.vector_index import ExactVectorIndex
 
 
@@ -76,6 +78,18 @@ class PipelineComponentTests(unittest.TestCase):
         self.assertEqual(results[0].chunk_id, self.chunks[0].chunk_id)
         self.assertEqual([item.rank for item in results], [1, 2])
 
+    def test_explicit_latency_question_selection_is_ordered_and_validated(self) -> None:
+        questions = [
+            {"question_id": "Q1", "question": "one"},
+            {"question_id": "Q2", "question": "two"},
+        ]
+        self.assertEqual(
+            [item["question_id"] for item in _latency_questions(questions, None, ["Q2", "Q1"])],
+            ["Q2", "Q1"],
+        )
+        with self.assertRaises(ValueError):
+            _latency_questions(questions, None, ["missing"])
+
 
 class PipelineIntegrationTests(unittest.TestCase):
     def test_complete_flow_writes_each_system(self) -> None:
@@ -112,6 +126,7 @@ class PipelineIntegrationTests(unittest.TestCase):
                 ),
                 fusions=({"enabled": True, "id": "hybrid", "encoder_ids": ["lexical", "lsa"]},),
                 rerankers=({"id": "pair", "algorithm": "lexical_pairwise_baseline"},),
+                latency={"enabled": True},
             )
             run = run_pipeline(config, root)
             self.assertEqual(len(run["systems"]), 6)
@@ -119,6 +134,66 @@ class PipelineIntegrationTests(unittest.TestCase):
             self.assertTrue((output_path / "analysis" / "model_category_report.md").is_file())
             for system in run["systems"]:
                 self.assertTrue((output_path / "systems" / system / "metrics.json").is_file())
+                latency_path = output_path / "systems" / system / "query_latency.jsonl"
+                self.assertTrue(latency_path.is_file())
+                latency = json.loads(latency_path.read_text(encoding="utf-8").splitlines()[0])
+                self.assertGreater(latency["total_retrieval_cycle_ns"], 0)
+                self.assertIn("candidate_retrieval_ns", latency)
+                self.assertIn("reranking_ns", latency)
+
+    def test_hierarchy_matrix_reuses_pipeline_and_writes_raw_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "pyproject.toml").write_text("[project]\nname='test'\n", encoding="utf-8")
+            document_path = root / "document.json"
+            dataset_path = root / "golden.jsonl"
+            base_path = root / "base.json"
+            matrix_path = root / "matrix.json"
+            document_path.write_text(json.dumps({
+                "document_id": "doc", "title": "Test", "source_file": "test.pdf",
+                "source_sha256": "ABC", "sections": [{
+                    "section_id": "1", "title": "Test", "level": 1,
+                    "parent_section_id": None, "ancestor_path": ["1 Test"],
+                    "sequence": 1, "page_start": 1, "page_end": 1,
+                    "elements": [{
+                        "id": "unit-1", "type": "paragraph", "sequence": 1,
+                        "text": "configure network signal logging", "page_start": 1,
+                        "page_end": 1, "children": [],
+                    }],
+                }],
+            }), encoding="utf-8")
+            dataset_path.write_text(json.dumps({
+                "question_id": "Q001", "question": "configure signal logging",
+                "question_type": "procedure", "difficulty": "easy",
+                "retrieval_ground_truth": {"required_source_set": ["unit-1"]},
+            }) + "\n", encoding="utf-8")
+            base_path.write_text(json.dumps({
+                "schema_version": "1.0",
+                "inputs": {"document_path": "document.json", "golden_dataset_path": "golden.jsonl"},
+                "output_directory": "unused",
+                "chunking": {"strategy": "token_window", "chunk_size": 10, "chunk_overlap": 1},
+                "retrieval": {"candidate_k": 1},
+                "bi_encoders": [{
+                    "id": "lexical", "algorithm": "stable_hashing_word_bigram", "dimension": 64,
+                }],
+                "evaluation": {"top_k": [1]},
+            }), encoding="utf-8")
+            matrix_path.write_text(json.dumps({
+                "schema_version": "1.0", "experiment_id": "test-hierarchy",
+                "base_pipeline_config": "base.json", "output_directory": "matrix",
+                "latency": {"enabled": True, "reranked_question_limit": 1},
+                "chunking_variants": [
+                    {"id": "pure", "chunking": {"strategy": "hierarchical_pure"}},
+                    {"id": "bounded", "chunking": {
+                        "strategy": "hierarchical_max_tokens", "max_tokens": 16,
+                    }},
+                ],
+            }), encoding="utf-8")
+            manifest = run_hierarchy_experiment(matrix_path)
+            self.assertEqual([item["id"] for item in manifest["variants"]], ["pure", "bounded"])
+            self.assertTrue((root / "matrix" / "experiment_manifest.json").is_file())
+            self.assertTrue((root / "matrix" / "pure" / "hierarchy" / "nodes.jsonl").is_file())
+            self.assertTrue((root / "matrix" / "bounded" / "chunks" / "statistics.json").is_file())
 
 
 if __name__ == "__main__":

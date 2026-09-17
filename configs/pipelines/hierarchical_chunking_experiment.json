@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "hierarchical-chunking-v1",
+  "base_pipeline_config": "configs/pipelines/candidates.json",
+  "output_directory": "output/retrieval/pipeline_hierarchy_chunking",
+  "latency": {
+    "enabled": true,
+    "sampling_policy": "all_first_stage_queries_and_explicit_reranked_sentinels",
+    "first_stage_question_limit": null,
+    "reranked_question_ids": ["Q092", "Q130-P4"],
+    "reranked_system_ids": [
+      "dense_bge_small_en_v15+reranker_minilm_l6",
+      "dense_e5_small_v2+reranker_minilm_l6"
+    ]
+  },
+  "chunking_variants": [
+    {
+      "id": "token_window_300_30",
+      "chunking": {"strategy": "token_window", "chunk_size": 300, "chunk_overlap": 30}
+    },
+    {
+      "id": "hierarchical_pure",
+      "chunking": {"strategy": "hierarchical_pure"}
+    },
+    {
+      "id": "hierarchical_max_160",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 160}
+    },
+    {
+      "id": "hierarchical_max_256",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 256}
+    },
+    {
+      "id": "hierarchical_max_384",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 384}
+    },
+    {
+      "id": "hierarchical_max_512",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 512}
+    },
+    {
+      "id": "hierarchical_max_640",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 640}
+    },
+    {
+      "id": "hierarchical_max_768",
+      "chunking": {"strategy": "hierarchical_max_tokens", "max_tokens": 768}
+    }
+  ]
+}

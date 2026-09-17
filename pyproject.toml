@@ -25,6 +25,7 @@ testrx-baseline = "testrx_retriever.workflows.reference_run:main"
 testrx-experiments = "testrx_retriever.experiments:main"
 testrx-analyze = "testrx_retriever.evaluation.analysis:main"
 testrx-pipeline = "testrx_retriever.workflows.model_comparison:main"
+testrx-hierarchy-experiment = "testrx_retriever.workflows.hierarchy_experiment:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

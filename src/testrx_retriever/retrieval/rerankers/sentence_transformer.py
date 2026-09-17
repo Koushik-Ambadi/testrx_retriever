@@ -28,6 +28,17 @@ class SentenceTransformerCrossEncoder:
         self.model = CrossEncoder(self.model_path, **load_options)
         self._score_cache: dict[tuple[str, str], float] = {}
 
+    def clear_cache(self) -> None:
+        """Reset query/chunk score reuse before an independent latency run."""
+        self._score_cache.clear()
+
+    def cache_snapshot(self) -> dict[tuple[str, str], float]:
+        """Copy pair scores so diagnostic timing cannot perturb evaluation reuse."""
+        return dict(self._score_cache)
+
+    def restore_cache(self, snapshot: dict[tuple[str, str], float]) -> None:
+        self._score_cache = dict(snapshot)
+
     def rerank(self, query: str, candidates: list[RetrievedChunk], top_k: int) -> list[RetrievedChunk]:
         scores = self.model.predict(
             [(query, item.chunk.text) for item in candidates],
