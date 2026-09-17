@@ -45,6 +45,8 @@ schemas and reproducibility rules.
 - `configs/`: declarative reference, experiment, and pipeline definitions.
 - `model_store/`: versioned registries and ignored local artifacts separated by
   encoder, reranker, and generator roles.
+- `skills/`: reusable cross-project workflows. Skills contain general lifecycle
+  practices only; TESTRX-specific technical knowledge remains with this project.
 - `output/`: durable benchmark/reference evidence plus ignored ordinary runs,
   governed by `artifact-policy.md`.
 

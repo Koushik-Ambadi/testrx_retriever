@@ -849,3 +849,34 @@ Implementation consequence:
 
 Status:
 - Accepted and implemented 2026-09-17.
+
+---
+
+## O046 - General lifecycle governance is a reusable skill
+
+Observation:
+- The project repeatedly needed the same cross-cutting discipline for phase
+  gates, documentation ownership, modular design, testing, experiment metadata,
+  decision history, reproducibility, Git delivery, and later knowledge reuse.
+- Those practices are useful beyond TESTRX, while retrieval, parsing, benchmark,
+  and model-specific instructions remain project or domain concerns.
+
+Decision:
+- Maintain `skills/project-lifecycle-governance/` as a reusable skill with a
+  concise operating workflow and routed references for detailed concerns.
+- Keep the skill domain-neutral and use project-specific companion skills for
+  areas such as RAG, agents, classical ML, or data analysis.
+- Preserve engineering evidence in its owning project; transform it into blogs,
+  portfolio material, social posts, and engagement analytics in a separate
+  content project with explicit provenance back to source records.
+- Include a read-only project snapshot utility for initial structural and Git
+  discovery, but require human judgment for architecture and cleanup decisions.
+
+Implementation consequence:
+- New projects can copy or install the skill without carrying TESTRX data or
+  conclusions.
+- The skill discourages empty documentation scaffolds and duplicate reports;
+  records are created only when their responsibility and update trigger exist.
+
+Status:
+- Accepted and implemented 2026-09-17.

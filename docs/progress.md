@@ -402,3 +402,22 @@ DONE
 - Preserved older audits and reviews as dated frozen evidence with resolution
   notices rather than rewriting their historical findings.
 - Verified project-local Markdown links and ran 58 tests successfully.
+
+## 2026-09-17 - Reusable project lifecycle skill added
+
+DONE
+- Reviewed the project task history and Git chronology to extract reusable
+  practices from discovery through reproducible experiments and delivery.
+- Added `skills/project-lifecycle-governance/` with separate references for
+  lifecycle gates, documentation ownership, architecture and code, testing,
+  experiments, decisions and learning, Git delivery, and content reuse.
+- Added conditional templates rather than mandatory document scaffolding.
+- Added a read-only JSON project snapshot utility that inventories structure,
+  relevant files, recent Git history, branches, remotes, and configured owner.
+- Kept TESTRX-specific retrieval and experiment knowledge outside the general
+  skill so future projects can pair it with their own technical skills.
+
+DECIDED
+- Engineering projects own factual evidence and provenance; a separate future
+  content project will own editorial derivatives, publication workflows,
+  impressions, engagement, and feedback analysis.

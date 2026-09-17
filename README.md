@@ -106,6 +106,7 @@ testrx_retriever/
 ├── src/testrx_retriever/      parsing, retrieval, evaluation, and workflows
 ├── model_store/               encoder, reranker, and generator artifacts
 ├── tests/                     parser, dataset, retrieval, and determinism tests
+├── skills/                    reusable, cross-project engineering workflows
 ├── output/                    parsing, dataset, reference, and experiment layers
 ├── tmp/                       ignored render/verification intermediates
 ├── pyproject.toml             package metadata and dependency contract

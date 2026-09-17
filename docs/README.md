@@ -52,6 +52,7 @@ do not silently make an old review describe the current repository.
 - [Hierarchy experiment](../configs/pipelines/hierarchical-chunking-experiment.md)
 - [Source manifest](../source/README.md)
 - [Model store](../model_store/README.md)
+- [Reusable project lifecycle skill](../skills/project-lifecycle-governance/SKILL.md)
 
 ## Ownership rules
 
