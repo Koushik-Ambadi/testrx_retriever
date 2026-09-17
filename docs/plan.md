@@ -177,6 +177,9 @@ or justified hybrid before beginning answer generation.
 
 ### Gate 1 - Establish a viable chunking baseline
 
+Hierarchy experiment status: implementation and raw-data capture completed on
+2026-09-15. Detailed comparison and selection remain open.
+
 1. Keep `500/50` as the historical control and `300/30` as the current
    diagnostic anchor; neither is a production default yet.
 2. Audit persistent failures Q080 and Q092 against chunk text, lineage, and PDF

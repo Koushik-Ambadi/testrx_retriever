@@ -789,3 +789,27 @@ Decision:
 Status:
 - Accepted and evaluated on 2026-09-13. Candidate status does not imply final
   retriever selection.
+
+---
+
+## O044 - Hierarchy chunking evidence precedes chunk-policy selection
+
+Observation:
+- The canonical manual hierarchy contains 312 nodes. Natural subtrees range
+  from very small semantic elements to 2,263-token level-1 sections; level-1
+  median is 368, level-2 p95 is 480, and level-3 p95 is 377.
+- Pure hierarchy creates 311 overlapping chunks. Bounded limits from 160 to 768
+  create 154 down to 55 chunks; deterministic leaf fallback disappears at 512.
+
+Decision:
+- Preserve the unchanged 300/30 token-window control and compare it with pure
+  hierarchy plus preregistered 160/256/384/512/640/768 limits at fixed
+  candidate K=20 and unchanged models/evaluator.
+- Store raw rankings, evidence results, hierarchy/chunk records, and query-cycle
+  timings. Keep detailed comparison, plots, and strongest-configuration
+  selection as a separate later analysis.
+- Treat pure hierarchy as a diagnostic because long overlapping subtrees can
+  exceed model input limits and inflate index cost.
+
+Status:
+- Implemented and run on 2026-09-15. No production chunking decision made.

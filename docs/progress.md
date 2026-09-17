@@ -354,3 +354,27 @@ MEASURED
 - BGE + MiniLM reranker: R@1 0.755, R@10 0.980, MRR 0.869, coverage 0.986.
 - Dense retrieval materially outperformed lexical hashing; current RRF hybrids
   did not improve aggregate results but led selected categories.
+
+## 2026-09-15 - Hierarchical chunking raw experiment complete
+
+DONE
+- Added canonical hierarchy traversal, pure hierarchy diagnostics, configurable
+  max-token descent, concise parent context, stable IDs, and bounded leaf fallback.
+- Added the reusable eight-variant matrix runner without duplicating retrieval,
+  reranking, evaluation, or model configuration.
+- Added raw per-query first-stage and end-to-end latency records excluding
+  chunking, index build, and model load.
+- Ran token-window 300/30, pure hierarchy, and hierarchy maxima at
+  160/256/384/512/640/768 through all ten production-candidate systems.
+- Validated 196 result rows per system, seven timing files per variant, complete
+  hierarchy records, configured token bounds, and all 58 tests.
+
+MEASURED
+- Pure hierarchy: 311 chunks, maximum 2,263 tokens.
+- Bounded hierarchy: 154/111/95/79/68/55 chunks as the maximum increases.
+- Fallback fragments: 18/4/2/0/0/0 across the six bounded limits.
+
+DECIDED
+- Preserve raw outputs locally under the ignored ordinary-run policy.
+- Defer detailed metric comparison, plots, strongest-candidate selection, and
+  production decisions to a separate analysis pass.

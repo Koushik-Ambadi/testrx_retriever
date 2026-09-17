@@ -55,6 +55,7 @@ python -m testrx_retriever.experiments --config configs/retrieval/experiments/ch
 python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
 python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
 python -m testrx_retriever.pipeline --config configs/pipelines/baseline.json
+python -m testrx_retriever.workflows.hierarchy_experiment --config configs/pipelines/hierarchical_chunking_experiment.json
 ```
 
 Run tests with the standard library:

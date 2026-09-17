@@ -68,6 +68,19 @@ python scripts/install_model_candidates.py
 python -m testrx_retriever.pipeline --config configs/pipelines/candidates.json
 ```
 
+Run the hierarchy-aware chunking matrix through the same models, retrieval,
+reranking, and evaluator with:
+
+```powershell
+python -m testrx_retriever.workflows.hierarchy_experiment --config configs/pipelines/hierarchical_chunking_experiment.json
+```
+
+The matrix runner only replaces the configured chunker. Hierarchy runs add raw
+canonical-node measurements and emitted-chunk statistics. Optional latency
+capture writes per-query nanosecond observations and explicitly records its
+question-selection and cache policy; chunking, index build, and model loading
+are outside that timing boundary.
+
 ## Experiment boundary
 
 The runnable baseline proves component wiring and artifact contracts. It does
