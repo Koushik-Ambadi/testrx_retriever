@@ -22,16 +22,24 @@ class ChunkingConfig:
     strategy: str = "token_window"
     chunk_size: int = 500
     chunk_overlap: int = 50
+    max_tokens: int | None = None
 
     def validate(self) -> None:
-        if self.strategy != "token_window":
-            raise ValueError(f"Unsupported baseline chunking strategy: {self.strategy}")
-        if self.chunk_size <= 0:
-            raise ValueError("chunk_size must be positive")
-        if self.chunk_overlap < 0:
-            raise ValueError("chunk_overlap cannot be negative")
-        if self.chunk_overlap >= self.chunk_size:
-            raise ValueError("chunk_overlap must be smaller than chunk_size")
+        supported = {"token_window", "hierarchical_pure", "hierarchical_max_tokens"}
+        if self.strategy not in supported:
+            raise ValueError(f"Unsupported chunking strategy: {self.strategy}")
+        if self.strategy == "token_window":
+            if self.chunk_size <= 0:
+                raise ValueError("chunk_size must be positive")
+            if self.chunk_overlap < 0:
+                raise ValueError("chunk_overlap cannot be negative")
+            if self.chunk_overlap >= self.chunk_size:
+                raise ValueError("chunk_overlap must be smaller than chunk_size")
+        elif self.strategy == "hierarchical_pure":
+            if self.max_tokens is not None:
+                raise ValueError("hierarchical_pure does not accept max_tokens")
+        elif self.max_tokens is None or self.max_tokens <= 0:
+            raise ValueError("hierarchical_max_tokens requires positive max_tokens")
 
 
 @dataclass(frozen=True)
@@ -113,16 +121,19 @@ class BaselineConfig:
             except ValueError:
                 return str(path)
 
+        chunking = {
+            "strategy": self.chunking.strategy,
+            "chunk_size": self.chunking.chunk_size,
+            "chunk_overlap": self.chunking.chunk_overlap,
+        }
+        if self.chunking.max_tokens is not None:
+            chunking["max_tokens"] = self.chunking.max_tokens
         return {
             "schema_version": self.schema_version,
             "document_path": display(self.document_path),
             "golden_dataset_path": display(self.golden_dataset_path),
             "output_directory": display(self.output_directory),
-            "chunking": {
-                "strategy": self.chunking.strategy,
-                "chunk_size": self.chunking.chunk_size,
-                "chunk_overlap": self.chunking.chunk_overlap,
-            },
+            "chunking": chunking,
             "tokenizer": {"name": self.tokenizer.name, "version": self.tokenizer.version},
             "embedding": {
                 "model": self.embedding.model,

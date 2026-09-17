@@ -39,9 +39,24 @@ class Chunk:
     semantic_unit_ids: tuple[str, ...]
     source_element_ids: tuple[str, ...]
     content_types: tuple[str, ...]
+    source_file: str = ""
+    chunking_strategy: str = "token_window"
+    chunking_config: tuple[tuple[str, Any], ...] = ()
+    hierarchy_path: tuple[str, ...] = ()
+    hierarchy_level: str | None = None
+    parent_node_id: str | None = None
+    split_reason: str | None = None
+    fallback_split: bool = False
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        value = asdict(self)
+        if self.chunking_strategy == "token_window" and self.hierarchy_level is None:
+            for key in (
+                "source_file", "chunking_strategy", "chunking_config", "hierarchy_path",
+                "hierarchy_level", "parent_node_id", "split_reason", "fallback_split",
+            ):
+                value.pop(key)
+        return value
 
 
 def _stable_unique(values: Iterable[Any]) -> tuple[Any, ...]:
