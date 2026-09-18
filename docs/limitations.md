@@ -43,8 +43,9 @@ decision log rather than this living list.
 
 ## Retrieval and evaluation
 
-- No production retriever or chunk policy has been selected on a held-out family
-  split.
+- The frozen retriever was selected from one manual's diagnostic benchmark. A
+  family-grouped robustness view did not reverse the decision, but no external
+  manual or prospective query population has validated generalization.
 - Lineage relevance does not prove that one chunk contains the complete required
   text span or enough focused context for generation.
 - Recall@K is strict for multi-unit questions while MRR rewards the first partial
@@ -57,7 +58,8 @@ decision log rather than this living list.
   production scalability.
 - Current latency captures exclude model loading, chunking, and index building;
   reranked hierarchy runs use explicit sentinel questions rather than a full
-  production latency distribution.
+  production latency distribution. Fresh local wrapper startup measured about
+  20 seconds, so process reuse is required.
 - The system evaluates retrieval only. It has no context-assembly, answer
   generation, grounded-answer, or end-user outcome evaluation.
 

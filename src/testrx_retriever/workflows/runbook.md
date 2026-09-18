@@ -221,3 +221,44 @@ Treat `output/retrieval/pipeline_hierarchy_chunking/` as reproducible ignored
 run output. Compare fixed-K metrics together with index exposure, evidence
 completeness, emitted chunk counts, fallback splits, and the documented latency
 boundary. Do not select a production policy from aggregate MRR alone.
+
+## Frozen retrieval application
+
+Install the optional local-model runtime and model artifacts, then query the
+frozen default:
+
+```powershell
+python -m pip install -e ".[transformers]"
+python scripts/install_model_candidates.py
+testrx-retrieve "How do I create a project?"
+testrx-retrieve "How do I create a project?" --candidate-k 15 --top-k 10
+```
+
+The runtime source of truth is `configs/retrieval/production.json`. Defaults are
+hierarchy max 384, pinned BGE, pinned MiniLM, candidate K=10, and final K=5.
+`candidate_k` must be at least `top_k`. The CLI is a diagnostic convenience and
+loads models on each invocation; application integrations should construct one
+`RetrievalApplication` and reuse it.
+
+Reproduce the frozen quality metrics with:
+
+```powershell
+python -m testrx_retriever.workflows.model_comparison --config configs/pipelines/production_evaluation.json
+```
+
+Review `configs/retrieval/production.md` before changing chunking, model
+revisions, or defaults. Such a change reopens the retrieval gate and requires
+the same complete-evidence, context-token, failure, and latency views.
+
+Run the fixed fresh-question statement audit with:
+
+```powershell
+python scripts/manual_retrieval_smoke.py
+python scripts/score_manual_retrieval_smoke.py
+```
+
+The first command loads the production wrapper once, retrieves six questions,
+and splits every chunk into atomic review statements. The second applies the
+documented human rubric and writes the complete per-statement JSON and Markdown
+report under `output/retrieval/pipeline_manual_smoke/`. Review score rules when
+questions change; they intentionally encode human judgments for this fixed set.

@@ -880,3 +880,36 @@ Implementation consequence:
 
 Status:
 - Accepted and implemented 2026-09-17.
+
+---
+
+## O047 - Freeze the bounded hierarchy BGE reranking path
+
+Observation:
+- Across eight chunk policies and ten systems, pure hierarchy's small MRR edge
+  came with overlapping 2,263-token chunks; the 300/30 control required about
+  1,499 returned tokens at K=5.
+- Hierarchy-384 with BGE and MiniLM retained strong complete-evidence retrieval
+  at roughly half that context size.
+- On the fixed hierarchy-384 path, candidate K=10 outperformed K=12, 15, 20,
+  and 30 after reranking; larger pools displaced useful multi-chunk evidence.
+- K=5 is the final-context knee: 186/196 complete questions at about 715 mean
+  tokens, versus 180/196 at K=3 and 192/196 at K=10.
+
+Decision:
+- Freeze `hierarchical_max_tokens` at 384, pinned BGE small English v1.5 exact
+  cosine retrieval, pinned MiniLM-L6 cross-encoder reranking, candidate K=10,
+  and final K=5 as the generalized application defaults.
+- Keep both K values configurable per call; do not add question routing until a
+  router and diversity policy have independent evidence.
+
+Implementation consequence:
+- `configs/retrieval/production.json` is the runtime source of truth and
+  `configs/pipelines/production_evaluation.json` reproduces the quality run.
+- `RetrievalApplication` loads models and the 95-chunk index once, then returns
+  ranked chunks with complete provenance, token counts, and stage timings.
+- Context assembly must address multi-unit and parent-context failures without
+  silently changing this retrieval contract.
+
+Status:
+- Accepted and implemented 2026-09-17.

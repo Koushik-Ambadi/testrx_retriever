@@ -421,3 +421,43 @@ DECIDED
 - Engineering projects own factual evidence and provenance; a separate future
   content project will own editorial derivatives, publication workflows,
   impressions, engagement, and feedback analysis.
+
+## 2026-09-17 - Production retriever frozen and wrapper added
+
+DONE
+- Analyzed all 80 hierarchy/model system combinations across complete-evidence
+  retrieval, MRR, evidence coverage, question slices, chunk/index exposure,
+  returned context tokens, and available latency measurements.
+- Tuned BGE+MiniLM candidate depth at K=10/12/15/20/30 and final context depth
+  at K=1/3/5/10, then regenerated a checked-in candidate-K=10 evaluation config.
+- Selected hierarchy-384, BGE small English v1.5, MiniLM-L6 reranking,
+  candidate K=10, and final K=5.
+- Added a configurable long-lived query-to-chunks application and CLI with
+  per-call K overrides, source metadata, token totals, and stage timings.
+- Added lightweight wrapper tests and updated architecture, roadmap,
+  limitations, runbook, experiment resolution, and retrieval documentation.
+
+MEASURED
+- Frozen system: R@1 0.760, R@3 0.918, R@5 0.949, R@10 0.980, MRR 0.883,
+  and mean evidence coverage@10 0.986 over 196 questions.
+- Context at K=5: 715 tokens mean, 696.5 median, 1,018 p90, 1,262 maximum.
+- Candidate K=10 contained complete evidence for 192/196 questions and reduced
+  the two cold-pair sentinel cycles from 1,287/1,858 ms at K=20 to 661/1,162 ms.
+
+## 2026-09-17 - Fresh-question statement audit complete
+
+DONE
+- Read and visually checked the relevant source-PDF pages, then authored six
+  compositional questions that do not copy golden question text.
+- Ran the production wrapper, split all Top-5 chunks into 306 atomic statements,
+  and recorded explicit relevance and answer-support scores for every statement.
+- Added reproducible retrieval and manual-scoring scripts plus an ignored raw
+  JSON/Markdown evidence bundle.
+
+OBSERVED
+- Five questions were completely answerable from rank 1; all six were complete
+  by rank 2. One multi-page table row was fragmented across adjacent chunks.
+- The small set used 223/364/489/740 mean tokens through ranks 1/2/3/5 and
+  contained 21 direct, 82 topical, and 203 unrelated statements at Top-5.
+- Keep Top-5 for benchmark completeness, but make table-row preservation and
+  context pruning explicit work for the context-assembly gate.

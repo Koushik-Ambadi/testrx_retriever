@@ -25,51 +25,31 @@ explicit quality gates. Preserve provenance and reproducibility at every stage.
 - Modular encoder, fusion, reranker, evaluation, and workflow boundaries.
 - Pinned BGE/E5 encoder and MiniLM reranker candidate comparison.
 - Deterministic hierarchy-aware chunkers and raw eight-variant matrix capture.
+- Frozen hierarchy-384/BGE/MiniLM retrieval configuration, K tuning, and a
+  configurable query-to-chunks wrapper.
 - Project documentation ownership and testing strategy.
 
 Completed dates and verification belong in `progress.md`. Rationale belongs in
 `decisions.md`; measurements belong in generated artifacts and fixed experiment
 records beside their configurations.
 
-## Active gate: hierarchy comparison and validation design
+## Completed gate: hierarchy comparison and retriever freeze
 
-Objective: determine whether one bounded hierarchy policy improves complete,
-focused evidence retrieval enough to replace the 300/30 token-window diagnostic
-anchor.
+Hierarchy-384 was selected over the 300/30 window on the quality/context/latency
+frontier. BGE small English v1.5, MiniLM-L6 reranking, candidate K=10, and final
+K=5 are frozen as configurable defaults. Measurements, regressions, and residual
+risks are recorded in `configs/retrieval/production.md`.
 
-Required work:
+## Active gate: context assembly
 
-1. Define family-grouped development and held-out partitions without splitting
-   original/paraphrase families.
-2. Add span-complete or evidence-completeness views that distinguish lineage
-   presence from complete answer-bearing text.
-3. Compare fixed K together with index exposure, chunks required for complete
-   evidence, fallback behavior, and latency boundaries.
-4. Inspect persistent multi-unit, table, figure, and cross-reference failures.
-5. Shortlist at most one bounded hierarchy configuration and retain the
-   token-window control.
-
-Exit criteria:
-
-- evaluation populations and selection rules are frozen before final comparison;
-- no configuration is selected only from aggregate MRR;
-- candidate retrieval coverage is reported before reranking;
-- the selected policy has a documented quality, latency, and complexity case;
-- failures and regressions are explicitly recorded.
-
-## Next gate: retriever and context assembly
-
-After chunk-policy selection:
-
-1. Tune candidate depth on the fixed development population.
-2. Compare dense, lexical, and justified hybrid candidate generation.
-3. Add diversity/evidence assembly for multi-chunk questions.
-4. Tune reranked context depth separately from candidate depth.
-5. Select on held-out families and freeze the retriever contract.
-
-The final contract must specify chunk policy, encoder revision and prefix policy,
-index/retrieval algorithm, candidate depth, fusion, reranker, final context depth,
-latency boundary, and fallback behavior.
+1. Add diversity-aware assembly for multi-unit, procedure, parent-context, and
+   multi-section questions without changing the frozen first-stage defaults.
+2. Add answer-span completeness and generator-facing context evaluation.
+3. Define context deduplication, ordering, token-budget, citation, and abstention
+   contracts.
+4. Benchmark warm long-lived application latency on target deployment hardware.
+5. Validate on a prospective or external query population before claiming
+   cross-document generalization.
 
 ## Later gate: grounded generation
 

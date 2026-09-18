@@ -18,11 +18,11 @@ canonical document
   -> the same grounded evaluator for every system
 ```
 
-The default configuration is an engineering baseline, not the final retriever.
-It uses the current 300/30 diagnostic anchor, a lexical hashing encoder, a
-corpus-fitted LSA semantic bi-encoder, reciprocal-rank fusion, and a deterministic
-pairwise lexical reranker. LSA is semantic but not attention-based; the pairwise
-baseline is a reranker but not a learned cross-encoder.
+The pipeline's `baseline.json` remains an engineering control. The selected
+application path is separately frozen in `configs/retrieval/production.json`:
+hierarchy max 384, BGE small English v1.5, MiniLM-L6 reranking, candidate K=10,
+and final K=5. The decision evidence is in
+`configs/retrieval/production.md`.
 
 ## Model separation
 
@@ -85,11 +85,15 @@ capture writes per-query nanosecond observations and explicitly records its
 question-selection and cache policy; chunking, index build, and model loading
 are outside that timing boundary.
 
+The long-lived application boundary is `testrx_retriever.application` and its
+CLI is `testrx-retrieve`. It returns ranked chunk text, complete source metadata,
+total chunk tokens, and candidate/reranking timing. Candidate and final K may be
+overridden per call without changing the frozen defaults.
+
 ## Experiment boundary
 
-The runnable baseline proves component wiring and artifact contracts. It does
-not select a winner. Subsequent experiments must preserve the evaluator and
-ground truth, group question families when splitting data, establish candidate
-coverage before judging reranking, and report original and paraphrased results
-separately. Chunking, retrieval, fusion, and reranking are finalized from
-grounded results rather than from this baseline's aggregate score.
+The baseline proves component wiring and remains a control; it is not the
+selected application configuration. Future retriever changes must preserve the
+evaluator and ground truth, establish candidate coverage before judging
+reranking, report original and paraphrased results separately, and update the
+binding production decision rather than silently changing defaults.

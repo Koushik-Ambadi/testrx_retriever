@@ -50,6 +50,7 @@ do not silently make an old review describe the current repository.
 - [Token-window experiments](../configs/retrieval/experiments/README.md)
 - [Candidate model comparison](../configs/pipelines/candidate-model-comparison.md)
 - [Hierarchy experiment](../configs/pipelines/hierarchical-chunking-experiment.md)
+- [Frozen retrieval configuration](../configs/retrieval/production.md)
 - [Source manifest](../source/README.md)
 - [Model store](../model_store/README.md)
 - [Reusable project lifecycle skill](../skills/project-lifecycle-governance/SKILL.md)

@@ -24,6 +24,7 @@ immutable PDF
   -> encoder/index/candidate retrieval
   -> optional fusion and reranking
   -> grounded evaluation, analytics, and experiment evidence
+  -> configurable in-process query-to-ranked-chunks application boundary
 ```
 
 The PDF and checksum are factual authority. Canonical structure, benchmark
@@ -41,6 +42,8 @@ schemas and reproducibility rules.
   comparison views.
 - `workflows/`: reference build, model comparison, and hierarchy experiment
   orchestration.
+- `application.py`: long-lived production query wrapper; it loads the fixed
+  corpus/index once and accepts per-call candidate and final K overrides.
 - `common/`: deterministic file and hashing foundations.
 - `configs/`: declarative reference, experiment, and pipeline definitions.
 - `model_store/`: versioned registries and ignored local artifacts separated by
@@ -83,8 +86,7 @@ shims during migration.
 
 ## Current state
 
-Canonical parsing, the grounded benchmark, lexical reference studies, production
-candidate comparison, and raw hierarchy experiments are complete. Learned dense
-retrieval and reranking are available but no production retriever or chunk policy
-is frozen. The active gate is hierarchy comparison and held-out retrieval
-selection before context assembly or generation.
+Canonical parsing, the grounded benchmark, retrieval experiments, and the
+hierarchy-384/BGE/MiniLM retrieval contract are complete. The application now
+ends at ranked, provenance-rich chunks. Context assembly, answer generation,
+network service concerns, and end-user evaluation remain outside the boundary.

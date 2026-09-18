@@ -17,6 +17,9 @@ Source of truth for: test levels, commands, dependencies, and extension rules
   and reproducibility requirements.
 - Model-backed tests require the optional transformer dependency and explicitly
   installed local artifacts. They must not download models implicitly.
+- Application-wrapper tests use deterministic lightweight encoder/reranker
+  implementations and verify defaults, per-call K overrides, provenance,
+  timing, and invalid configuration without loading transformer weights.
 
 The current suite is stored in `tests/`. Test files are organized by behavior,
 not one-to-one with production modules. A separate Markdown file per test or

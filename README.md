@@ -30,12 +30,13 @@ Included:
   random-lineage, collision, lexical, and ranking-stability diagnostics.
 - Controlled four-level paraphrase extension and reusable analytics by run,
   configuration, category, source, and question family.
+- A frozen hierarchy-384 / BGE / MiniLM retrieval default with candidate K=10,
+  final K=5, and a configurable query-to-chunks application wrapper.
 
 Explicitly excluded:
 
 - OCR or screenshot interpretation.
 - BM25, committed model weights, query rewriting, and multi-query retrieval.
-- A selected production retriever; current fusion and reranking are baselines.
 - Answer generation and LLM-based evaluation.
 - A service or API layer.
 
@@ -55,6 +56,7 @@ testrx-experiments --config configs/retrieval/experiments/paraphrase_bias_baseli
 testrx-analyze --group-by experiment_id,paraphrase_level
 testrx-pipeline --config configs/pipelines/baseline.json
 testrx-hierarchy-experiment --config configs/pipelines/hierarchical_chunking_experiment.json
+testrx-retrieve "How do I create a TESTRX project?"
 ```
 
 Run tests with the standard library:
@@ -115,9 +117,6 @@ testrx_retriever/
 
 ## Current review state
 
-The grounded benchmark, deterministic reference, controlled lexical studies,
-production candidate comparison, and raw hierarchical-chunking matrix are
-complete. Learned dense retrieval and reranking improve the reference behavior,
-but no production retriever or chunk policy is frozen. The next gate is a
-controlled hierarchy comparison and held-out selection with explicit evidence
-completeness, index exposure, and latency boundaries.
+The grounded benchmark, controlled retrieval studies, and production retriever
+freeze are complete. The next gate is diversity-aware context assembly and
+generator-facing evidence completeness.
