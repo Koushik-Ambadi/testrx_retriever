@@ -165,10 +165,10 @@ question rather than treated as population estimates.
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.analytics --where experiment_id=chunk-dimension-sweep-v1 --group-by token_size,embedding_dimension
-python -m testrx_retriever.analytics --where experiment_id=chunk-dimension-sweep-v1 --group-by question_type
-python -m testrx_retriever.analytics --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,question_type
-python -m testrx_retriever.analytics --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,category
+python -m testrx_retriever.evaluation.analysis --where experiment_id=chunk-dimension-sweep-v1 --group-by token_size,embedding_dimension
+python -m testrx_retriever.evaluation.analysis --where experiment_id=chunk-dimension-sweep-v1 --group-by question_type
+python -m testrx_retriever.evaluation.analysis --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,question_type
+python -m testrx_retriever.evaluation.analysis --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,category
 ```
 
 The underlying run and question records remain in the shared experiment store;

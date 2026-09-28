@@ -7,7 +7,7 @@ import re
 from typing import Any
 
 from .figures import figure_from_caption
-from .models import BoundingBox, Element, PhysicalLine, PhysicalPage, Section, SourceSpan
+from .domain import BoundingBox, Element, PhysicalLine, PhysicalPage, Section, SourceSpan
 from .normalize import join_text, normalize_text, strip_bullet, strip_procedure_number
 
 

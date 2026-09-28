@@ -115,7 +115,7 @@ Build and evaluate from the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.baseline --config configs/retrieval/reference.json
+python -m testrx_retriever.workflows.reference_run --config configs/retrieval/reference.json
 python -m unittest discover -s tests -v
 ```
 
@@ -182,10 +182,10 @@ findings and resolutions.
 ```powershell
 $env:PYTHONPATH = "src"
 python scripts/build_golden_dataset.py
-python -m testrx_retriever.baseline --config configs/retrieval/reference.json
+python -m testrx_retriever.workflows.reference_run --config configs/retrieval/reference.json
 python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
-python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
-python -m testrx_retriever.analytics --group-by token_size,embedding_family,embedding_dimension
+python -m testrx_retriever.evaluation.analysis --group-by experiment_id,paraphrase_level
+python -m testrx_retriever.evaluation.analysis --group-by token_size,embedding_family,embedding_dimension
 python -m unittest discover -s tests -v
 ```
 
@@ -202,7 +202,7 @@ definitions.
 ```powershell
 python -m pip install -e ".[transformers]"
 python scripts/install_model_candidates.py
-python -m testrx_retriever.pipeline --config configs/pipelines/candidates.json
+python -m testrx_retriever.workflows.model_comparison --config configs/pipelines/candidates.json
 python -m unittest discover -s tests -v
 ```
 

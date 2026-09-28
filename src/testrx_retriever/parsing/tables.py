@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from dataclasses import asdict
 
-from .models import BoundingBox, PhysicalLine, PhysicalPage, SourceSpan, TableFragment
+from .domain import BoundingBox, PhysicalLine, PhysicalPage, SourceSpan, TableFragment
 from .normalize import normalize_cell, normalize_text
 
 

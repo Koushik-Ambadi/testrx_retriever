@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from .parser import parse_manual, write_outputs
+from .parsing.parser import parse_manual, write_outputs
 
 
 def main() -> int:

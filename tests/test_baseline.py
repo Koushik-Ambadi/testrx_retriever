@@ -10,8 +10,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.baseline import run_baseline
-from testrx_retriever.baseline_config import BaselineConfig
+from testrx_retriever.workflows.reference_run import run_baseline
+from testrx_retriever.configuration import BaselineConfig
 
 
 class BaselineIntegrationTests(unittest.TestCase):

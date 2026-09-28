@@ -23,11 +23,9 @@ trace an element to the source.
 - `figures.py`: native captions and large image-region association.
 - `inspection.py`: recursive walks, ambiguity records, and semantic rendering.
 - `validation.py`: generic invariants and document-specific regressions.
-- `cli.py`: parsing command only.
 
-Several implementations remain in flat package modules while migration to
-`parsing/` is characterized. Flat imports are compatibility boundaries, not a
-second implementation.
+All parser implementations live in this package. Parser code is imported from
+`testrx_retriever.parsing`; no forwarding modules remain at the package root.
 
 ## Physical and logical models
 
@@ -63,6 +61,9 @@ Parsing emits exactly `document.json`, `semantic_structure.md`,
 `page_inventory.csv`, `validation_report.json`, and `parsing_warnings.json`.
 Field-level contracts are defined in `../SCHEMA.md`; operations are defined in
 `../workflows/runbook.md`.
+
+The package-level parsing CLI lives in `src/testrx_retriever/cli.py` and delegates
+to `parsing.parser`.
 
 ## Excluded evidence
 

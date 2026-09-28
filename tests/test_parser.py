@@ -10,10 +10,10 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.inspection import collect_parsing_warnings, render_semantic_structure, walk_elements
-from testrx_retriever.normalize import join_text, normalize_text
-from testrx_retriever.parser import parse_manual, write_outputs
-from testrx_retriever.validation import EXPECTED_SHA256, validate_document
+from testrx_retriever.parsing.inspection import collect_parsing_warnings, render_semantic_structure, walk_elements
+from testrx_retriever.parsing.normalize import join_text, normalize_text
+from testrx_retriever.parsing.parser import parse_manual, write_outputs
+from testrx_retriever.parsing.validation import EXPECTED_SHA256, validate_document
 
 
 class NormalizationTests(unittest.TestCase):

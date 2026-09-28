@@ -6,7 +6,7 @@ from typing import Any, Sequence
 
 import numpy as np
 
-from ...baseline_config import EmbeddingConfig
+from ...configuration import EmbeddingConfig
 from .lexical_hashing import StableHashingEmbedder
 
 

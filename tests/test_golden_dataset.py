@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from testrx_retriever.golden_paraphrases import (
     DERIVED_LEVELS, PARAPHRASE_LEVELS, canonical_legacy_hash, lexical_diagnostics,
 )
-from testrx_retriever.tokenization import RegexTokenizer
+from testrx_retriever.retrieval.tokenization import RegexTokenizer
 DATASET_DIR = ROOT / "output" / "datasets" / "golden"
 
 

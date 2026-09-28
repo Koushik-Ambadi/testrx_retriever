@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from ..baseline_config import ChunkingConfig, find_project_root
+from ..configuration import ChunkingConfig, find_project_root
 from ..common.files import sha256, write_json
 from .model_comparison import PipelineConfig, run_pipeline
 

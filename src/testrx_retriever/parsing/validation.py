@@ -6,7 +6,7 @@ from collections import Counter
 import re
 from typing import Any
 
-from .models import CanonicalDocument, Element
+from .domain import CanonicalDocument, Element
 
 
 EXPECTED_SHA256 = "9CC50B1955AB92884CB0C1AA1A1B6ED437BDBD419962A2FDC6818B4D17073B99"

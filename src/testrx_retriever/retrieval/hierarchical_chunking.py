@@ -9,7 +9,7 @@ import math
 from statistics import mean, median
 from typing import Any, Iterable
 
-from ..baseline_config import ChunkingConfig
+from ..configuration import ChunkingConfig
 from .chunking import Chunk, SourceSegment, _element_text, _stable_unique
 from .tokenization import RegexTokenizer, Token
 

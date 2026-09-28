@@ -16,12 +16,12 @@ From the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.analytics --group-by experiment_id,run_id
-python -m testrx_retriever.analytics --group-by experiment_id,paraphrase_level
-python -m testrx_retriever.analytics --group-by token_size,embedding_dimension
-python -m testrx_retriever.analytics --group-by embedding_family,embedding_model,category
-python -m testrx_retriever.analytics --group-by source_semantic_id --format json
-python -m testrx_retriever.analytics --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,question_type
+python -m testrx_retriever.evaluation.analysis --group-by experiment_id,run_id
+python -m testrx_retriever.evaluation.analysis --group-by experiment_id,paraphrase_level
+python -m testrx_retriever.evaluation.analysis --group-by token_size,embedding_dimension
+python -m testrx_retriever.evaluation.analysis --group-by embedding_family,embedding_model,category
+python -m testrx_retriever.evaluation.analysis --group-by source_semantic_id --format json
+python -m testrx_retriever.evaluation.analysis --where experiment_id=paraphrase-bias-baseline-v1 --group-by paraphrase_level,question_type
 ```
 
 Supported dimensions are experiment/run identity and role; chunking strategy,

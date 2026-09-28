@@ -1,4 +1,4 @@
-"""Configuration contract for the reproducible retrieval baseline."""
+"""Shared typed configuration contracts for retrieval and experiments."""
 
 from __future__ import annotations
 

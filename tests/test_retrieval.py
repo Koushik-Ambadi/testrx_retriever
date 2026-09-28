@@ -10,10 +10,10 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.baseline_config import EmbeddingConfig
-from testrx_retriever.chunking import Chunk
-from testrx_retriever.embedding import StableHashingEmbedder
-from testrx_retriever.vector_index import ExactVectorIndex
+from testrx_retriever.configuration import EmbeddingConfig
+from testrx_retriever.retrieval.chunking import Chunk
+from testrx_retriever.retrieval.encoders.lexical_hashing import StableHashingEmbedder
+from testrx_retriever.retrieval.indexes import ExactVectorIndex
 
 
 def chunk(index: int, text: str, element_id: str) -> Chunk:

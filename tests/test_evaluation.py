@@ -8,9 +8,9 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.chunking import Chunk
+from testrx_retriever.retrieval.chunking import Chunk
 from testrx_retriever.evaluation import evaluate_retrieval, score_ranked_results
-from testrx_retriever.vector_index import RetrievedChunk
+from testrx_retriever.retrieval.indexes import RetrievedChunk
 
 
 def result(rank: int, units: tuple[str, ...]) -> RetrievedChunk:

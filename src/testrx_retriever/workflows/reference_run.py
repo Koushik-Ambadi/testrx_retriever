@@ -9,7 +9,7 @@ import platform
 
 import numpy as np
 
-from ..baseline_config import BaselineConfig, find_project_root
+from ..configuration import BaselineConfig, find_project_root
 from ..common.files import read_jsonl, sha256, write_json, write_jsonl
 from ..evaluation.analysis import build_retrieval_analysis, render_analysis_report
 from ..retrieval.chunking import TokenChunker

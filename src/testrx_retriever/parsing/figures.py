@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-from .models import BoundingBox, FigureRegion, PhysicalLine
+from .domain import BoundingBox, FigureRegion, PhysicalLine
 
 
 FIGURE_CAPTION_RE = re.compile(r"^Snp\.?\s*(\d+)\s*[-–—]\s*(.+)$", re.IGNORECASE)

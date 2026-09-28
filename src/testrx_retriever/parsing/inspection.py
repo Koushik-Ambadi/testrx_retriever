@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from typing import Iterable
 
-from .models import CanonicalDocument, Element, Section
+from .domain import CanonicalDocument, Element, Section
 from .structure import IMPERATIVE_VERBS
 
 
@@ -147,4 +147,3 @@ def _render_element(lines: list[str], element: Element, section_level: int, grou
             if len(values) > 1:
                 lines.append(f"{indent}    {values[-1]}")
         lines.append("")
-

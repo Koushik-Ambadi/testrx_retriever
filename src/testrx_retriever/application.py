@@ -8,7 +8,7 @@ from pathlib import Path
 import time
 from typing import Any
 
-from .baseline_config import ChunkingConfig, find_project_root
+from .configuration import ChunkingConfig, find_project_root
 from .retrieval import build_bi_encoder, build_reranker
 from .retrieval.hierarchical_chunking import build_chunker
 from .retrieval.indexes import ExactVectorIndex, RetrievedChunk

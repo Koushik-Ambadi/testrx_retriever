@@ -11,10 +11,10 @@ from typing import Any
 
 import pdfplumber
 
-from . import __version__
+from .. import __version__
+from .domain import BoundingBox, CanonicalDocument, PhysicalLine, PhysicalPage
 from .figures import classify_figure_captions, extract_figure_regions
 from .inspection import collect_parsing_warnings, render_semantic_structure
-from .models import BoundingBox, CanonicalDocument, PhysicalLine, PhysicalPage
 from .normalize import normalize_text
 from .structure import build_sections, classify_headings
 from .tables import extract_table_fragments, group_logical_tables

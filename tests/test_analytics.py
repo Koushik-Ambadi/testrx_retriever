@@ -10,7 +10,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.analytics import analyze_shared_store, summarize_evaluations
+from testrx_retriever.evaluation.analysis import analyze_shared_store, summarize_evaluations
 
 
 def evaluation(overlap: float, complete: bool, precision: float, reciprocal_rank: float) -> dict:

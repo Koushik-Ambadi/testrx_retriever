@@ -14,7 +14,7 @@ class ImportIsolationTests(unittest.TestCase):
         code = (
             "import sys; "
             f"sys.path.insert(0, {str(ROOT / 'src')!r}); "
-            "import testrx_retriever.baseline_config; "
+            "import testrx_retriever.configuration; "
             "assert 'pdfplumber' not in sys.modules"
         )
         completed = subprocess.run([sys.executable, "-c", code], check=False)

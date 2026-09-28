@@ -12,11 +12,11 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.baseline_config import ChunkingConfig
-from testrx_retriever.chunking import Chunk
+from testrx_retriever.configuration import ChunkingConfig
+from testrx_retriever.retrieval.chunking import Chunk
 from testrx_retriever.retrieval.encoders import build_bi_encoder
 from testrx_retriever.retrieval.rerankers import build_reranker
-from testrx_retriever.pipeline import (
+from testrx_retriever.workflows.model_comparison import (
     PipelineConfig,
     ReciprocalRankFusionRetriever,
     RerankedRetriever,
@@ -24,7 +24,7 @@ from testrx_retriever.pipeline import (
 )
 from testrx_retriever.workflows.model_comparison import _latency_questions
 from testrx_retriever.workflows.hierarchy_experiment import run_hierarchy_experiment
-from testrx_retriever.vector_index import ExactVectorIndex
+from testrx_retriever.retrieval.indexes import ExactVectorIndex
 
 
 def chunk(index: int, text: str, element_id: str) -> Chunk:

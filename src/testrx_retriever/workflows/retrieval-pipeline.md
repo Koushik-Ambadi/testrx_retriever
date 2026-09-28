@@ -43,7 +43,7 @@ Install the project dependencies and execute:
 
 ```powershell
 python -m pip install -e .
-python -m testrx_retriever.pipeline --config configs/pipelines/baseline.json
+python -m testrx_retriever.workflows.model_comparison --config configs/pipelines/baseline.json
 ```
 
 The command evaluates six systems: each of the two bi-encoders, their fused
@@ -69,7 +69,7 @@ candidate comparison with:
 
 ```powershell
 python scripts/install_model_candidates.py
-python -m testrx_retriever.pipeline --config configs/pipelines/candidates.json
+python -m testrx_retriever.workflows.model_comparison --config configs/pipelines/candidates.json
 ```
 
 Run the hierarchy-aware chunking matrix through the same models, retrieval,

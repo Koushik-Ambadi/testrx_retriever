@@ -10,8 +10,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from testrx_retriever.baseline_config import ChunkingConfig
-from testrx_retriever.chunking import TokenChunker
+from testrx_retriever.configuration import ChunkingConfig
+from testrx_retriever.retrieval.chunking import TokenChunker
 from testrx_retriever.retrieval.hierarchical_chunking import (
     HierarchicalChunker,
     build_hierarchy,

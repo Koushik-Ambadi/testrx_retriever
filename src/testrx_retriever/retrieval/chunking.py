@@ -8,7 +8,7 @@ import hashlib
 import json
 from typing import Any, Iterable
 
-from ..baseline_config import ChunkingConfig
+from ..configuration import ChunkingConfig
 from .tokenization import RegexTokenizer
 
 

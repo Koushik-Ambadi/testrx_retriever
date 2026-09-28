@@ -13,7 +13,7 @@ from typing import Any
 import numpy as np
 
 from ..common.files import read_jsonl, sha256, write_json, write_jsonl
-from ..baseline_config import ChunkingConfig, find_project_root
+from ..configuration import ChunkingConfig, find_project_root
 from ..retrieval.chunking import Chunk
 from ..retrieval.hierarchical_chunking import (
     build_chunker,

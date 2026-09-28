@@ -9,7 +9,7 @@ from typing import Iterable
 
 import numpy as np
 
-from ...baseline_config import EmbeddingConfig
+from ...configuration import EmbeddingConfig
 
 
 EMBEDDING_MODEL = "stable_hashing_word_bigram"
