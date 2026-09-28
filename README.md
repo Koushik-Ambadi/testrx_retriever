@@ -105,7 +105,7 @@ testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
 ├── configs/                   reference, pipeline, and experiment configurations
 ├── docs/                      project governance, progress, and dated reviews
-├── src/testrx_retriever/      parsing, retrieval, evaluation, and workflows
+├── src/testrx_retriever/      parsing, retrieval, evaluation, experiments, workflows
 ├── model_store/               encoder, reranker, and generator artifacts
 ├── tests/                     parser, dataset, retrieval, and determinism tests
 ├── skills/                    reusable, cross-project engineering workflows

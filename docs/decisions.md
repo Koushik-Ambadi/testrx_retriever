@@ -2,7 +2,7 @@
 
 Status: append-only  
 Owner: project architecture  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-28
 Source of truth for: accepted and superseded project decisions
 
 This is the living source of truth. Entries are never silently rewritten when a
@@ -913,3 +913,33 @@ Implementation consequence:
 
 Status:
 - Accepted and implemented 2026-09-17.
+
+---
+
+## O048 - Source modules follow subsystem ownership
+
+Observation:
+- Parser implementation modules were split between the package root and
+  `parsing/`, despite sharing one responsibility and domain model.
+- Eight forwarding modules kept older import paths in the package root after
+  subsystem packages had become the implementation owners.
+- `baseline_config.py` now defined configuration shared by retrieval,
+  experiments, workflows, and the production application.
+- The experiment sweep was exposed as a root-level module despite being a
+  standalone workflow family.
+
+Decision:
+- Keep parser implementation and types together under `parsing/`.
+- Put the parameterized sweep under an `experiments/` package while preserving
+  the package-level `SweepConfig`, `run_sweep`, `main`, and module CLI.
+- Rename the shared typed configuration module to `configuration.py`.
+- Remove retired flat import aliases and update repository tests and operational
+  documentation to use subsystem paths or registered command names.
+
+Consequence:
+- Imports using removed aliases (`testrx_retriever.parser`, `models`, `chunking`,
+  `pipeline`, and related flat paths) must move to their owning subpackages.
+- Registered project commands remain available through `pyproject.toml`.
+
+Status:
+- Accepted and implemented 2026-09-28.

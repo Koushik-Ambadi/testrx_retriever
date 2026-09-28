@@ -2,7 +2,7 @@
 
 Status: living  
 Owner: project architecture  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-28
 Source of truth for: current subsystem boundaries and dependency direction
 
 ## System boundary
@@ -33,15 +33,19 @@ schemas and reproducibility rules.
 
 ## Subsystems
 
-- `parsing/` plus temporary flat compatibility modules: source extraction,
-  domain entities, normalization, structure, tables, figures, inspection, and
-  validation.
+- `parsing/`: source extraction, domain entities, normalization, structure,
+  tables, figures, inspection, and validation. Parser implementation and its
+  domain types are colocated in this package.
 - `retrieval/`: tokenization, token-window and hierarchy-aware chunking,
   encoders, exact indexes, fusion inputs, and rerankers.
 - `evaluation/`: grounded metrics, cross-run analytics, and model/category
   comparison views.
-- `workflows/`: reference build, model comparison, and hierarchy experiment
-  orchestration.
+- `workflows/`: reference build, model comparison, production query, and
+  hierarchy experiment orchestration.
+- `experiments/`: parameterized sweep implementation and CLI package, retaining
+  the package-level `SweepConfig`, `run_sweep`, and `main` interface.
+- `configuration.py`: shared typed configuration contracts used by baseline,
+  retrieval, experiments, and the production application.
 - `application.py`: long-lived production query wrapper; it loads the fixed
   corpus/index once and accepts per-call candidate and final K overrides.
 - `common/`: deterministic file and hashing foundations.
@@ -69,8 +73,8 @@ common + parsing domain
 
 Lower layers do not import workflows. Evaluation depends on small retrieval
 protocols and source lineage rather than concrete workflow classes. CLI modules
-parse arguments and delegate. Legacy flat imports remain thin compatibility
-shims during migration.
+parse arguments and delegate. Subsystems are imported from their owning
+packages; retired flat aliases are not part of the supported internal interface.
 
 ## Reproducibility principles
 

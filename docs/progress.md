@@ -2,7 +2,7 @@
 
 Status: append-only  
 Owner: project delivery  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-28
 Source of truth for: chronological completed work and verification
 
 ## 2026-09-03 - Phase 1 started
@@ -461,3 +461,19 @@ OBSERVED
   contained 21 direct, 82 topical, and 203 unrelated statements at Top-5.
 - Keep Top-5 for benchmark completeness, but make table-row preservation and
   context pruning explicit work for the context-assembly gate.
+
+## 2026-09-28 - Source modules grouped by responsibility
+
+DONE
+- Moved parser implementations into `parsing/` beside their shared domain types.
+- Grouped the retrieval sweep under `experiments/` and retained its package
+  import and `python -m` entry points.
+- Renamed shared typed configuration from `baseline_config.py` to
+  `configuration.py` and updated implementation imports.
+- Removed forwarding modules for retired flat imports; updated test imports and
+  active operational commands to use subsystem packages.
+- Updated architecture and parser subsystem references to match the code layout.
+
+VERIFICATION
+- Static import and command references were updated to the owning package paths.
+- The automated suite was not run during this cleanup.
