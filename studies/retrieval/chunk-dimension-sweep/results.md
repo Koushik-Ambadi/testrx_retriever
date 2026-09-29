@@ -125,6 +125,15 @@ evaluation contract. They should not be described as semantic understanding.
 These are follow-up studies. The current golden set and recorded artifacts must
 remain unchanged so the present result stays reproducible.
 
+## How this result informed later work
+
+The lexical-alignment concern led to a controlled paraphrase extension that
+preserved source evidence while changing question wording; index exposure and
+chunk-lineage confounds remained explicit in later comparisons. See the
+[paraphrase-bias study](../paraphrase-bias-baseline/results.md), the
+[project-level synthesis](../../../docs/research-synthesis.md), and decisions
+[O040-O041](../../../docs/decisions.md#o040---keep-two-anchors-for-the-next-retrieval-investigation).
+
 ## Artifacts and reproduction
 
 Configuration: `experiment.json`
@@ -132,7 +141,7 @@ Configuration: `experiment.json`
 Artifacts:
 
 ```text
-output/retrieval/experiments/
+output/retrieval/experiment_store/
 ├── experiments.jsonl
 ├── runs.jsonl
 ├── question_metrics.jsonl
@@ -142,7 +151,7 @@ output/retrieval/experiments/
 Run from the project root after installing the package:
 
 ```powershell
-python -m testrx_retriever.experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
+python -m testrx_retriever.experiments --config studies/retrieval/chunk-dimension-sweep/experiment.json
 python -m unittest discover -s tests -v
 ```
 

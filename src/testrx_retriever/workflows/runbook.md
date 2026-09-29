@@ -142,14 +142,15 @@ Run the controlled sweep from the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
+python -m testrx_retriever.experiments --config studies/retrieval/chunk-dimension-sweep/experiment.json
 python -m unittest discover -s tests -v
 ```
 
 Review in this order:
 
 1. Confirm the matching record in `experiments.jsonl` contains the intended
-   source hashes, resolved configuration, retention policy, and observations.
+   code revision, source hashes, resolved configuration, retention policy, and
+   observations. Confirm each `runs.jsonl` row carries that revision.
 2. Filter `runs.jsonl` by `experiment_id`, then compare Recall@1 and MRR before
    interpreting Recall@10.
 3. Compare every measured Recall@K with its random-lineage control.
@@ -164,7 +165,7 @@ index returned. Do not interpret this lexical, same-document experiment as a
 learned semantic embedding evaluation.
 
 For a new experiment, copy an existing configuration under
-`experiments/retrieval/<study-name>/`, assign a new stable `experiment_id`, and edit
+`studies/retrieval/<study-name>/`, assign a new stable `experiment_id`, and edit
 the component grid. Supported component implementations are validated before a
 run. The shared store upserts by `experiment_id`; rerunning does not duplicate
 records. Retention defaults must remain compact. Full artifacts belong only in
@@ -183,7 +184,7 @@ findings and resolutions.
 $env:PYTHONPATH = "src"
 python scripts/build_golden_dataset.py
 python -m testrx_retriever.workflows.reference_run --config configs/retrieval/reference.json
-python -m testrx_retriever.experiments --config experiments/retrieval/paraphrase-bias-baseline/experiment.json
+python -m testrx_retriever.experiments --config studies/retrieval/paraphrase-bias-baseline/experiment.json
 python -m testrx_retriever.evaluation.analysis --group-by experiment_id,paraphrase_level
 python -m testrx_retriever.evaluation.analysis --group-by token_size,embedding_family,embedding_dimension
 python -m unittest discover -s tests -v

@@ -130,3 +130,8 @@ and final K=5 were tuned separately. The binding decision, full trade-off table,
 question slices, latency boundary, and residual risks are recorded in
 `configs/retrieval/production.md`; this file remains the frozen preregistered
 experiment record.
+
+The project-level interpretation and next gate are summarized in
+[`research-synthesis.md`](../../docs/research-synthesis.md) and
+[`roadmap.md`](../../docs/roadmap.md). Decision O047 owns the binding default;
+the complete trade-off evidence remains in `../retrieval/production.md`.

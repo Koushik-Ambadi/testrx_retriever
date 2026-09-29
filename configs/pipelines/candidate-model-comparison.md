@@ -105,3 +105,8 @@ Generated detail:
 - `output/retrieval/pipeline_candidates/summary.json`
 - `output/retrieval/pipeline_candidates/analysis/model_category_report.md`
 - `output/retrieval/pipeline_candidates/analysis/model_category_analysis.json`
+
+The cross-study consequence and later chunking/default selection are summarized
+in [project research synthesis](../../docs/research-synthesis.md); the final
+binding retrieval choice is in [`production.md`](../retrieval/production.md) and
+decision O047.

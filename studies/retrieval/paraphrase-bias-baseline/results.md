@@ -71,3 +71,13 @@ strong general semantic model. Before introducing a learned embedder, useful
 isolating tests are unigram/bigram ablation, shuffled or keyword-only queries,
 fixed-index-fraction evaluation, and span-complete evidence scoring. Those are
 future experiments, not changes to this run.
+
+## How this result informed later work
+
+This study supported moving beyond the lexical-only baseline while retaining it
+as a control. The next comparisons held the question population stable while
+adding learned encoders, fusion, and reranking; later chunking and evidence
+completeness work determined the production configuration. See the
+[candidate comparison](../../../configs/pipelines/candidate-model-comparison.md),
+[frozen retrieval decision](../../../configs/retrieval/production.md), and
+[project-level synthesis](../../../docs/research-synthesis.md).

@@ -51,8 +51,8 @@ in `source/README.md`. The original Downloads copy is not modified.
 python -m pip install -e .
 testrx-parse source/TESTRX_User_Manual.pdf --output output/parsing
 testrx-baseline --config configs/retrieval/reference.json
-testrx-experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
-testrx-experiments --config experiments/retrieval/paraphrase-bias-baseline/experiment.json
+testrx-experiments --config studies/retrieval/chunk-dimension-sweep/experiment.json
+testrx-experiments --config studies/retrieval/paraphrase-bias-baseline/experiment.json
 testrx-analyze --group-by experiment_id,paraphrase_level
 testrx-pipeline --config configs/pipelines/baseline.json
 testrx-pipeline --config configs/pipelines/candidates.json
@@ -70,12 +70,16 @@ python -m unittest discover -s tests -v
 
 - `output/parsing/`: five reproducible parser artifacts.
 - `output/datasets/golden/`: golden JSONL/CSV and dataset review reports.
-- `output/retrieval/reference/`: the one full reference run, including chunks,
-  embeddings, raw ranked results, configuration, report, and manifest.
-- `output/retrieval/experiments/`: shared experiment catalog, run metrics,
-  question-level analysis metadata, and checksums. It has no per-run folders.
-- `output/retrieval/pipeline_baseline/`: complete lexical/static-semantic,
-  hybrid-fusion, and pairwise-reranking baseline flow with per-system metrics.
+- `output/retrieval/reference/`: the designated full reference run, including
+  chunks, embeddings, raw ranked results, configuration, report, and manifest.
+- `output/retrieval/experiment_store/`: normalized experiment, run, and
+  question-level metrics plus checksums; it has no per-run folders.
+- `output/retrieval/pipeline_baseline/`, `pipeline_candidates/`,
+  `pipeline_hierarchy_chunking/`, `pipeline_production_evaluation/`, and
+  `pipeline_manual_smoke/`: separate generated workflow outputs. Each preserves
+  its own resolved config, metrics, and diagnostic artifacts; ordinary runs are
+  reproducible and ignored. They are not one folder per experiment parameter;
+  [artifact policy](docs/artifact-policy.md) maps each output to its workflow.
 
 Generate and validate the benchmark:
 
@@ -99,19 +103,24 @@ Subsystem contracts and experiment records live beside the code, configuration,
 or durable dataset they describe. Generated reports remain under `output/` and
 are not hand-maintained.
 
+Cross-study conclusions and how findings changed project direction are
+summarized in [`docs/research-synthesis.md`](docs/research-synthesis.md); binding
+choices and implementation chronology remain in `docs/decisions.md` and
+`docs/progress.md`.
+
 ## Repository map
 
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
 ├── configs/                   runtime, dataset, and pipeline configurations
-├── experiments/               retrieval experiment designs and frozen findings
+├── studies/                   authored retrieval experiment designs and findings
 ├── docs/                      project governance, progress, and dated reviews
 ├── src/testrx_retriever/      parsing, retrieval, evaluation, experiments, workflows
 ├── model_store/               encoder, reranker, and generator artifacts
 ├── tests/                     parser, dataset, retrieval, and determinism tests
 ├── skills/                    reusable, cross-project engineering workflows
-├── output/                    parsing, dataset, reference, and experiment layers
+├── output/                    generated parsing, dataset, retrieval, and run evidence
 ├── tmp/                       ignored render/verification intermediates
 ├── pyproject.toml             package metadata and dependency contract
 └── README.md                  project entry point

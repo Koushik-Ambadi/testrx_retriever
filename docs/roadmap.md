@@ -3,7 +3,7 @@
 Status: living  
 Owner: project architecture  
 Created: 2026-09-09  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-29
 Source of truth for: active gates, sequencing, and planned work  
 Does not own: completed chronology, experiment measurements, or binding decisions
 
@@ -29,9 +29,10 @@ explicit quality gates. Preserve provenance and reproducibility at every stage.
   configurable query-to-chunks wrapper.
 - Project documentation ownership and testing strategy.
 
-Completed dates and verification belong in `progress.md`. Rationale belongs in
-`decisions.md`; measurements belong in generated artifacts and fixed experiment
-records beside their configurations.
+Completed dates and verification belong in `progress.md`. Binding rationale
+belongs in `decisions.md`; measurements belong in generated artifacts and fixed
+study records; cross-study conclusions and how they changed direction belong in
+[`research-synthesis.md`](research-synthesis.md).
 
 ## Completed gate: hierarchy comparison and retriever freeze
 

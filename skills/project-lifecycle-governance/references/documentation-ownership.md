@@ -14,6 +14,8 @@ Keep project-wide documents small and current:
 - roadmap: active/future gates only.
 - decisions/ADRs: binding choices, alternatives, consequences, supersession.
 - progress/history: completed chronology and verification.
+- research synthesis: concise cross-study conclusions and how evidence changed
+  system/data choices and current direction.
 - limitations: constraints that still apply across the project.
 - artifact/retention policy: authority, generated data, evidence, caches, models.
 - testing strategy: test levels, commands, dependencies, determinism policy.
@@ -21,6 +23,11 @@ Keep project-wide documents small and current:
 
 Do not store exhaustive metrics, per-test results, detailed module APIs, or
 generated reports in project-level docs.
+
+The research synthesis is a navigation and interpretation layer, not another
+results database: link to owned study reports and evidence, then to decisions,
+implemented changes, and the next gate. Update it only when a finding materially
+changes cross-study understanding or direction.
 
 ## Local records
 

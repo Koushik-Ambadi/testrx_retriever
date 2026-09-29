@@ -25,7 +25,7 @@ def write_config(root: Path, experiment_id: str) -> Path:
             "document_path": "output/parsing/document.json",
             "golden_dataset_path": "output/datasets/golden.jsonl",
         },
-        "output_store": "output/retrieval/experiments",
+        "output_store": "output/retrieval/experiment_store",
         "retention": {
             "run_metrics": True, "question_metrics": True, "chunks": False,
             "embeddings": False, "ranked_results": False,
@@ -129,6 +129,10 @@ class ExperimentStoreTests(unittest.TestCase):
         self.assertEqual(questions[0]["paraphrase_level"], "original")
         self.assertEqual(questions[0]["precision_at_k"], {"1": 1.0})
         self.assertEqual(runs[0]["components"]["embedding"]["family"], "lexical")
+        self.assertIn("code_revision", experiments[0])
+        self.assertIn("code_revision", runs[0])
+        self.assertEqual(experiments[0]["schema_version"], "2.1")
+        self.assertEqual(runs[0]["schema_version"], "1.1")
 
 
 if __name__ == "__main__":

@@ -185,14 +185,17 @@ baseline artifact.
 
 ## Shared experiment store schema
 
-`output/retrieval/experiments/experiments.jsonl` contains one record per stable
+`output/retrieval/experiment_store/experiments.jsonl` contains one record per stable
 `experiment_id`: title, hypothesis, resolved component grid, retention policy,
-input hashes, runtime versions, and concise measured observations.
+input hashes, code revision, runtime versions, and concise measured observations.
+Schema 2.1 adds the repository revision; it is `null` only when run outside a
+Git checkout or when Git cannot be queried.
 
-`runs.jsonl` contains one record per content-addressed `run_id`. Each record
-stores its experiment ID, role/control label, complete chunking, embedding,
-retrieval and reranking configuration, chunk/index diagnostics, random-lineage
-controls, aggregate retrieval metrics, category slices, and ranking stability.
+`runs.jsonl` contains one record per content-addressed `run_id` (record schema
+1.1). Each record stores its experiment ID and code revision, role/control label,
+complete chunking, embedding, retrieval and reranking configuration, chunk/index
+diagnostics, random-lineage controls, aggregate retrieval metrics, category
+slices, and ranking stability.
 
 `question_metrics.jsonl` contains compact per-run/per-question facts keyed by
 `run_id` and `question_id`: type, difficulty, required and source semantic IDs,

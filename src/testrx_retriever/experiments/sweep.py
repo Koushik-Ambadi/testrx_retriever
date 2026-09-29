@@ -12,6 +12,7 @@ import math
 from pathlib import Path
 import platform
 import random
+import subprocess
 from statistics import mean, median
 from typing import Any, Iterable
 
@@ -386,7 +387,19 @@ def _upsert_records(path: Path, experiment_id: str, records: list[dict[str, Any]
     write_jsonl(path, combined)
 
 
+def _code_revision(project_root: Path) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=project_root, check=True,
+            capture_output=True, text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return result.stdout.strip() or None
+
+
 def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
+    code_revision = _code_revision(project_root)
     document = json.loads(config.document_path.read_text(encoding="utf-8"))
     questions = read_jsonl(config.golden_dataset_path)
     selected_levels = set(config.question_filter.get("paraphrase_levels", []))
@@ -457,9 +470,10 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
         )
         top1_by_spec[ranking_key] = top1
         row = {
-            "schema_version": "1.0",
+            "schema_version": "1.1",
             "experiment_id": config.experiment_id,
             "run_id": run_id,
+            "code_revision": code_revision,
             "role": spec["role"],
             "label": spec.get("label"),
             "components": components,
@@ -531,8 +545,9 @@ def run_sweep(config: SweepConfig, project_root: Path) -> dict[str, Any]:
         row["top1_agreement_with_reference"] = round(sum(a == b for a, b in zip(current, reference)) / len(reference), 6)
 
     result = {
-        "schema_version": "2.0",
+        "schema_version": "2.1",
         "experiment_id": config.experiment_id,
+        "code_revision": code_revision,
         "title": config.title,
         "hypothesis": config.hypothesis,
         "configuration": config.to_dict(project_root),
@@ -561,7 +576,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run the TESTRX chunk-size and embedding-dimension study.")
     parser.add_argument(
         "--config", type=Path,
-        default=Path("experiments/retrieval/chunk-dimension-sweep/experiment.json"),
+        default=Path("studies/retrieval/chunk-dimension-sweep/experiment.json"),
     )
     args = parser.parse_args()
     config_path = args.config.resolve()

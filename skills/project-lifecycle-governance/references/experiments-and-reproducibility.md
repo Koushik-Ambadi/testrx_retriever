@@ -112,6 +112,23 @@ Before drawing conclusions:
 
 Treat invalid runs as evidence about the process, but exclude them transparently from performance claims. Never overwrite a prior run to make the chronology look cleaner.
 
+## Carry findings into project direction
+
+At completion, make the handoff explicit:
+
+- the study record interprets the parameter grid, diagnostics, failures, and
+  limits, and points to normalized detailed run evidence;
+- progress records what ran, what changed, verification, and the next action;
+- decisions record choices that bind future implementation, with alternatives
+  and consequences;
+- a project research synthesis links material findings across studies and
+  explains how the current direction evolved;
+- the roadmap contains only remaining/future gates.
+
+If evidence changes a dataset, evaluation contract, or implementation, link that
+change to the finding and its validating run. Preserve the original comparison
+population and label new data/held-out populations explicitly.
+
 ## Reproduction checklist
 
 A competent contributor should be able to locate:
@@ -125,4 +142,3 @@ A competent contributor should be able to locate:
 - raw logs and metrics;
 - the analysis that transformed raw results;
 - the decision or progress entry that consumed the evidence.
-

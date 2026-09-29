@@ -17,6 +17,14 @@ Keep current truth, historical evidence, and future intent distinct. Their docum
 
 Do not turn the roadmap into a completion log or the architecture document into a diary. Link between records instead of duplicating their contents.
 
+For work with multiple experiments or phases, maintain an evidence-to-direction
+trace: question and hypothesis -> run/artifact -> interpretation -> dataset or
+system change -> binding decision (if any) -> verified progress -> next gate.
+A project-level research synthesis may summarize this cross-study story and link
+to each owner; it must not become a second metrics table. If no material choice
+or direction changed, record the result in the study and progress record without
+manufacturing a decision or synthesis entry.
+
 ## Decision record
 
 Create or update a decision record when a choice affects architecture, data contracts, evaluation, operations, security, compatibility, or future work.
@@ -94,4 +102,3 @@ Small implementation issues belong in the commit, test, or issue system. Promote
 Engineering records may later support blogs, talks, portfolios, or social posts. Capture the factual source material now: the initial problem, constraint, attempt, failure, insight, change, evidence, limitation, and next question.
 
 Do not write promotional copy into technical records. Keep confidential, personal, customer, security, and licensed information out of reusable notes. The separate content project should own editorial versions, publishing workflows, audience response, impressions, and feedback.
-

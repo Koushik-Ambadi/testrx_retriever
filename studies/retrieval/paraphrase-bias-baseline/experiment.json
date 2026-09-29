@@ -7,7 +7,7 @@
     "document_path": "output/parsing/document.json",
     "golden_dataset_path": "output/datasets/golden/golden_dataset.jsonl"
   },
-  "output_store": "output/retrieval/experiments",
+  "output_store": "output/retrieval/experiment_store",
   "retention": {
     "run_metrics": true,
     "question_metrics": true,

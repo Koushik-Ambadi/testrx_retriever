@@ -494,3 +494,38 @@ VERIFICATION
 - Checked active path references and reviewed the staged diff for whitespace and
   stale paths. The automated suite was not run during this documentation/layout
   change.
+
+## 2026-09-29 - Experiment evidence and project learning connected
+
+GOAL
+- Make authored studies, experiment implementation, generated evidence, and
+  project-level interpretation distinguishable and traceable.
+
+COMPLETED
+- Renamed authored retrieval study records to `studies/retrieval/` and the
+  normalized generated store to `output/retrieval/experiment_store/`.
+- Updated active config, code defaults, tests, schema docs, runbooks, and indexes;
+  left the code package `src/testrx_retriever/experiments/` and pipeline run
+  output naming intact because their responsibilities are distinct.
+- Added Git code-revision provenance to experiment/run records and bumped their
+  output record schemas; generated records are refreshed after the source
+  change is committed so the recorded revision identifies the producing code.
+- Added `docs/research-synthesis.md` to explain the lexical-baseline question,
+  paraphrase-based dataset extension, later model/chunking comparisons, resulting
+  default, and current limitations with links to detailed evidence.
+- Updated the reusable lifecycle skill to require an explicit evidence-to-
+  interpretation-to-decision-to-implementation-to-next-gate trace.
+
+OBSERVATION
+- Relevant findings already existed in study records, historical review, and
+  dated progress/decision entries; the missing part was a navigable, current
+  cross-study synthesis. The 64 controlled paraphrases were appended to the 132
+  original grounded questions; the six later smoke-test questions remain
+  separate from the scored benchmark.
+
+VERIFICATION
+- All 61 project tests passed, including experiment-store reproducibility and
+  pipeline integration coverage.
+- Markdown links resolved; active path checks found obsolete paths only in
+  preserved historical reviews and append-only records. The generated store is
+  refreshed after committing the producing implementation revision.

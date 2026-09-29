@@ -45,8 +45,12 @@ schemas and reproducibility rules.
 - `src/testrx_retriever/experiments/`: parameterized sweep implementation and
   CLI package, retaining the package-level `SweepConfig`, `run_sweep`, and
   `main` interface.
-- root `experiments/`: retrieval experiment configurations, frozen protocols,
-  results, and cross-study analysis; raw run artifacts remain under `output/`.
+- root `studies/`: authored retrieval experiment configurations, frozen
+  protocols, results, and cross-study analysis; raw run artifacts remain under
+  `output/`.
+- `output/retrieval/experiment_store/`: normalized experiment, run, and
+  question-analysis records; distinct from full reference bundles and ordinary
+  `pipeline_<purpose>/` run directories.
 - `configs/pipelines/`: pipeline-specific experiment configurations and their
   reports, kept together; shared runtime and dataset configurations remain in
   `configs/`.
@@ -56,7 +60,7 @@ schemas and reproducibility rules.
   corpus/index once and accepts per-call candidate and final K overrides.
 - `common/`: deterministic file and hashing foundations.
 - `configs/`: shared runtime, dataset, and pipeline configurations. Dedicated
-  retrieval studies live under root `experiments/retrieval/`; pipeline-specific
+  retrieval studies live under root `studies/retrieval/`; pipeline-specific
   experiment configurations and reports stay together under `configs/pipelines/`.
 - `model_store/`: versioned registries and ignored local artifacts separated by
   encoder, reranker, and generator roles.

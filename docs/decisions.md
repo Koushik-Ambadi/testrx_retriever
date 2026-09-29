@@ -968,3 +968,59 @@ Consequence:
 
 Status:
 - Accepted and implemented 2026-09-29.
+
+---
+
+## O050 - Authored studies, experiment code, and generated stores are distinct
+
+Observation:
+- The same `experiments` name was used for the Python runner, authored study
+  definitions, and normalized generated metrics, obscuring their separate
+  responsibilities.
+- `output/retrieval/` also contains full reference evidence and workflow-specific
+  run outputs with different retention policies.
+
+Decision:
+- Store authored retrieval study definitions and interpretations under
+  `studies/retrieval/`.
+- Keep the reusable sweep implementation under
+  `src/testrx_retriever/experiments/`.
+- Name the versioned normalized metrics store
+  `output/retrieval/experiment_store/`; keep the full reference bundle under
+  `reference/` and reproducible workflow outputs under `pipeline_<purpose>/`.
+
+Consequence:
+- Update configs, defaults, schemas, documentation, and generated store
+  provenance together. Keep dated reviews and prior progress/decision entries as
+  historical evidence; current ownership is described by this decision.
+- This supersedes O049's root `experiments/retrieval/` location while preserving
+  its rule that pipeline configs/reports stay together in `configs/pipelines/`.
+
+Status:
+- Accepted and implemented 2026-09-29.
+
+---
+
+## O051 - Cross-study learning has a project-level synthesis owner
+
+Observation:
+- Individual study reports and detailed run stores retained useful results,
+  while the project-level record did not provide one concise path from an
+  observation through dataset or system changes to the current direction.
+- Dated progress and binding decisions recorded parts of this reasoning but
+  were difficult to navigate as a cross-study explanation.
+
+Decision:
+- Maintain `docs/research-synthesis.md` as the concise cross-study interpretation
+  and evidence-to-direction index.
+- Keep exhaustive metrics and run metadata in generated stores and study/module
+  reports; keep binding choices in decisions, completed chronology in progress,
+  and future gates in the roadmap.
+
+Consequence:
+- When a completed study materially changes project understanding, update the
+  synthesis with links to the study/evidence and the resulting decision,
+  implementation, and next gate. Do not duplicate detailed metric tables.
+
+Status:
+- Accepted and implemented 2026-09-29.

@@ -20,6 +20,8 @@ under `output/` is evidence and must not be edited manually.
   project.
 - [Artifact policy](artifact-policy.md): source, benchmark, evidence, run, and
   model-weight retention.
+- [Research synthesis](research-synthesis.md): cross-study conclusions and how
+  evidence changed project direction.
 - [Testing](testing.md): test levels, dependencies, commands, and extension rules.
 
 ## Append-only project records
@@ -47,7 +49,7 @@ do not silently make an old review describe the current repository.
 - [Retrieval pipeline](../src/testrx_retriever/workflows/retrieval-pipeline.md)
 - [Workflow runbook](../src/testrx_retriever/workflows/runbook.md)
 - [Golden dataset](../output/datasets/golden/README.md)
-- [Experiment index](../experiments/README.md)
+- [Retrieval study index](../studies/README.md)
 - [Candidate model comparison](../configs/pipelines/candidate-model-comparison.md)
 - [Hierarchy experiment](../configs/pipelines/hierarchical-chunking-experiment.md)
 - [Frozen retrieval configuration](../configs/retrieval/production.md)
@@ -62,6 +64,8 @@ do not silently make an old review describe the current repository.
   chronology.
 - Limitations owns only current cross-project constraints.
 - Experiment files own fixed designs, measurements, and interpretation limits.
+- Research synthesis connects findings across studies; decisions own binding
+  choices, and progress owns the dated implementation chronology.
 - Generated reports own exhaustive results.
 - README files adjacent to a directory own that directory's local contract.
 

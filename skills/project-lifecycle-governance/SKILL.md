@@ -32,6 +32,9 @@ template.
    decisions, roadmap, and progress in the same change when their contract moves.
 10. Keep Git clean with small verified commits that tell the development story.
     Never discard unmerged or user-owned work to simplify history.
+11. Close the evidence loop: link detailed runs to their interpretation, material
+    cross-study learning, binding decisions, implementation/progress, and the
+    next gate. Do not copy raw metric tables into project-level summaries.
 
 ## Lifecycle routing
 
@@ -118,10 +121,15 @@ Update the one owning record for each changed fact:
 - progress for completed, verified chronology;
 - limitations for constraints that remain true;
 - experiment record for fixed design, results, and interpretation boundary;
+- project research synthesis for cross-study conclusions and how evidence
+  changed project direction;
 - generated report for exhaustive measurements.
 
-Capture the problem, influence, alternatives, challenge, solution, impact, and
-remaining uncertainty when they materially explain why the project evolved.
+For consequential experiments, capture the path from question/hypothesis through
+run evidence and interpretation to any dataset/system change, decision, observed
+impact, remaining uncertainty, and next gate. Study/module records own detail;
+the synthesis links the chain rather than duplicating metrics. Capture problem,
+influence, alternatives, challenge, and resolution where they explain evolution.
 
 ### 7. Deliver incrementally
 

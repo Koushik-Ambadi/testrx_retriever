@@ -236,7 +236,7 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze the shared retrieval experiment store.")
-    parser.add_argument("--store", type=Path, default=Path("output/retrieval/experiments"))
+    parser.add_argument("--store", type=Path, default=Path("output/retrieval/experiment_store"))
     parser.add_argument(
         "--group-by", default="experiment_id,run_id",
         help=f"Comma-separated dimensions: {', '.join(sorted(AVAILABLE_DIMENSIONS))}",
