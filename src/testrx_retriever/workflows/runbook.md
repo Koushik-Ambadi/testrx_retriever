@@ -142,7 +142,7 @@ Run the controlled sweep from the project root:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
+python -m testrx_retriever.experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
 python -m unittest discover -s tests -v
 ```
 
@@ -164,7 +164,7 @@ index returned. Do not interpret this lexical, same-document experiment as a
 learned semantic embedding evaluation.
 
 For a new experiment, copy an existing configuration under
-`configs/retrieval/experiments/`, assign a new stable `experiment_id`, and edit
+`experiments/retrieval/<study-name>/`, assign a new stable `experiment_id`, and edit
 the component grid. Supported component implementations are validated before a
 run. The shared store upserts by `experiment_id`; rerunning does not duplicate
 records. Retention defaults must remain compact. Full artifacts belong only in
@@ -183,7 +183,7 @@ findings and resolutions.
 $env:PYTHONPATH = "src"
 python scripts/build_golden_dataset.py
 python -m testrx_retriever.workflows.reference_run --config configs/retrieval/reference.json
-python -m testrx_retriever.experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
+python -m testrx_retriever.experiments --config experiments/retrieval/paraphrase-bias-baseline/experiment.json
 python -m testrx_retriever.evaluation.analysis --group-by experiment_id,paraphrase_level
 python -m testrx_retriever.evaluation.analysis --group-by token_size,embedding_family,embedding_dimension
 python -m unittest discover -s tests -v

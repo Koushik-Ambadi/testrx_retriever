@@ -51,10 +51,11 @@ in `source/README.md`. The original Downloads copy is not modified.
 python -m pip install -e .
 testrx-parse source/TESTRX_User_Manual.pdf --output output/parsing
 testrx-baseline --config configs/retrieval/reference.json
-testrx-experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
-testrx-experiments --config configs/retrieval/experiments/paraphrase_bias_baseline.json
+testrx-experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
+testrx-experiments --config experiments/retrieval/paraphrase-bias-baseline/experiment.json
 testrx-analyze --group-by experiment_id,paraphrase_level
 testrx-pipeline --config configs/pipelines/baseline.json
+testrx-pipeline --config configs/pipelines/candidates.json
 testrx-hierarchy-experiment --config configs/pipelines/hierarchical_chunking_experiment.json
 testrx-retrieve "How do I create a TESTRX project?"
 ```
@@ -103,7 +104,8 @@ are not hand-maintained.
 ```text
 testrx_retriever/
 ├── source/                    preserved, checksummed manual and manifest
-├── configs/                   reference, pipeline, and experiment configurations
+├── configs/                   runtime, dataset, and pipeline configurations
+├── experiments/               retrieval experiment designs and frozen findings
 ├── docs/                      project governance, progress, and dated reviews
 ├── src/testrx_retriever/      parsing, retrieval, evaluation, experiments, workflows
 ├── model_store/               encoder, reranker, and generator artifacts

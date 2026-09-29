@@ -128,5 +128,5 @@ The deferred comparison is complete. Hierarchy max 384 was selected as the
 bounded quality/context frontier, paired with BGE and MiniLM. Candidate K=10
 and final K=5 were tuned separately. The binding decision, full trade-off table,
 question slices, latency boundary, and residual risks are recorded in
-`../retrieval/production.md`; this file remains the frozen preregistered
+`configs/retrieval/production.md`; this file remains the frozen preregistered
 experiment record.

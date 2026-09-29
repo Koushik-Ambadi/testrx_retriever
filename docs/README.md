@@ -3,7 +3,7 @@
 Status: living index  
 Owner: project architecture  
 Created: 2026-09-17  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-29
 Source of truth for: documentation ownership and navigation
 
 `docs/` contains project-wide information only. Subsystem implementation guides,
@@ -47,7 +47,7 @@ do not silently make an old review describe the current repository.
 - [Retrieval pipeline](../src/testrx_retriever/workflows/retrieval-pipeline.md)
 - [Workflow runbook](../src/testrx_retriever/workflows/runbook.md)
 - [Golden dataset](../output/datasets/golden/README.md)
-- [Token-window experiments](../configs/retrieval/experiments/README.md)
+- [Experiment index](../experiments/README.md)
 - [Candidate model comparison](../configs/pipelines/candidate-model-comparison.md)
 - [Hierarchy experiment](../configs/pipelines/hierarchical-chunking-experiment.md)
 - [Frozen retrieval configuration](../configs/retrieval/production.md)

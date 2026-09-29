@@ -127,7 +127,7 @@ remain unchanged so the present result stays reproducible.
 
 ## Artifacts and reproduction
 
-Configuration: `configs/retrieval/experiments/chunk_dimension_sweep.json`
+Configuration: `experiment.json`
 
 Artifacts:
 
@@ -142,7 +142,7 @@ output/retrieval/experiments/
 Run from the project root after installing the package:
 
 ```powershell
-python -m testrx_retriever.experiments --config configs/retrieval/experiments/chunk_dimension_sweep.json
+python -m testrx_retriever.experiments --config experiments/retrieval/chunk-dimension-sweep/experiment.json
 python -m unittest discover -s tests -v
 ```
 

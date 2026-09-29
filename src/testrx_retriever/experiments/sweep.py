@@ -561,7 +561,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run the TESTRX chunk-size and embedding-dimension study.")
     parser.add_argument(
         "--config", type=Path,
-        default=Path("configs/retrieval/experiments/chunk_dimension_sweep.json"),
+        default=Path("experiments/retrieval/chunk-dimension-sweep/experiment.json"),
     )
     args = parser.parse_args()
     config_path = args.config.resolve()
