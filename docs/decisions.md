@@ -2,7 +2,7 @@
 
 Status: append-only  
 Owner: project architecture  
-Last reviewed: 2026-09-28
+Last reviewed: 2026-09-29
 Source of truth for: accepted and superseded project decisions
 
 This is the living source of truth. Entries are never silently rewritten when a
@@ -943,3 +943,28 @@ Consequence:
 
 Status:
 - Accepted and implemented 2026-09-28.
+
+---
+
+## O049 - Retrieval study records have a dedicated experiments area
+
+Observation:
+- `configs/retrieval/experiments/` mixed experiment definitions and frozen
+  study interpretation into the runtime configuration tree.
+- Pipeline experiment configs and their reports already form a distinct,
+  colocated workflow under `configs/pipelines/`.
+
+Decision:
+- Keep dedicated retrieval study definitions, protocols, and frozen findings
+  under `experiments/retrieval/<study>/`; generated run records remain under
+  `output/`.
+- Keep pipeline-specific experiment configurations and reports together under
+  `configs/pipelines/`. Shared retrieval/runtime and dataset configs stay in
+  `configs/`.
+
+Consequence:
+- Sweep defaults and active runbooks use the new retrieval experiment paths;
+  no pipeline config/report is moved by this decision.
+
+Status:
+- Accepted and implemented 2026-09-29.

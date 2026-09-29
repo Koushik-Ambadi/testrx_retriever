@@ -2,7 +2,7 @@
 
 Status: append-only  
 Owner: project delivery  
-Last reviewed: 2026-09-28
+Last reviewed: 2026-09-29
 Source of truth for: chronological completed work and verification
 
 ## 2026-09-03 - Phase 1 started
@@ -477,3 +477,20 @@ DONE
 VERIFICATION
 - Static import and command references were updated to the owning package paths.
 - The automated suite was not run during this cleanup.
+
+## 2026-09-29 - Retrieval experiments separated from runtime configs
+
+DONE
+- Moved the dedicated retrieval experiment definitions and frozen records from
+  `configs/retrieval/experiments/` into `experiments/retrieval/`, pairing each
+  study configuration with its results record.
+- Kept pipeline-specific configurations and reports together in
+  `configs/pipelines/`; runtime retrieval and dataset configurations remain in
+  `configs/`.
+- Updated sweep defaults, active operational instructions, indexes, and
+  project-level ownership documentation.
+
+VERIFICATION
+- Checked active path references and reviewed the staged diff for whitespace and
+  stale paths. The automated suite was not run during this documentation/layout
+  change.

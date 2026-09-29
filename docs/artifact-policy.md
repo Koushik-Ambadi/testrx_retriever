@@ -2,7 +2,7 @@
 
 Status: living  
 Owner: project architecture  
-Last reviewed: 2026-09-17  
+Last reviewed: 2026-09-29
 Source of truth for: versioning and retention of source, benchmark, run, evidence,
 and model artifacts
 
@@ -13,6 +13,8 @@ temporarily retained for compatibility.
 |---|---|---|---|
 | Authoritative source | `source/` | Yes | Immutable input plus checksum manifest |
 | Reviewed benchmark | `output/datasets/golden/` | Yes | Durable evaluation contract |
+| Retrieval experiment design and frozen interpretation | `experiments/retrieval/` | Yes | Versioned question, configuration, protocol, and findings per study |
+| Pipeline experiment configuration and report | `configs/pipelines/` | Yes | Keep pipeline-specific run configuration beside its interpretation |
 | Frozen research evidence | `output/retrieval/reference/`, `output/retrieval/experiments/` | Yes by explicit exception | Auditable reference and compact historical metrics |
 | Ordinary runs | `output/parsing/`, `output/retrieval/pipeline_*` | No | Reproducible and ignored |
 | Model weights | `model_store/*/artifacts/` | No | Pinned by registry ID/revision; installed locally |

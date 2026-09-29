@@ -2,7 +2,7 @@
 
 Status: living  
 Owner: project architecture  
-Last reviewed: 2026-09-28
+Last reviewed: 2026-09-29
 Source of truth for: current subsystem boundaries and dependency direction
 
 ## System boundary
@@ -42,14 +42,22 @@ schemas and reproducibility rules.
   comparison views.
 - `workflows/`: reference build, model comparison, production query, and
   hierarchy experiment orchestration.
-- `experiments/`: parameterized sweep implementation and CLI package, retaining
-  the package-level `SweepConfig`, `run_sweep`, and `main` interface.
+- `src/testrx_retriever/experiments/`: parameterized sweep implementation and
+  CLI package, retaining the package-level `SweepConfig`, `run_sweep`, and
+  `main` interface.
+- root `experiments/`: retrieval experiment configurations, frozen protocols,
+  results, and cross-study analysis; raw run artifacts remain under `output/`.
+- `configs/pipelines/`: pipeline-specific experiment configurations and their
+  reports, kept together; shared runtime and dataset configurations remain in
+  `configs/`.
 - `configuration.py`: shared typed configuration contracts used by baseline,
   retrieval, experiments, and the production application.
 - `application.py`: long-lived production query wrapper; it loads the fixed
   corpus/index once and accepts per-call candidate and final K overrides.
 - `common/`: deterministic file and hashing foundations.
-- `configs/`: declarative reference, experiment, and pipeline definitions.
+- `configs/`: shared runtime, dataset, and pipeline configurations. Dedicated
+  retrieval studies live under root `experiments/retrieval/`; pipeline-specific
+  experiment configurations and reports stay together under `configs/pipelines/`.
 - `model_store/`: versioned registries and ignored local artifacts separated by
   encoder, reranker, and generator roles.
 - `skills/`: reusable cross-project workflows. Skills contain general lifecycle
