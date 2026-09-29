@@ -529,3 +529,18 @@ VERIFICATION
 - Markdown links resolved; active path checks found obsolete paths only in
   preserved historical reviews and append-only records. The generated store is
   refreshed after committing the producing implementation revision.
+
+## 2026-09-29 - Experiment records refreshed with source revision
+
+DONE
+- Re-ran the 29-run chunk/dimension sweep and the one-run controlled paraphrase
+  study with the committed implementation after the store relocation.
+- Recorded the producing Git revision on each experiment and run record; the
+  compact question-level metrics still join through stable `run_id` values.
+
+VERIFICATION
+- Confirmed the store contains two experiments, 30 runs, and 4,024 question
+  records, all experiment/run records tagged with commit
+  `b2baed336ba128a442add2395fac0fa57ab61b1b`.
+- Verified every checksum in the regenerated store manifest. The full 61-test
+  suite passed on the source/documentation commit.
