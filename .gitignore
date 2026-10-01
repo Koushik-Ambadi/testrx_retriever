@@ -6,6 +6,9 @@ node_modules/
 *.egg-info/
 tmp/
 
+# Independent production application repository; versioned in its own Git repo.
+production/
+
 # Parser artifacts are reproducible and can be large. Dataset, reference-run,
 # and compact experiment evidence remain versioned under their own directories.
 output/parsing/
